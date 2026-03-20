@@ -1,1 +1,1 @@
-lmc2290:231224387（组长）
+Jintian Chu,2023213581,231224387,chujintian_2023@bupt.edu.cn
