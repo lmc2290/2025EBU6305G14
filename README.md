@@ -1,2 +1,2 @@
 lmc2290:231224387（组长）
-yyltestandtrain:231224974(组员)
+YilinYin,2023213584,231224974,yinyilin2023@bupt.edu.cn
