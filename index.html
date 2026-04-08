@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational Website - Introduction to Compression</title>
+    <style>
+        /* Basic reset and global styles */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Main container, simulating the white artboard in the prototype */
+        .container {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 1200px;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- Top Navigation Bar --- */
+        header {
+            background-color: #f8f9fa;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #2c3e50;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            margin-left: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .nav-links a:hover { color: #000; }
+
+        /* --- Breadcrumb Navigation --- */
+        .breadcrumbs {
+            padding: 15px 40px;
+            font-size: 12px;
+            color: #666;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        /* --- Core Layout: Sidebar + Main Content Area --- */
+        .main-layout {
+            display: flex;
+            flex-direction: row;
+            min-height: 800px; /* Stretch height for better visual structure */
+        }
+
+        /* Sidebar Navigation */
+        aside {
+            width: 250px;
+            background-color: #f8f9fa;
+            padding: 30px;
+            border-right: 1px solid #e0e0e0;
+        }
+        aside h3 {
+            margin-top: 0;
+            font-size: 16px;
+        }
+        aside ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        aside li {
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: #555;
+            cursor: pointer;
+        }
+        aside li.active {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        /* Main Content Area */
+        main {
+            flex: 1; /* Takes up remaining horizontal space */
+            padding: 40px 60px;
+        }
+        main h2 {
+            font-size: 28px;
+            margin-top: 0;
+        }
+        main h3 {
+            font-size: 20px;
+            margin-top: 30px;
+        }
+        main p, main li {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        /* Image Slider Placeholder */
+        .placeholder-box {
+            background-color: #e9ecef;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+            margin: 30px 0;
+            border-radius: 4px;
+        }
+
+        /* --- Quiz Section --- */
+        .quiz-section {
+            background-color: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            padding: 25px;
+            border-radius: 6px;
+            margin-bottom: 40px;
+        }
+        .quiz-option {
+            background-color: #ffffff;
+            border: 1px solid #dcdcdc;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+        }
+        .quiz-option input {
+            margin-right: 10px;
+        }
+
+        /* --- Button Styles --- */
+        .btn-primary {
+            background-color: #34495e;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        .btn-primary:hover { background-color: #2c3e50; }
+
+        .btn-secondary {
+            background-color: #f8f9fa;
+            color: #333;
+            border: 1px solid #ccc;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .bottom-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        /* --- Footer Copyright --- */
+        footer {
+            background-color: #f8f9fa;
+            padding: 20px 40px;
+            font-size: 12px;
+            color: #777;
+            border-top: 1px solid #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Educational Website</h1>
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">Learning</a>
+            <a href="#">Games</a>
+            <a href="#">Quizzes</a>
+            <a href="#">Profile</a>
+        </div>
+    </header>
+
+    <div class="breadcrumbs">
+        Home > Learning > Introduction to Compression
+    </div>
+
+    <div class="main-layout">
+        <aside>
+            <h3>Topics</h3>
+            <ul>
+                <li class="active">Introduction to Compression</li>
+                <li>Lossy vs. Lossless</li>
+                <li>Image Compression Techniques</li>
+                <li>Video Compression</li>
+                <li>Audio Compression</li>
+            </ul>
+        </aside>
+
+        <main>
+            <h2>Introduction to Compression</h2>
+            <p>Compression is the process of encoding information using fewer bits than the original representation. It's a fundamental concept in digital technology, allowing us to store and transmit data more efficiently. Think of it as packing a suitcase — you want to fit as much as possible while taking up the least amount of space.</p>
+
+            <h3>Why is Compression Important?</h3>
+            <p>In today's digital world, we deal with vast amounts of data, from high-resolution images and videos to complex software. Without compression, storing and sharing this data would be incredibly slow and expensive. Compression helps in:</p>
+            <ul>
+                <li>Reducing storage space on devices and servers.</li>
+                <li>Speeding up data transmission over networks (e.g., faster website loading).</li>
+                <li>Lowering bandwidth requirements.</li>
+            </ul>
+
+            <h3>How Does it Work?</h3>
+            <p>At its core, compression works by identifying and removing redundant information. For example, in an image, if a large area is the same color, instead of storing the color information for every single pixel in that area, compression algorithms can store the color once and note how many times it repeats.</p>
+
+            <div class="placeholder-box">
+                Placeholder for Image/Diagram/Animation (V2 Slider Goes Here)
+            </div>
+
+            <h3>Interactive Mini-Quiz</h3>
+            <div class="quiz-section">
+                <p><strong>What is the primary goal of data compression?</strong></p>
+
+                <label class="quiz-option">
+                    <input type="radio" name="quiz1"> To increase data security
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="quiz1"> To reduce file size and improve efficiency
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="quiz1"> To convert data into different formats
+                </label>
+
+                <button class="btn-primary">Check Answer</button>
+            </div>
+
+            <div class="bottom-nav">
+                <button class="btn-secondary">← Previous Topic</button>
+                <button class="btn-primary">Next Topic →</button>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        © 2026 Educational Website. All rights reserved.
+    </footer>
+</div>
+
+</body>
+</html>
