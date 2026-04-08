@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Community</title>
+
+    <link rel="stylesheet" href="community.css">
+</head>
+
+<body>
+
+<div class="community-page">
+
+    <!-- ===== NAV ===== -->
+    <header class="community-header">
+        <div class="community-nav">
+            <div class="community-logo">Website Logo</div>
+            <div class="community-links">
+                <span onclick="clickAction('Homepage')">Homepage</span>
+                <span onclick="clickAction('Learning')">Learning</span>
+                <span onclick="clickAction('Game')">Game</span>
+                <span onclick="clickAction('Test')">Test</span>
+                <span onclick="goCommunity()">Community</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== 主页面 ===== -->
+    <div class="community-container" id="mainPage">
+
+        <!-- LEFT -->
+        <div class="community-left">
+
+            <h2>Community Feed</h2>
+
+            <div class="community-card" onclick="showProfile()">
+                <div class="community-post-header">
+                    <div class="community-avatar"></div>
+                    <div>
+                        <div class="community-username">Your Name</div>
+                        <div class="community-time">View your profile</div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="community-btn" onclick="openModal()">Create New Post</button>
+
+            <!-- ⭐ 可滚动 -->
+            <div class="community-feed">
+                <div class="community-card"><p>Post 1...</p></div>
+                <div class="community-card"><p>Post 2...</p></div>
+                <div class="community-card"><p>Post 3...</p></div>
+                <div class="community-card"><p>Post 4...</p></div>
+                <div class="community-card"><p>Post 5...</p></div>
+                <div class="community-card"><p>Post 6...</p></div>
+                <div class="community-card"><p>Post 7...</p></div>
+                <div class="community-card"><p>Post 8...</p></div>
+                <div class="community-card"><p>Post 9...</p></div>
+                <div class="community-card"><p>Post 10...</p></div>
+            </div>
+
+        </div>
+
+        <!-- RIGHT -->
+        <div class="community-right">
+            <div class="community-card">Community Info</div>
+            <div class="community-card">Popular Tags</div>
+            <div class="community-card">Active Users</div>
+            <div class="community-card">Announcements</div>
+        </div>
+
+    </div>
+
+    <!-- ===== 用户主页 ===== -->
+    <div id="profilePage" class="hidden">
+
+        <div class="community-container">
+
+            <!-- LEFT -->
+            <div class="community-left">
+
+                <div class="community-card profile-header">
+                    <div class="community-avatar big"></div>
+                    <div>
+                        <h3>Username</h3>
+                        <p>Personal bio goes here...</p>
+                        <p>Posts: 123 | Followers: 456 | Following: 789</p>
+                    </div>
+                </div>
+
+                <!-- 发帖按钮 -->
+                <button class="community-btn" onclick="openModal()">Create New Post</button>
+
+                <h3>My Posts</h3>
+
+                <!-- 帖子 -->
+                <div class="community-card post-card">
+                    <div class="community-post-header">
+                        <div class="community-avatar"></div>
+                        <div>
+                            <div class="community-username">Username</div>
+                            <div class="community-time">2 hours ago</div>
+                        </div>
+                    </div>
+
+                    <p>This is the content of a post.</p>
+
+                    <div class="post-image"></div>
+
+                    <div class="post-footer">
+                        <span>Likes: 15</span>
+                        <span>Comments: 3</span>
+                    </div>
+                </div>
+
+                <div class="community-card post-card">
+                    <p>Another post...</p>
+                    <div class="post-image"></div>
+                    <div class="post-footer">
+                        <span>Likes: 20</span>
+                        <span>Comments: 5</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- RIGHT -->
+            <div class="community-right">
+
+                <div class="community-card">
+                    <h4>Personal Statistics</h4>
+                    <p>Total Posts: 123</p>
+                    <p>Total Likes: 500</p>
+                </div>
+
+                <div class="community-card">
+                    <h4>Following</h4>
+                    <p>User A</p>
+                    <p>User B</p>
+                </div>
+
+                <div class="community-card">
+                    <h4>Followers</h4>
+                    <p>User X</p>
+                    <p>User Y</p>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ===== MODAL ===== -->
+    <div class="community-modal" id="modal">
+        <div class="modal-content">
+            <h3>Create New Post</h3>
+
+            <input placeholder="Post Title">
+            <textarea placeholder="Write something..."></textarea>
+
+            <div class="upload-box">Click or drag image here</div>
+
+            <div class="modal-buttons">
+                <button class="cancel" onclick="closeModal()">Cancel</button>
+                <button class="publish" onclick="clickAction('Publish')">Publish</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function showProfile(){
+        document.getElementById("mainPage").style.display="none";
+        document.getElementById("profilePage").style.display="block";
+    }
+
+    function goCommunity(){
+        document.getElementById("mainPage").style.display="flex";
+        document.getElementById("profilePage").style.display="none";
+    }
+
+    function openModal(){
+        document.getElementById("modal").style.display="flex";
+    }
+
+    function closeModal(){
+        document.getElementById("modal").style.display="none";
+    }
+
+    function clickAction(name){
+        alert(name + " clicked");
+    }
+</script>
+
+</body>
+</html>
