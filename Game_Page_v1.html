@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Educational Game Platform</title>
+  <style>
+  </style>
+  <link rel="stylesheet" href="./css/Game_Page_v1.css">
+</head>
+<body>
+
+<header>
+  <div class="logo">Educational Website</div>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Learning</a>
+    <a href="#" class="active">Games</a>
+    <a href="#">Quizzes</a>
+    <a href="#">Profile</a>
+    <a href="#">Community</a>
+  </nav>
+</header>
+
+<div class="container">
+  <div class="breadcrumbs">
+    Home > Games > <span id="breadcrumb-title">Compression Challenge</span>
+  </div>
+
+  <div class="header-section">
+    <h1><span id="page-title">Compression Challenge</span> Game</h1>
+    <div class="game-tabs">
+      <button class="tab-btn active" onclick="switchMode('compression')">Compression Challenge</button>
+      <button class="tab-btn" onclick="switchMode('rle')">RLE Game</button>
+      <button class="tab-btn" onclick="switchMode('dct')">Advanced DCT Control</button>
+    </div>
+  </div>
+
+  <div class="main-layout">
+    <aside class="instructions-panel">
+      <h3>Instructions</h3>
+      <div id="instruction-content">
+        <p style="margin-bottom: 15px;">Welcome to the Compression Challenge! Your goal is to compress images to their smallest size without losing too much quality.</p>
+        <ul>
+          <li>Upload your own image to start the compressor.</li>
+          <li>Adjust compression settings (quality, format).</li>
+          <li>Aim for the highest score by balancing size and quality.</li>
+          <li>Watch out for time limits!</li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="game-panel">
+      <div class="stats-bar">
+        <div class="stat-box">
+          <span>SCORE</span>
+          <strong id="score-display">1250</strong>
+        </div>
+        <div class="stat-box">
+          <span>TIME</span>
+          <strong id="time-display">01:45</strong>
+        </div>
+        <div class="metrics-box">
+          <div class="metrics-info">
+            <strong>Quality Metrics</strong>
+            <p id="psnr-display">PSNR: 35.2 dB</p>
+            <p id="ssim-display">SSIM: 0.94</p>
+          </div>
+          <div class="stars">☆☆☆</div>
+        </div>
+      </div>
+
+      <div class="game-canvas-area" id="canvas-container">
+        <div class="upload-section" id="upload-ui">
+          <p>Please upload an image</p>
+          <input type="file" id="imageLoader" accept="image/*">
+        </div>
+        <canvas id="gameCanvas"></canvas>
+      </div>
+
+      <div class="interactive-controls" id="specific-controls">
+        <label>Quality Level:</label>
+        <div class="slider-container">
+          <span>Low</span>
+          <input type="range" min="1" max="100" value="80" oninput="updateMetrics(this.value)">
+          <span>High</span>
+        </div>
+      </div>
+
+      <div class="progress-section">
+        <div class="progress-header">
+          <span>Remaining Size</span>
+          <span id="size-percentage">60%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress-bar-fill"></div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button id="start-btn">▶ Start</button>
+        <button id="pause-btn">⏸ Pause</button>
+        <button id="restart-btn">↻ Restart</button>
+      </div>
+
+      <p class="feedback-text" id="feedback-msg">"Great compression! You saved 40% file size."</p>
+
+    </main>
+  </div>
+</div>
+
+<script src="./js/Game_Page_v1.js">
+</script>
+</body>
+</html>
