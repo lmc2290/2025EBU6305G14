@@ -1,0 +1,102 @@
+/* --- Breadcrumb Navigation --- */
+.breadcrumbs {
+    padding: 15px 40px;
+    font-size: 12px;
+    color: #666;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* --- Core Layout: Sidebar + Main Content Area --- */
+.main-layout {
+    display: flex;
+    flex-direction: row;
+    min-height: 800px;
+}
+
+/* Sidebar Navigation */
+aside {
+    width: 250px;
+    background-color: #f8f9fa;
+    padding: 30px;
+    border-right: 1px solid #e0e0e0;
+}
+aside h3 {
+    margin-top: 0;
+    font-size: 16px;
+}
+aside ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+aside li {
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: #555;
+    cursor: pointer;
+}
+aside li.active {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+/* Main Content Area */
+main {
+    flex: 1;
+    padding: 40px 60px;
+}
+main h2 {
+    font-size: 28px;
+    margin-top: 0;
+}
+main h3 {
+    font-size: 20px;
+    margin-top: 30px;
+}
+main p, main li {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #444;
+}
+
+/* Image Placeholder Box (To be replaced with dynamic slider in V2) */
+.placeholder-box {
+    background-color: #e9ecef;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6c757d;
+    margin: 30px 0;
+    border-radius: 4px;
+}
+
+/* --- Interactive Quiz Section --- */
+.quiz-section {
+    background-color: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    padding: 25px;
+    border-radius: 6px;
+    margin-bottom: 40px;
+}
+.quiz-option {
+    background-color: #ffffff;
+    border: 1px solid #dcdcdc;
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+}
+.quiz-option input {
+    margin-right: 10px;
+}
+
+/* Bottom Pagination/Navigation Buttons */
+.bottom-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
