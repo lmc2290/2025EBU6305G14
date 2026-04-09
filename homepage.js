@@ -1,4 +1,4 @@
-// Basic JavaScript for Home Page
+// JavaScript for Home Page
 
 // Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -13,7 +13,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // Active navigation link based on current page
 const currentPage = window.location.pathname;
 document.querySelectorAll('.nav-links a').forEach(link => {
-    if (link.getAttribute('href') === currentPage) {
+    if (link.getAttribute('href') === currentPage.split('/').pop()) {
         link.classList.add('active');
     }
 });
@@ -44,11 +44,10 @@ featureCards.forEach(card => {
     });
 });
 
-// Simple form validation placeholder
-function validateForm() {
-    // This function can be expanded for version 2
-    console.log('Form validation would happen here');
-    return false;
+// Mobile menu toggle (for future responsive design)
+function toggleMobileMenu() {
+    const navLinks = document.querySelector('.nav-links');
+    navLinks.classList.toggle('mobile-menu');
 }
 
 // Log page load
