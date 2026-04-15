@@ -1,8 +1,10 @@
-// JavaScript for Home Page - Version 2
+// JavaScript for Home Page - Version 3
 
 // DOM Elements
 const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
 const navLinks = document.querySelector('.nav-links');
+const featureCards = document.querySelectorAll('.feature-card');
+const heroImg = document.querySelector('.hero-img');
 
 // Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -68,25 +70,98 @@ window.addEventListener('scroll', function() {
     }
 });
 
+// Image lazy loading with intersection observer
+const lazyLoadImages = () => {
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src || img.src;
+                img.classList.add('loaded');
+                observer.unobserve(img);
+            }
+        });
+    });
+
+    document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+        imageObserver.observe(img);
+    });
+};
+
+// Scroll animation for elements
+const animateOnScroll = () => {
+    const elementObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const element = entry.target;
+                element.classList.add('animate-in');
+                observer.unobserve(element);
+            }
+        });
+    }, {
+        threshold: 0.1
+    });
+
+    document.querySelectorAll('.feature-card, .about').forEach(element => {
+        elementObserver.observe(element);
+    });
+};
+
+// Add animation classes to feature cards
+featureCards.forEach((card, index) => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(20px)';
+    card.style.transition = 'all 0.6s ease';
+});
+
+// Add animation class to about section
+const aboutSection = document.querySelector('.about');
+if (aboutSection) {
+    aboutSection.style.opacity = '0';
+    aboutSection.style.transform = 'translateY(20px)';
+    aboutSection.style.transition = 'all 0.6s ease';
+}
+
+// Add animation class to hero image
+if (heroImg) {
+    heroImg.style.opacity = '0';
+    heroImg.style.transform = 'scale(0.95)';
+    heroImg.style.transition = 'all 0.8s ease';
+}
+
+// Add scroll event for animations
+window.addEventListener('scroll', animateOnScroll);
+
 // Initialize functions
 const init = () => {
     setActiveNavigation();
-    console.log('Home Page loaded successfully - Version 2');
+    lazyLoadImages();
+    animateOnScroll();
+    
+    // Animate hero image on load
+    if (heroImg) {
+        setTimeout(() => {
+            heroImg.style.opacity = '1';
+            heroImg.style.transform = 'scale(1)';
+        }, 300);
+    }
+    
+    console.log('Home Page loaded successfully - Version 3');
 };
 
 // Run initialization when DOM is loaded
 document.addEventListener('DOMContentLoaded', init);
 
 // Placeholder for future features
-// These can be implemented in version 3 and 4
+// These can be implemented in version 4
 function futureFeature1() {
-    // Example: Dynamic content loading
-}
-
-function futureFeature2() {
     // Example: User authentication
 }
 
+function futureFeature2() {
+    // Example: Community features
+}
+
 function futureFeature3() {
-    // Example: Interactive elements
+    // Example: Advanced game features
 }
