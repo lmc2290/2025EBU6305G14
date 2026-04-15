@@ -3,25 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn about digital media concepts through interactive lessons and fun games">
+    <meta name="keywords" content="learning, games, digital media, image compression, video encoding">
+    <meta name="author" content="2025EBU6305G14">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
     <title>Learning with Games - Home</title>
     <link rel="stylesheet" href="homepage.css">
 </head>
 <body>
     <header>
-        <nav>
+        <nav aria-label="Main navigation">
             <div class="logo">
-                <h1>Learning with Games</h1>
+                <a href="homepage.html" aria-label="Home">
+                    <h1>Learning with Games</h1>
+                </a>
             </div>
-            <ul class="nav-links">
-                <li><a href="homepage.html" class="active">Home</a></li>
+            <button class="mobile-menu-toggle" aria-label="Toggle menu" onclick="toggleMobileMenu()">
+                ☰
+            </button>
+            <ul class="nav-links" aria-label="Navigation links">
+                <li><a href="homepage.html" class="active" aria-current="page">Home</a></li>
                 <li><a href="learning.html">Learning</a></li>
                 <li><a href="games.html">Games</a></li>
                 <li><a href="test.html">Tests</a></li>
                 <li><a href="community.html">Community</a></li>
             </ul>
-            <div class="auth-buttons">
-                <a href="#" class="btn btn-secondary">Login</a>
-                <a href="#" class="btn btn-primary">Sign Up</a>
+            <div class="auth-buttons" aria-label="Authentication buttons">
+                <a href="#" class="btn btn-secondary" aria-label="Login">Login</a>
+                <a href="#" class="btn btn-primary" aria-label="Sign up">Sign Up</a>
             </div>
         </nav>
     </header>

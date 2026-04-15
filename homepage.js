@@ -1,60 +1,84 @@
-// JavaScript for Home Page
+// JavaScript for Home Page - Version 2
+
+// DOM Elements
+const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+const navLinks = document.querySelector('.nav-links');
 
 // Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+            targetElement.scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
     });
 });
 
 // Active navigation link based on current page
-const currentPage = window.location.pathname;
+const setActiveNavigation = () => {
+    const currentPage = window.location.pathname;
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        const linkHref = link.getAttribute('href');
+        if (linkHref === currentPage.split('/').pop()) {
+            link.classList.add('active');
+        } else {
+            link.classList.remove('active');
+        }
+    });
+};
+
+// Mobile menu toggle
+function toggleMobileMenu() {
+    navLinks.classList.toggle('mobile-menu');
+    // Update aria-expanded attribute
+    const isExpanded = navLinks.classList.contains('mobile-menu');
+    mobileMenuToggle.setAttribute('aria-expanded', isExpanded);
+}
+
+// Add click event to mobile menu toggle
+if (mobileMenuToggle) {
+    mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+}
+
+// Close mobile menu when clicking on a nav link
 document.querySelectorAll('.nav-links a').forEach(link => {
-    if (link.getAttribute('href') === currentPage.split('/').pop()) {
-        link.classList.add('active');
+    link.addEventListener('click', function() {
+        if (navLinks.classList.contains('mobile-menu')) {
+            navLinks.classList.remove('mobile-menu');
+            if (mobileMenuToggle) {
+                mobileMenuToggle.setAttribute('aria-expanded', 'false');
+            }
+        }
+    });
+});
+
+// Scroll event - change header style on scroll
+window.addEventListener('scroll', function() {
+    const header = document.querySelector('header');
+    if (window.scrollY > 50) {
+        header.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+        header.style.padding = '0.5rem 0';
+    } else {
+        header.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.1)';
+        header.style.padding = '1rem 0';
     }
 });
 
-// Button hover effects
-const buttons = document.querySelectorAll('.btn');
-buttons.forEach(button => {
-    button.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-2px)';
-        this.style.transition = 'transform 0.2s ease';
-    });
-    button.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0)';
-    });
-});
+// Initialize functions
+const init = () => {
+    setActiveNavigation();
+    console.log('Home Page loaded successfully - Version 2');
+};
 
-// Feature card hover effects
-const featureCards = document.querySelectorAll('.feature-card');
-featureCards.forEach(card => {
-    card.addEventListener('mouseenter', function() {
-        this.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
-        this.style.transform = 'translateY(-5px)';
-        this.style.transition = 'all 0.3s ease';
-    });
-    card.addEventListener('mouseleave', function() {
-        this.style.boxShadow = 'none';
-        this.style.transform = 'translateY(0)';
-    });
-});
-
-// Mobile menu toggle (for future responsive design)
-function toggleMobileMenu() {
-    const navLinks = document.querySelector('.nav-links');
-    navLinks.classList.toggle('mobile-menu');
-}
-
-// Log page load
-console.log('Home Page loaded successfully');
+// Run initialization when DOM is loaded
+document.addEventListener('DOMContentLoaded', init);
 
 // Placeholder for future features
-// These can be implemented in version 2 and 3
+// These can be implemented in version 3 and 4
 function futureFeature1() {
     // Example: Dynamic content loading
 }
