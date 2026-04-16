@@ -1,135 +1,315 @@
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:Arial;color:#333;}
+body{
+    font-family:Arial;
+    color:#333;
+    background:#f5f7fb; /* 更柔和背景 */
+}
 
-header{background:#f8f9fa;border-bottom:1px solid #ddd;}
-nav{display:flex;justify-content:space-between;align-items:center;
-max-width:1200px;margin:auto;padding:1rem 2rem;}
+/* ===== NAV ===== */
+header{
+    background:#fff;
+    border-bottom:1px solid #eee;
+    position:sticky;
+    top:0;
+    z-index:10;
+}
+
+nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    max-width:1200px;
+    margin:auto;
+    padding:1rem 2rem;
+}
 
 .logo h1{color:#007bff;}
 
 .nav-links{display:flex;list-style:none;}
 .nav-links li{margin-left:2rem;}
-.nav-links a{text-decoration:none;color:#333;}
-.nav-links a.active{color:#007bff;border-bottom:2px solid #007bff;}
 
-.btn{padding:0.5rem 1rem;border:none;border-radius:4px;cursor:pointer;}
-.btn-primary{background:#007bff;color:#fff;}
-.btn-secondary{background:#f8f9fa;border:1px solid #ddd;}
+.nav-links a{
+    text-decoration:none;
+    color:#333;
+    transition:0.2s;
+}
 
+.nav-links a:hover{
+    color:#007bff;
+}
+
+.nav-links a.active{
+    color:#007bff;
+    border-bottom:2px solid #007bff;
+}
+
+/* ===== BUTTON ===== */
+.btn{
+    padding:0.5rem 1.2rem;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    transition:all 0.2s ease;
+}
+
+.btn-primary{
+    background:#007bff;
+    color:#fff;
+}
+
+.btn-primary:hover{
+    background:#0056d2;
+    transform:translateY(-1px);
+}
+
+.btn-secondary{
+    background:#fff;
+    border:1px solid #ddd;
+}
+
+.btn-secondary:hover{
+    background:#f1f1f1;
+}
+
+/* ===== LAYOUT ===== */
 .community-container{
-display:flex;
-gap:2rem;
-max-width:1200px;
-margin:2rem auto;
+    display:flex;
+    gap:2rem;
+    max-width:1200px;
+    margin:2rem auto;
 }
 
+/* ===== SCROLL ===== */
 .posts-scroll{
-height:650px;
-overflow-y:scroll;
-padding-right:10px;
+    height:650px;
+    overflow-y:auto;
+    padding-right:10px;
 }
 
-.posts-scroll::-webkit-scrollbar{
-width:8px;
-}
+/* 滚动条更细 */
+.posts-scroll::-webkit-scrollbar{width:6px;}
 .posts-scroll::-webkit-scrollbar-thumb{
-background:#ccc;
-border-radius:4px;
+    background:#ccc;
+    border-radius:3px;
 }
 
+/* ===== POST CARD ===== */
 .post-card{
-background:#f8f9fa;
-padding:1rem;
-margin-bottom:1rem;
-border-radius:8px;
-border:1px solid #ddd;
+    background:#fff;
+    padding:1.2rem;
+    margin-bottom:1.2rem;
+    border-radius:12px;
+    border:1px solid #eee;
+    box-shadow:0 2px 8px rgba(0,0,0,0.04);
+    transition:all 0.2s ease;
 }
 
+.post-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 6px 16px rgba(0,0,0,0.08);
+}
+
+/* ===== HEADER ===== */
 .post-header{
-display:flex;
-align-items:center;
-gap:10px;
-margin-bottom:5px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:8px;
 }
 
 .avatar{
-width:40px;
-height:40px;
-border-radius:50%;
+    width:40px;
+    height:40px;
+    border-radius:50%;
 }
 
-.comments{margin-top:10px;}
+/* ===== TEXT ===== */
+.post-card h4{
+    margin:5px 0;
+}
 
+.post-card p{
+    color:#666;
+    font-size:0.95rem;
+}
+
+/* ===== LIKE BUTTON ===== */
+.like-btn{
+    margin-top:8px;
+    border:none;
+    background:#f1f3f5;
+    padding:5px 10px;
+    border-radius:20px;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.like-btn:hover{
+    background:#e2e6ea;
+}
+
+.like-btn.liked{
+    transform:scale(1.3);
+}
+
+/* ===== COMMENTS ===== */
+.comments{
+    margin-top:10px;
+}
+
+/* 评论气泡 */
 .comment{
-background:#fff;
-padding:5px;
-margin:5px 0;
-border-radius:4px;
-font-size:0.9rem;
+    background:#eef2ff;
+    padding:6px 10px;
+    margin:6px 0;
+    border-radius:12px;
+    display:inline-block;
+    font-size:0.85rem;
 }
 
+/* 输入框 */
 .comments input{
-width:100%;
-padding:5px;
-margin-top:5px;
+    width:100%;
+    padding:6px;
+    margin-top:6px;
+    border-radius:6px;
+    border:1px solid #ddd;
 }
 
+/* ===== RIGHT SIDE ===== */
 .user-section{flex:1;}
 .posts-section{flex:2;}
 
 .user-header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:1rem;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:1rem;
 }
 
+/* 用户信息 */
 .user-info{
-display:flex;
-align-items:center;
-gap:10px;
-cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    cursor:pointer;
 }
 
+.user-info:hover{
+    opacity:0.8;
+}
+
+/* 用户帖子卡片 */
 .user-post-card{
-background:#f8f9fa;
-padding:1rem;
-margin-bottom:1rem;
-border-radius:8px;
-border:1px solid #ddd;
+    background:#fff;
+    padding:1rem;
+    margin-bottom:1rem;
+    border-radius:10px;
+    border:1px solid #eee;
+    box-shadow:0 2px 6px rgba(0,0,0,0.04);
 }
 
+/* ===== MODAL ===== */
 .modal{
-display:none;
-position:fixed;
-top:0;left:0;right:0;bottom:0;
-justify-content:center;
-align-items:center;
-background:rgba(0,0,0,0.4);
+    display:none;
+    position:fixed;
+    top:0;left:0;right:0;bottom:0;
+    justify-content:center;
+    align-items:center;
+    background:rgba(0,0,0,0.4);
 }
 
 .modal-content{
-background:#fff;
-padding:2rem;
-width:400px;
-border-radius:10px;
+    background:#fff;
+    padding:2rem;
+    width:400px;
+    border-radius:12px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
 }
 
 .modal-content input,
 .modal-content textarea{
-width:100%;
-margin:1rem 0;
-padding:0.5rem;
+    width:100%;
+    margin:1rem 0;
+    padding:0.6rem;
+    border-radius:6px;
+    border:1px solid #ddd;
 }
 
-.close{cursor:pointer;float:right;}
+.close{
+    cursor:pointer;
+    float:right;
+}
 
+/* ===== PROFILE ===== */
 .profile-page{
-display:none;
-max-width:800px;
-margin:2rem auto;
+    display:none;
+    max-width:800px;
+    margin:2rem auto;
 }
 
+/* ===== TOAST ===== */
+.toast{
+    position:fixed;
+    bottom:30px;
+    left:50%;
+    transform:translateX(-50%);
+    background:#333;
+    color:#fff;
+    padding:10px 20px;
+    border-radius:20px;
+    opacity:0.9;
+}
+
+/* ===== RESPONSIVE ===== */
 @media(max-width:768px){
-.community-container{flex-direction:column;}
+    .community-container{flex-direction:column;}
+}
+
+/* 操作按钮区域 */
+.post-actions{
+    display:flex;
+    gap:10px;
+    margin-top:8px;
+}
+
+/* 删除按钮 */
+.delete-btn{
+    background:#ffecec;
+    border:none;
+    padding:5px 10px;
+    border-radius:20px;
+    cursor:pointer;
+}
+
+.delete-btn:hover{
+    background:#ffcccc;
+}
+
+/* 评论输入 */
+.comment-input{
+    display:flex;
+    gap:5px;
+    margin-top:5px;
+}
+
+.comment-input input{
+    flex:1;
+}
+
+.comment-input button{
+    padding:5px 10px;
+    border:none;
+    background:#007bff;
+    color:white;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+/* 删除评论 */
+.delete-comment{
+    margin-left:8px;
+    cursor:pointer;
+    color:red;
+    font-size:0.8rem;
 }

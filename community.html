@@ -11,7 +11,9 @@
 
 <header>
     <nav>
-        <div class="logo"><h1>Learning with Games</h1></div>
+        <div class="logo">
+            <h1>Learning with Games</h1>
+        </div>
 
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
@@ -30,14 +32,16 @@
 
 <main class="community-container">
 
+    <!-- 左侧帖子 -->
     <section class="posts-section">
         <h2>Explore Posts</h2>
         <div class="posts-scroll" id="postList"></div>
     </section>
 
+    <!-- 右侧用户 -->
     <section class="user-section">
-        <div class="user-header">
 
+        <div class="user-header">
             <div class="user-info" onclick="openProfile()">
                 <img src="https://i.pravatar.cc/40?img=3" class="avatar">
                 <h3>Your Name</h3>
@@ -49,11 +53,12 @@
         <div id="myPosts">
             <h4>Your Posts</h4>
         </div>
+
     </section>
 
 </main>
 
-<!-- 弹窗 -->
+<!-- 发帖弹窗 -->
 <div id="postModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal()">&times;</span>
@@ -69,6 +74,7 @@
 <!-- 个人主页 -->
 <div id="profilePage" class="profile-page">
     <button class="btn btn-secondary" onclick="closeProfile()">← Back</button>
+
     <h2>Your Profile</h2>
 
     <button class="btn btn-primary" onclick="openModal()">+ New Post</button>
@@ -76,6 +82,7 @@
     <div id="profilePosts"></div>
 </div>
 
+<!-- JS -->
 <script src="community.js"></script>
 
 </body>

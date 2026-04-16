@@ -1,15 +1,23 @@
-let posts = [];
+// ===== 数据 =====
+let posts = JSON.parse(localStorage.getItem("posts")) || [];
 
-// 初始化帖子
-for(let i=1;i<=20;i++){
-    posts.push({
-        title: "Post " + i,
-        content: "This is content of post " + i,
-        likes: 0,
-        comments: []
-    });
+if(posts.length === 0){
+    for(let i=1;i<=10;i++){
+        posts.push({
+            title: "Post " + i,
+            content: "This is content of post " + i,
+            likes: 0,
+            comments: []
+        });
+    }
+    savePosts();
 }
 
+function savePosts(){
+    localStorage.setItem("posts", JSON.stringify(posts));
+}
+
+// ===== 渲染 =====
 function renderPosts() {
     const list = document.getElementById("postList");
     const my = document.getElementById("myPosts");
@@ -23,6 +31,7 @@ function renderPosts() {
 
         list.innerHTML += `
         <div class="post-card">
+
             <div class="post-header">
                 <img src="https://i.pravatar.cc/40?img=${i}" class="avatar">
                 <span>Your Name</span>
@@ -31,12 +40,25 @@ function renderPosts() {
             <h4>${p.title}</h4>
             <p>${p.content}</p>
 
-            <button onclick="likePost(${i})">👍 ${p.likes}</button>
+            <div class="post-actions">
+                <button class="like-btn" onclick="likePost(${i}, this)">👍 ${p.likes}</button>
+                <button class="delete-btn" onclick="deletePost(${i})">🗑</button>
+            </div>
 
             <div class="comments">
-                ${p.comments.map(c=>`<div class="comment">${c}</div>`).join("")}
-                <input placeholder="Write comment..." onkeypress="addComment(event, ${i})">
+                ${p.comments.map((c, ci)=>`
+                    <div class="comment">
+                        ${c}
+                        <span class="delete-comment" onclick="deleteComment(${i}, ${ci})">✖</span>
+                    </div>
+                `).join("")}
+
+                <div class="comment-input">
+                    <input id="comment-${i}" placeholder="Write comment...">
+                    <button onclick="addComment(${i})">Post</button>
+                </div>
             </div>
+
         </div>
         `;
 
@@ -45,40 +67,61 @@ function renderPosts() {
     });
 }
 
-// ✅ 发帖功能恢复
+// ===== 发帖 =====
 function addPost(){
     const title = document.getElementById("postTitle").value;
     const content = document.getElementById("postContent").value;
 
     if(title && content){
-        posts.unshift({
-            title,
-            content,
-            likes: 0,
-            comments: []
-        });
+        posts.unshift({title, content, likes:0, comments:[]});
+        savePosts();
 
-        // 清空输入框（优化体验）
-        document.getElementById("postTitle").value = "";
-        document.getElementById("postContent").value = "";
+        document.getElementById("postTitle").value="";
+        document.getElementById("postContent").value="";
 
         closeModal();
         renderPosts();
     }
 }
 
-function likePost(i){
-    posts[i].likes++;
-    renderPosts();
-}
-
-function addComment(e, i){
-    if(e.key==="Enter"){
-        posts[i].comments.push(e.target.value);
+// ===== 删除帖子 =====
+function deletePost(i){
+    if(confirm("Delete this post?")){
+        posts.splice(i,1);
+        savePosts();
         renderPosts();
     }
 }
 
+// ===== 点赞 =====
+function likePost(i, btn){
+    posts[i].likes++;
+    savePosts();
+
+    btn.classList.add("liked");
+    setTimeout(()=>btn.classList.remove("liked"),300);
+
+    renderPosts();
+}
+
+// ===== 评论 =====
+function addComment(i){
+    const input = document.getElementById(`comment-${i}`);
+    if(input.value){
+        posts[i].comments.push(input.value);
+        savePosts();
+        renderPosts();
+    }
+}
+
+// ===== 删除评论 =====
+function deleteComment(postIndex, commentIndex){
+    posts[postIndex].comments.splice(commentIndex,1);
+    savePosts();
+    renderPosts();
+}
+
+// ===== UI =====
 function openModal(){
     document.getElementById('postModal').style.display='flex';
 }
