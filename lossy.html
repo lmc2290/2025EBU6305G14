@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lossy vs. Lossless - Learning with Games</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="learning.css">
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>Learning with Games</h1>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="learning.html" class="active">Learning</a>
+      <a href="games.html">Games</a>
+      <a href="test.html">Tests</a>
+      <a href="community.html">Community</a>
+    </div>
+  </header>
+
+  <div class="breadcrumbs">Home > Learning > Lossy vs. Lossless</div>
+
+  <div class="main-layout">
+    <aside>
+      <h3>Topics</h3>
+      <ul>
+        <li><a href="learning.html">Introduction to Compression</a></li>
+        <li class="active"><a href="lossy.html">Lossy vs. Lossless</a></li>
+        <li><a href="image-techniques.html">Image Compression Techniques</a></li>
+        <li><a href="video.html">Video Compression</a></li>
+        <li><a href="audio.html">Audio Compression</a></li>
+      </ul>
+    </aside>
+
+    <main>
+      <div class="mode-toggle-container">
+        <span class="mode-label">🎓 Pro Mode</span>
+        <label class="switch"><input type="checkbox" id="kids-mode-toggle"><span class="slider round"></span></label>
+        <span class="mode-label">🧸 Kids Mode</span>
+      </div>
+
+      <h2>Lossy vs. Lossless Compression</h2>
+
+      <div class="pro-content">
+        <p>Not all compression methods are created equal. They generally fall into two categories: Lossless and Lossy.</p>
+        <p><strong>Lossless Compression:</strong> Reduces file size without any loss of data. When uncompressed, the file is an exact replica of the original. This is crucial for text files, source code, and software where losing a single character breaks everything (e.g., ZIP files).</p>
+        <p><strong>Lossy Compression:</strong> Discards some data that is deemed "less important" or unnoticeable to human perception. The uncompressed file is an approximation of the original. This is widely used for images, video, and audio to achieve massive file size reductions (e.g., JPEG, MP3).</p>
+      </div>
+
+      <div class="kids-content">
+        <p>There are two ways to shrink things!</p>
+        <p><strong>Lossless (Perfect Puzzle):</strong> 🧩 Imagine taking apart a Lego castle, putting the blocks in a small box, and rebuilding it EXACTLY the same later. Nothing is lost! We use this for text and computer code.</p>
+        <p><strong>Lossy (Quick Sketch):</strong> 🎨 Imagine drawing a quick sketch of a complicated painting. You might leave out tiny details like a single blade of grass, but it still looks like the same painting! We use this for photos and music to save lots of space.</p>
+      </div>
+
+      <div class="placeholder-box">
+        <p>[V3 Idea: A slider showing a crisp text image (Lossless) vs a blurry text image (Lossy)]</p>
+      </div>
+
+      <h3>Interactive Mini-Quiz</h3>
+      <div class="quiz-section">
+        <p class="pro-content"><strong>For which of the following files MUST you use Lossless compression?</strong></p>
+        <p class="kids-content"><strong>Which of these needs the "Perfect Puzzle" (Lossless) magic? 🧩</strong></p>
+
+        <label class="quiz-option">
+          <input type="radio" name="quiz1" value="efficiency">
+          <span class="pro-content">A bank statement text file</span>
+          <span class="kids-content">A math homework text file 📝</span>
+        </label>
+        <label class="quiz-option">
+          <input type="radio" name="quiz1" value="wrong">
+          <span class="pro-content">A photograph of a landscape</span>
+          <span class="kids-content">A fun YouTube video 🎬</span>
+        </label>
+        <button class="btn-primary" id="check-answer-btn">Check Answer</button>
+        <div id="quiz-feedback" style="margin-top: 15px; font-weight: bold;"></div>
+      </div>
+
+      <div class="bottom-nav">
+        <a href="learning.html"><button class="btn-secondary">← Intro</button></a>
+        <a href="image-techniques.html"><button class="btn-primary">Image Techniques →</button></a>
+      </div>
+    </main>
+  </div>
+  <footer><p>© 2026 Queen Mary University of London. All rights reserved.</p></footer>
+</div>
+<script src="learning.js"></script>
+</body>
+</html>

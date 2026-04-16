@@ -1,19 +1,42 @@
-// Ensure the entire HTML document is fully loaded before executing any JavaScript
 document.addEventListener('DOMContentLoaded', () => {
+    console.log("Learning Page V2 Initialized.");
 
-    console.log("Learning page script successfully loaded!");
-
-    // 1. Get the 'Check Answer' button element from the DOM
-    const checkBtn = document.getElementById('check-answer-btn');
-
-    // 2. Bind a click event listener to the button (Silent for V1)
-    if (checkBtn) {
-        checkBtn.addEventListener('click', () => {
-            // For V1, the button clicks silently without any annoying popups.
-            // Actual validation logic (checking correct/wrong answers) will be implemented here in V2.
-            console.log("Check Answer button clicked.");
+    /* --- KIDS MODE TOGGLE LOGIC --- */
+    const modeToggle = document.getElementById('kids-mode-toggle');
+    if (modeToggle) {
+        modeToggle.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                document.body.classList.add('kids-theme');
+                console.log("Switched to Kids Mode");
+            } else {
+                document.body.classList.remove('kids-theme');
+                console.log("Switched to Pro Mode");
+            }
         });
     }
 
-    // 3. Note: Logic for the interactive Image Slider (Before/After comparison) will be added to this file in V2.
+    /* --- QUIZ VALIDATION LOGIC --- */
+    const checkBtn = document.getElementById('check-answer-btn');
+    const feedback = document.getElementById('quiz-feedback');
+
+    if (checkBtn) {
+        checkBtn.addEventListener('click', () => {
+            const selected = document.querySelector('input[name="quiz1"]:checked');
+            const isKids = document.body.classList.contains('kids-theme');
+
+            if (!selected) {
+                feedback.style.color = "orange";
+                feedback.innerText = isKids ? "Pick an answer first! 🤔" : "Please select an option.";
+                return;
+            }
+
+            if (selected.value === "efficiency") {
+                feedback.style.color = "green";
+                feedback.innerText = isKids ? "🎉 Correct! You're a wizard!" : "Correct! Efficiency is key.";
+            } else {
+                feedback.style.color = "red";
+                feedback.innerText = isKids ? "Oops! Try again! 🥺" : "Incorrect. Try again.";
+            }
+        });
+    }
 });
