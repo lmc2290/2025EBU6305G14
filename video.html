@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Compression - Learning with Games</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="learning.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Learning with Games</h1>
+        <div class="nav-links"><a href="index.html">Home</a><a href="learning.html" class="active">Learning</a><a href="games.html">Games</a><a href="test.html">Tests</a><a href="community.html">Community</a></div>
+    </header>
+    <div class="breadcrumbs">Home > Learning > Video Compression</div>
+    <div class="main-layout">
+        <aside>
+            <h3>Topics</h3>
+            <ul>
+                <li><a href="learning.html">Introduction to Compression</a></li>
+                <li><a href="lossy.html">Lossy vs. Lossless</a></li>
+                <li><a href="image-techniques.html">Image Compression Techniques</a></li>
+                <li class="active"><a href="video.html">Video Compression</a></li>
+                <li><a href="audio.html">Audio Compression</a></li>
+            </ul>
+        </aside>
+        <main>
+            <div class="mode-toggle-container">
+                <span class="mode-label">🎓 Pro Mode</span>
+                <label class="switch"><input type="checkbox" id="kids-mode-toggle"><span class="slider round"></span></label>
+                <span class="mode-label">🧸 Kids Mode</span>
+            </div>
+
+            <h2>Video Compression</h2>
+            <div class="pro-content">
+                <p>Video is essentially a sequence of images (frames) played very fast. Video compression relies heavily on "Temporal Redundancy".</p>
+                <p>Instead of saving 60 full images for every second of video, formats like MP4/H.264 save one full "Keyframe" (I-frame) and then only record the <strong>differences</strong> or <strong>movements</strong> in the subsequent frames (P-frames). If a news anchor is talking, only their lips and face movements are saved; the background desk and wall are reused from the first frame.</p>
+            </div>
+            <div class="kids-content">
+                <p>Videos are just lots of pictures moving really fast! 🎬</p>
+                <p>If we want to film a news reporter on TV, the background wall doesn't move. So, the computer takes ONE picture of the wall, and then only draws the reporter's mouth moving! It doesn't waste time drawing the wall over and over again. This is called saving only the <strong>changes</strong>!</p>
+            </div>
+
+            <div class="placeholder-box">
+                <p>[V3 Idea: Animation showing a static background and only a moving ball]</p>
+            </div>
+
+            <h3>Interactive Mini-Quiz</h3>
+            <div class="quiz-section">
+                <p class="pro-content"><strong>What is the main principle behind temporal video compression?</strong></p>
+                <p class="kids-content"><strong>How do computers make video files smaller? 📺</strong></p>
+                <label class="quiz-option">
+                    <input type="radio" name="quiz1" value="wrong">
+                    <span class="pro-content">Making the video black and white</span>
+                    <span class="kids-content">Making the video play super slow 🐢</span>
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="quiz1" value="efficiency">
+                    <span class="pro-content">Only saving the differences between consecutive frames</span>
+                    <span class="kids-content">Only saving the parts that move (like a mouth speaking) 👄</span>
+                </label>
+                <button class="btn-primary" id="check-answer-btn">Check Answer</button>
+                <div id="quiz-feedback" style="margin-top: 15px; font-weight: bold;"></div>
+            </div>
+
+            <div class="bottom-nav">
+                <a href="image-techniques.html"><button class="btn-secondary">← Image Techniques</button></a>
+                <a href="audio.html"><button class="btn-primary">Audio Compression →</button></a>
+            </div>
+        </main>
+    </div>
+    <footer><p>© 2026 Queen Mary University of London.</p></footer>
+</div>
+<script src="learning.js"></script>
+</body>
+</html>
