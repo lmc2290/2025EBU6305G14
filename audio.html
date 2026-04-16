@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audio Compression - Learning with Games</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="learning.css">
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>Learning with Games</h1>
+    <div class="nav-links"><a href="index.html">Home</a><a href="learning.html" class="active">Learning</a><a href="games.html">Games</a><a href="test.html">Tests</a><a href="community.html">Community</a></div>
+  </header>
+  <div class="breadcrumbs">Home > Learning > Audio Compression</div>
+  <div class="main-layout">
+    <aside>
+      <h3>Topics</h3>
+      <ul>
+        <li><a href="learning.html">Introduction to Compression</a></li>
+        <li><a href="lossy.html">Lossy vs. Lossless</a></li>
+        <li><a href="image-techniques.html">Image Compression Techniques</a></li>
+        <li><a href="video.html">Video Compression</a></li>
+        <li class="active"><a href="audio.html">Audio Compression</a></li>
+      </ul>
+    </aside>
+    <main>
+      <div class="mode-toggle-container">
+        <span class="mode-label">🎓 Pro Mode</span>
+        <label class="switch"><input type="checkbox" id="kids-mode-toggle"><span class="slider round"></span></label>
+        <span class="mode-label">🧸 Kids Mode</span>
+      </div>
+
+      <h2>Audio Compression</h2>
+      <div class="pro-content">
+        <p>Audio compression, particularly formats like MP3, utilizes a biological phenomenon called "Psychoacoustics".</p>
+        <p>The human ear cannot hear certain extremely high or low frequencies. Additionally, if a loud sound (like a drum beat) plays at the exact same time as a quiet sound (like a whisper), our ears only perceive the drum. The compression algorithm simply deletes the whisper and the inaudible frequencies, reducing file size dramatically without the listener noticing.</p>
+      </div>
+      <div class="kids-content">
+        <p>Computers trick our ears to save space! 🎧</p>
+        <p>Imagine a giant drum banging right next to someone whispering. You wouldn't hear the whisper at all! The computer knows this, so it literally <strong>deletes the whisper</strong> from the song file. Because you couldn't hear it anyway, the song sounds exactly the same to you, but the file is much smaller!</p>
+      </div>
+
+      <div class="placeholder-box">
+        <p>[V3 Idea: Interactive soundwave showing a loud drum masking a quiet beep]</p>
+      </div>
+
+      <h3>Interactive Mini-Quiz</h3>
+      <div class="quiz-section">
+        <p class="pro-content"><strong>What is auditory masking in MP3 compression?</strong></p>
+        <p class="kids-content"><strong>What trick does the computer use for music? 🎵</strong></p>
+        <label class="quiz-option">
+          <input type="radio" name="quiz1" value="efficiency">
+          <span class="pro-content">Deleting quiet sounds that are covered up by loud sounds</span>
+          <span class="kids-content">Deleting quiet whispers when a loud drum is playing 🥁</span>
+        </label>
+        <label class="quiz-option">
+          <input type="radio" name="quiz1" value="wrong">
+          <span class="pro-content">Making the song play 10% faster</span>
+          <span class="kids-content">Making the singers sing super fast 🏃‍♂️</span>
+        </label>
+        <button class="btn-primary" id="check-answer-btn">Check Answer</button>
+        <div id="quiz-feedback" style="margin-top: 15px; font-weight: bold;"></div>
+      </div>
+
+      <div class="bottom-nav">
+        <a href="video.html"><button class="btn-secondary">← Video Compression</button></a>
+        <a href="games.html"><button class="btn-primary" style="background-color: #27ae60;">Play Games! 🎮</button></a>
+      </div>
+    </main>
+  </div>
+  <footer><p>© 2026 Queen Mary University of London.</p></footer>
+</div>
+<script src="learning.js"></script>
+</body>
+</html>

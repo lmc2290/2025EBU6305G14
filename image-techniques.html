@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Compression - Learning with Games</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="learning.css">
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>Learning with Games</h1>
+    <div class="nav-links"><a href="index.html">Home</a><a href="learning.html" class="active">Learning</a><a href="games.html">Games</a><a href="test.html">Tests</a><a href="community.html">Community</a></div>
+  </header>
+
+  <div class="breadcrumbs">Home > Learning > Image Compression</div>
+
+  <div class="main-layout">
+    <aside>
+      <h3>Topics</h3>
+      <ul>
+        <li><a href="learning.html">Introduction to Compression</a></li>
+        <li><a href="lossy.html">Lossy vs. Lossless</a></li>
+        <li class="active"><a href="image-techniques.html">Image Compression Techniques</a></li>
+        <li><a href="video.html">Video Compression</a></li>
+        <li><a href="audio.html">Audio Compression</a></li>
+      </ul>
+    </aside>
+
+    <main>
+      <div class="mode-toggle-container">
+        <span class="mode-label">🎓 Pro Mode</span>
+        <label class="switch"><input type="checkbox" id="kids-mode-toggle"><span class="slider round"></span></label>
+        <span class="mode-label">🧸 Kids Mode</span>
+      </div>
+
+      <h2>Image Compression Techniques</h2>
+
+      <div class="pro-content">
+        <p>Images contain thousands or millions of pixels. Storing every single one is inefficient. Algorithms like JPEG and PNG use "Spatial Redundancy" to compress images.</p>
+        <p>For example, if an image has a large blue sky, instead of saving "blue, blue, blue..." a thousand times, the computer saves the instruction: "1,000 pixels of this exact shade of blue". Furthermore, lossy formats like JPEG discard high-frequency color variations that the human eye is biologically poor at detecting.</p>
+      </div>
+
+      <div class="kids-content">
+        <p>How does a computer shrink a big photo? By grouping things! 🖼️</p>
+        <p>If you take a picture of a clear blue sky, the computer doesn't color every single tiny dot one by one. Instead, it acts like a smart painter and says: "Just paint this whole top half blue!" 🖍️ It also throws away tiny color differences that our eyes can't even notice anyway.</p>
+      </div>
+
+      <div class="placeholder-box">
+        <p>[V3 Idea: Color grouping visualization / Run-length encoding example]</p>
+      </div>
+
+      <h3>Interactive Mini-Quiz</h3>
+      <div class="quiz-section">
+        <p class="pro-content"><strong>What is spatial redundancy in image compression?</strong></p>
+        <p class="kids-content"><strong>How does the "Smart Painter" save time? 👨‍🎨</strong></p>
+
+        <label class="quiz-option">
+          <input type="radio" name="quiz1" value="wrong">
+          <span class="pro-content">Removing the middle of the image</span>
+          <span class="kids-content">Cutting the picture in half ✂️</span>
+        </label>
+        <label class="quiz-option">
+          <input type="radio" name="quiz1" value="efficiency">
+          <span class="pro-content">Grouping areas of the same color/data</span>
+          <span class="kids-content">Saying "Paint this whole block blue" instead of dot-by-dot 🟦</span>
+        </label>
+        <button class="btn-primary" id="check-answer-btn">Check Answer</button>
+        <div id="quiz-feedback" style="margin-top: 15px; font-weight: bold;"></div>
+      </div>
+
+      <div class="bottom-nav">
+        <a href="lossy.html"><button class="btn-secondary">← Lossy vs Lossless</button></a>
+        <a href="video.html"><button class="btn-primary">Video Compression →</button></a>
+      </div>
+    </main>
+  </div>
+  <footer><p>© 2026 Queen Mary University of London.</p></footer>
+</div>
+<script src="learning.js"></script>
+</body>
+</html>
