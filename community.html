@@ -1,17 +1,20 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Community</title>
-    <link rel="stylesheet" href="community.css">
+    <link rel="stylesheet" href="css/community.css">
 </head>
 
 <body>
 
 <header>
     <nav>
-        <div class="logo"><h1>Learning with Games</h1></div>
+        <div class="logo">
+            <h1>Learning with Games</h1>
+        </div>
 
         <ul class="nav-links">
             <li><a href="homepage.html">Home</a></li>
@@ -21,142 +24,129 @@
             <li><a href="community.html" class="active">Community</a></li>
         </ul>
 
-        <div class="auth-buttons">
-            <a href="#" class="btn btn-secondary">Login</a>
-            <a href="#" class="btn btn-primary">Sign Up</a>
+        <div class="nav-right">
+            <button class="mode-btn" onclick="switchVersion()">👶 Kids Mode</button>
+            <button class="btn btn-secondary" onclick="toggleDarkMode()">🌙</button>
         </div>
     </nav>
 </header>
 
 <main class="community-container">
 
-    <section class="posts-section">
-        <h2>Explore Posts</h2>
-        <div class="posts-scroll" id="postList"></div>
-    </section>
+    <!-- 成人版 -->
+    <section id="adultVersion" class="version-box">
 
-    <section class="user-section">
-        <div class="user-header">
-
-            <div class="user-info" onclick="openProfile()">
-                <img src="https://i.pravatar.cc/40?img=3" class="avatar">
-                <h3>Your Name</h3>
+        <section class="posts-section">
+            <div class="top-bar">
+                <h2>Explore Posts</h2>
+                <input type="text" id="searchInput" placeholder="Search posts..." onkeyup="searchPosts()">
             </div>
 
-            <button class="btn btn-primary" onclick="openModal()">+ New Post</button>
-        </div>
+            <div class="posts-scroll" id="postList"></div>
+        </section>
 
-        <div id="myPosts">
-            <h4>Your Posts</h4>
-        </div>
+        <section class="user-section">
+
+            <div class="user-box">
+                <div class="user-info">
+                    <img src="https://i.pravatar.cc/80?img=3" class="avatar big-avatar">
+                    <div>
+                        <h3>Your Name</h3>
+                        <p>Level 5 Learner</p>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary full-btn" onclick="openModal()">+ New Post</button>
+            </div>
+
+            <div class="side-card">
+                <h3>Your Posts</h3>
+                <div id="myPosts"></div>
+            </div>
+
+        </section>
+
+    </section>
+
+    <!-- 儿童版 -->
+    <section id="kidsVersion" class="version-box" style="display:none;">
+
+        <section class="posts-section">
+
+            <div class="top-bar">
+                <h2>Kids Community ⭐</h2>
+            </div>
+
+            <div class="posts-scroll" id="kidsPostList"></div>
+
+        </section>
+
+        <section class="user-section">
+
+            <div class="user-box">
+                <div class="user-info">
+                    <img src="https://i.pravatar.cc/80?img=5" class="avatar big-avatar">
+                    <div>
+                        <h3>Little Learner</h3>
+                        <p>Stars: <span id="starCount">0</span> ⭐</p>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary full-btn" onclick="openKidsModal()">+ I Learned</button>
+            </div>
+
+            <div class="side-card">
+                <h3>Game Guide 🎮</h3>
+                <div class="game-guide">
+                    Drag slider to unlock fun levels!<br><br>
+                    20% = Easy 😄<br>
+                    50% = Medium 😎<br>
+                    80% = Hard 🔥<br>
+                    100% = Master 👑
+                </div>
+            </div>
+
+        </section>
+
     </section>
 
 </main>
 
-
-<div id="postModal" class="modal">
+<!-- 成人版弹窗 -->
+<div class="modal" id="postModal">
     <div class="modal-content">
         <span class="close" onclick="closeModal()">&times;</span>
         <h3>Create Post</h3>
 
-        <input placeholder="Title">
-        <textarea placeholder="Write something..."></textarea>
+        <input id="postTitle" placeholder="Title">
+        <textarea id="postContent" placeholder="Write something..."></textarea>
+        <input type="file" id="postImage" accept="image/*">
 
-
-        <button class="btn btn-primary" onclick="closeModal()">Post</button>
+        <button class="btn btn-primary full-btn" onclick="addPost()">Post</button>
     </div>
 </div>
 
+<!-- 儿童版弹窗 -->
+<div class="modal" id="kidsModal">
+    <div class="modal-content">
+        <span class="close" onclick="closeKidsModal()">&times;</span>
 
-<div id="profilePage" class="profile-page">
-    <button class="btn btn-secondary" onclick="closeProfile()">← Back</button>
-    <h2>Your Profile</h2>
+        <h3>I Learned...</h3>
 
-    <button class="btn btn-primary" onclick="openModal()">+ New Post</button>
+        <select id="kidsTemplate">
+            <option>I learned new words today!</option>
+            <option>I learned math skills today!</option>
+            <option>I learned science facts today!</option>
+            <option>I finished a game challenge!</option>
+        </select>
 
-    <div id="profilePosts"></div>
+        <button class="btn btn-primary full-btn" onclick="addKidsPost()">Share</button>
+
+    </div>
 </div>
 
-<script>
+<div id="toast"></div>
 
-
-    let posts = [];
-    for(let i=1;i<=20;i++){
-        posts.push({
-            title: "Post " + i,
-            content: "This is content of post " + i,
-            likes: 0,
-            comments: []
-        });
-    }
-
-    function renderPosts() {
-        const list = document.getElementById("postList");
-        const my = document.getElementById("myPosts");
-        const profile = document.getElementById("profilePosts");
-
-        list.innerHTML = "";
-        my.innerHTML = "<h4>Your Posts</h4>";
-        profile.innerHTML = "";
-
-        posts.forEach((p, i) => {
-
-            list.innerHTML += `
-            <div class="post-card">
-                <div class="post-header">
-                    <img src="https://i.pravatar.cc/40?img=${i}" class="avatar">
-                    <span>Your Name</span>
-                </div>
-
-                <h4>${p.title}</h4>
-                <p>${p.content}</p>
-
-                <button onclick="likePost(${i})">👍 ${p.likes}</button>
-
-                <div class="comments">
-                    ${p.comments.map(c=>`<div class="comment">${c}</div>`).join("")}
-                    <input placeholder="Write comment..." onkeypress="addComment(event, ${i})">
-                </div>
-            </div>
-            `;
-
-            my.innerHTML += `<div class="user-post-card">${p.title}</div>`;
-            profile.innerHTML += `<div class="user-post-card">${p.title}</div>`;
-        });
-    }
-
-
-    function likePost(i){
-        posts[i].likes++;
-        renderPosts();
-    }
-
-    function addComment(e, i){
-        if(e.key==="Enter"){
-            posts[i].comments.push(e.target.value);
-            renderPosts();
-        }
-    }
-
-    function openModal(){
-        document.getElementById('postModal').style.display='flex';
-    }
-    function closeModal(){
-        document.getElementById('postModal').style.display='none';
-    }
-
-    function openProfile(){
-        document.querySelector('.community-container').style.display='none';
-        document.getElementById('profilePage').style.display='block';
-    }
-    function closeProfile(){
-        document.querySelector('.community-container').style.display='flex';
-        document.getElementById('profilePage').style.display='none';
-    }
-
-    renderPosts();
-
-</script>
-
+<script src="js/community.js"></script>
 </body>
 </html>
