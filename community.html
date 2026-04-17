@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Community</title>
     <link rel="stylesheet" href="community.css">
 </head>
@@ -17,7 +17,7 @@
         </div>
 
         <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
+            <li><a href="homepage.html">Home</a></li>
             <li><a href="learning.html">Learning</a></li>
             <li><a href="games.html">Games</a></li>
             <li><a href="test.html">Tests</a></li>
@@ -25,7 +25,6 @@
         </ul>
 
         <div class="nav-right">
-            <button class="btn btn-secondary" onclick="toggleLanguage()">中文</button>
             <button class="btn btn-secondary" onclick="toggleDarkMode()">🌙</button>
         </div>
     </nav>
@@ -34,18 +33,20 @@
 <main class="community-container">
 
     <section class="posts-section">
+
         <div class="top-bar">
-            <h2 id="exploreTitle">Explore Posts</h2>
+            <h2>Explore Posts</h2>
             <input type="text" id="searchInput" placeholder="Search posts..." onkeyup="searchPosts()">
         </div>
 
         <div class="posts-scroll" id="postList"></div>
+
     </section>
 
     <section class="user-section">
 
         <div class="user-box">
-            <div class="user-info" onclick="openProfile()">
+            <div class="user-info">
                 <img src="https://i.pravatar.cc/80?img=3" class="avatar big-avatar">
                 <div>
                     <h3>Your Name</h3>
@@ -57,18 +58,6 @@
         </div>
 
         <div class="side-card">
-            <h3>🏆 Scoreboard</h3>
-            <div id="scoreboard"></div>
-        </div>
-
-        <div class="side-card">
-            <h3>🌟 Star Learner</h3>
-            <p>Emma</p>
-            <p>12 Quizzes Completed</p>
-            <p>8 Helpful Posts</p>
-        </div>
-
-        <div class="side-card">
             <h3>Your Posts</h3>
             <div id="myPosts"></div>
         </div>
@@ -77,9 +66,10 @@
 
 </main>
 
-<!-- Modal -->
+<!-- MODAL -->
 <div class="modal" id="postModal">
     <div class="modal-content">
+
         <span class="close" onclick="closeModal()">&times;</span>
 
         <h3>Create Post</h3>
@@ -90,26 +80,8 @@
         <input type="file" id="postImage" accept="image/*">
 
         <button class="btn btn-primary full-btn" onclick="addPost()">Post</button>
+
     </div>
-</div>
-
-<!-- Profile -->
-<div id="profilePage" class="profile-page">
-
-    <button class="btn btn-secondary" onclick="closeProfile()">← Back</button>
-
-    <div class="profile-header">
-        <img src="https://i.pravatar.cc/100?img=3" class="avatar profile-avatar">
-        <div>
-            <h2>Your Profile</h2>
-            <p>Gaming + Learning Enthusiast</p>
-        </div>
-    </div>
-
-    <button class="btn btn-primary" onclick="openModal()">+ New Post</button>
-
-    <div id="profilePosts"></div>
-
 </div>
 
 <div id="toast"></div>
