@@ -1,4 +1,4 @@
-<!-- community.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,6 +25,7 @@
         </ul>
 
         <div class="nav-right">
+            <button class="mode-btn" onclick="switchVersion()">👶 Kids Mode</button>
             <button class="btn btn-secondary" onclick="toggleDarkMode()">🌙</button>
         </div>
     </nav>
@@ -32,54 +33,114 @@
 
 <main class="community-container">
 
-    <section class="posts-section">
+    <!-- 成人版 -->
+    <section id="adultVersion" class="version-box">
 
-        <div class="top-bar">
-            <h2>Explore Posts</h2>
-            <input type="text" id="searchInput" placeholder="Search posts..." onkeyup="searchPosts()">
-        </div>
+        <section class="posts-section">
+            <div class="top-bar">
+                <h2>Explore Posts</h2>
+                <input type="text" id="searchInput" placeholder="Search posts..." onkeyup="searchPosts()">
+            </div>
 
-        <div class="posts-scroll" id="postList"></div>
+            <div class="posts-scroll" id="postList"></div>
+        </section>
+
+        <section class="user-section">
+
+            <div class="user-box">
+                <div class="user-info">
+                    <img src="https://i.pravatar.cc/80?img=3" class="avatar big-avatar">
+                    <div>
+                        <h3>Your Name</h3>
+                        <p>Level 5 Learner</p>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary full-btn" onclick="openModal()">+ New Post</button>
+            </div>
+
+            <div class="side-card">
+                <h3>Your Posts</h3>
+                <div id="myPosts"></div>
+            </div>
+
+        </section>
 
     </section>
 
-    <section class="user-section">
+    <!-- 儿童版 -->
+    <section id="kidsVersion" class="version-box" style="display:none;">
 
-        <div class="user-box">
-            <div class="user-info">
-                <img src="https://i.pravatar.cc/80?img=3" class="avatar big-avatar">
-                <div>
-                    <h3>Your Name</h3>
-                    <p>Level 5 Learner</p>
+        <section class="posts-section">
+
+            <div class="top-bar">
+                <h2>Kids Community ⭐</h2>
+            </div>
+
+            <div class="posts-scroll" id="kidsPostList"></div>
+
+        </section>
+
+        <section class="user-section">
+
+            <div class="user-box">
+                <div class="user-info">
+                    <img src="https://i.pravatar.cc/80?img=5" class="avatar big-avatar">
+                    <div>
+                        <h3>Little Learner</h3>
+                        <p>Stars: <span id="starCount">0</span> ⭐</p>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary full-btn" onclick="openKidsModal()">+ I Learned</button>
+            </div>
+
+            <div class="side-card">
+                <h3>Game Guide 🎮</h3>
+                <div class="game-guide">
+                    Drag slider to unlock fun levels!<br><br>
+                    20% = Easy 😄<br>
+                    50% = Medium 😎<br>
+                    80% = Hard 🔥<br>
+                    100% = Master 👑
                 </div>
             </div>
 
-            <button class="btn btn-primary full-btn" onclick="openModal()">+ New Post</button>
-        </div>
-
-        <div class="side-card">
-            <h3>Your Posts</h3>
-            <div id="myPosts"></div>
-        </div>
+        </section>
 
     </section>
 
 </main>
 
-<!-- MODAL -->
+<!-- 成人版弹窗 -->
 <div class="modal" id="postModal">
     <div class="modal-content">
-
         <span class="close" onclick="closeModal()">&times;</span>
-
         <h3>Create Post</h3>
 
         <input id="postTitle" placeholder="Title">
         <textarea id="postContent" placeholder="Write something..."></textarea>
-
         <input type="file" id="postImage" accept="image/*">
 
         <button class="btn btn-primary full-btn" onclick="addPost()">Post</button>
+    </div>
+</div>
+
+<!-- 儿童版弹窗 -->
+<div class="modal" id="kidsModal">
+    <div class="modal-content">
+        <span class="close" onclick="closeKidsModal()">&times;</span>
+
+        <h3>I Learned...</h3>
+
+        <select id="kidsTemplate">
+            <option>I learned new words today!</option>
+            <option>I learned math skills today!</option>
+            <option>I learned science facts today!</option>
+            <option>I finished a game challenge!</option>
+        </select>
+
+        <button class="btn btn-primary full-btn" onclick="addKidsPost()">Share</button>
 
     </div>
 </div>

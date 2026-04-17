@@ -1,4 +1,3 @@
-/* community.css */
 
 *{
 margin:0;
@@ -70,9 +69,11 @@ padding-bottom:4px;
 .nav-right{
 display:flex;
 gap:10px;
+align-items:center;
 }
 
-.btn{
+.btn,
+.mode-btn{
 padding:.7rem 1rem;
 border:none;
 border-radius:8px;
@@ -94,6 +95,15 @@ background:#fff;
 border:1px solid #ddd;
 }
 
+.mode-btn{
+background:#ffcc4d;
+color:#333;
+}
+
+.mode-btn:hover{
+background:#ffb700;
+}
+
 .full-btn{
 width:100%;
 margin-top:10px;
@@ -102,9 +112,12 @@ margin-top:10px;
 .community-container{
 max-width:1200px;
 margin:2rem auto;
+padding:0 1rem;
+}
+
+.version-box{
 display:flex;
 gap:2rem;
-padding:0 1rem;
 }
 
 .posts-section{
@@ -136,6 +149,7 @@ padding-right:8px;
 }
 
 .post-card,
+.kids-card,
 .user-box,
 .side-card{
 background:#fff;
@@ -146,6 +160,7 @@ box-shadow:0 2px 8px rgba(0,0,0,.05);
 }
 
 body.dark .post-card,
+body.dark .kids-card,
 body.dark .user-box,
 body.dark .side-card{
 background:#2a2a2a;
@@ -175,18 +190,21 @@ border-radius:12px;
 margin-top:10px;
 }
 
-.post-actions{
+.post-actions,
+.kids-actions{
 display:flex;
 gap:10px;
 margin-top:10px;
 }
 
 .like-btn,
-.delete-btn{
+.delete-btn,
+.emoji-btn{
 border:none;
-padding:6px 12px;
+padding:8px 14px;
 border-radius:20px;
 cursor:pointer;
+font-size:1rem;
 }
 
 .like-btn{
@@ -195,6 +213,10 @@ background:#eef2ff;
 
 .delete-btn{
 background:#ffeaea;
+}
+
+.emoji-btn{
+background:#fff4d6;
 }
 
 .quality-wrap{
@@ -231,6 +253,11 @@ gap:12px;
 align-items:center;
 }
 
+.game-guide{
+line-height:1.8;
+font-size:.95rem;
+}
+
 .modal{
 display:none;
 position:fixed;
@@ -249,7 +276,8 @@ width:430px;
 }
 
 .modal-content input,
-.modal-content textarea{
+.modal-content textarea,
+.modal-content select{
 width:100%;
 padding:.8rem;
 margin:10px 0;
@@ -283,7 +311,7 @@ z-index:999;
 
 @media(max-width:768px){
 
-.community-container{
+.version-box{
 flex-direction:column;
 }
 
@@ -309,4 +337,69 @@ justify-content:center;
 width:95%;
 }
 
+}
+
+/* ========= Kids Mode Style ========= */
+
+body.kids-mode{
+background:linear-gradient(180deg,#dff6ff,#fef6ff);
+font-family:'Comic Sans MS','Poppins',sans-serif;
+}
+
+body.kids-mode .kids-card,
+body.kids-mode .user-box,
+body.kids-mode .side-card{
+border-radius:24px;
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+border:4px solid white;
+}
+
+body.kids-mode .kids-card{
+background:linear-gradient(135deg,#fff7a8,#ffd6ec);
+padding:22px;
+margin-bottom:18px;
+transition:.25s;
+}
+
+body.kids-mode .kids-card:hover{
+transform:translateY(-6px) scale(1.02);
+}
+
+body.kids-mode h2,
+body.kids-mode h3{
+font-weight:900;
+letter-spacing:.5px;
+}
+
+body.kids-mode .emoji-btn{
+background:white;
+border:none;
+padding:12px 18px;
+font-size:1rem;
+border-radius:50px;
+box-shadow:0 4px 10px rgba(0,0,0,.08);
+}
+
+body.kids-mode .btn-primary{
+background:linear-gradient(90deg,#ff9f43,#ffcc33);
+color:#333;
+font-weight:900;
+border-radius:18px;
+}
+
+body.kids-mode .side-card{
+background:linear-gradient(135deg,#d8f3ff,#ffffff);
+}
+
+body.kids-mode .user-box{
+background:linear-gradient(135deg,#ffd6ec,#fff4a8);
+}
+
+body.kids-mode .posts-scroll{
+padding-right:10px;
+}
+
+body.kids-mode .top-bar h2{
+font-size:2rem;
+color:#ff7b00;
 }
