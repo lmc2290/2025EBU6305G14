@@ -403,3 +403,77 @@ body.kids-mode .top-bar h2{
 font-size:2rem;
 color:#ff7b00;
 }
+
+/* ========= Comment System ========= */
+
+.comment-box{
+margin-top:14px;
+padding:14px;
+background:#f8f9fc;
+border-radius:12px;
+border:1px solid #eef1f5;
+}
+
+body.dark .comment-box{
+background:#333;
+border-color:#444;
+}
+
+.comment-list{
+max-height:180px;
+overflow-y:auto;
+margin-bottom:12px;
+}
+
+.comment-item{
+padding:10px 12px;
+background:#fff;
+border-radius:10px;
+margin-bottom:8px;
+font-size:.95rem;
+line-height:1.5;
+box-shadow:0 1px 4px rgba(0,0,0,.04);
+}
+
+body.dark .comment-item{
+background:#2a2a2a;
+}
+
+.no-comment{
+font-size:.9rem;
+opacity:.7;
+padding:8px 0;
+}
+
+.comment-input-wrap{
+display:flex;
+gap:10px;
+align-items:center;
+}
+
+.comment-input{
+flex:1;
+padding:.75rem 1rem;
+border:1px solid #ddd;
+border-radius:10px;
+font-size:.95rem;
+outline:none;
+transition:.2s;
+}
+
+.comment-input:focus{
+border-color:#007bff;
+box-shadow:0 0 0 3px rgba(0,123,255,.08);
+}
+
+body.dark .comment-input{
+background:#222;
+border-color:#555;
+color:#fff;
+}
+
+.comment-input-wrap .btn{
+padding:.75rem 1.1rem;
+border-radius:10px;
+white-space:nowrap;
+}
