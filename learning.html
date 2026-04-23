@@ -6,7 +6,6 @@
   <title>Educational Website - Introduction to Compression</title>
 
   <link rel="stylesheet" href="styles.css">
-
   <link rel="stylesheet" href="learning.css">
 </head>
 <body>
@@ -15,7 +14,7 @@
   <header>
     <h1>Learning with Games</h1>
     <div class="nav-links">
-      <a href="homepage.html">Home</a>
+      <a href="index.html">Home</a>
       <a href="learning.html" class="active">Learning</a>
       <a href="games.html">Games</a>
       <a href="test.html">Tests</a>
@@ -31,48 +30,70 @@
     <aside>
       <h3>Topics</h3>
       <ul>
-        <li class="active">Introduction to Compression</li>
-        <li>Lossy vs. Lossless</li>
-        <li>Image Compression Techniques</li>
-        <li>Video Compression</li>
-        <li>Audio Compression</li>
+        <li class="active"><a href="learning.html">Introduction to Compression</a></li>
+        <li><a href="lossy.html">Lossy vs. Lossless</a></li>
+        <li><a href="image-techniques.html">Image Compression Techniques</a></li>
+        <li><a href="video.html">Video Compression</a></li>
+        <li><a href="audio.html">Audio Compression</a></li>
       </ul>
     </aside>
 
     <main>
+      <div class="mode-toggle-container">
+        <span class="mode-label">🎓 Pro Mode</span>
+        <label class="switch">
+          <input type="checkbox" id="kids-mode-toggle">
+          <span class="slider round"></span>
+        </label>
+        <span class="mode-label">🧸 Kids Mode</span>
+      </div>
+
       <h2>Introduction to Compression</h2>
-      <p>Compression is the process of encoding information using fewer bits than the original representation. It's a fundamental concept in digital technology, allowing us to store and transmit data more efficiently. Think of it as packing a suitcase — you want to fit as much as possible while taking up the least amount of space.</p>
+
+      <div class="pro-content">
+        <p>Compression is the process of encoding information using fewer bits than the original representation. It's a fundamental concept in digital technology, allowing us to store and transmit data more efficiently. Think of it as packing a suitcase — you want to fit as much as possible while taking up the least amount of space.</p>
+      </div>
+
+      <div class="kids-content">
+        <p>Imagine packing for a magical holiday! 🧳 You want to fit all your favorite toys into one small suitcase. <strong>Compression</strong> is like magically shrinking your stuff so it all fits perfectly, making your bag super light to carry! ✨</p>
+      </div>
 
       <h3>Why is Compression Important?</h3>
-      <p>In today's digital world, we deal with vast amounts of data, from high-resolution images and videos to complex software. Without compression, storing and sharing this data would be incredibly slow and expensive. Compression helps in:</p>
-      <ul>
-        <li>Reducing storage space on devices and servers.</li>
-        <li>Speeding up data transmission over networks (e.g., faster website loading).</li>
-        <li>Lowering bandwidth requirements.</li>
-      </ul>
-
-      <h3>How Does it Work?</h3>
-      <p>At its core, compression works by identifying and removing redundant information. For example, in an image, if a large area is the same color, instead of storing the color information for every single pixel in that area, compression algorithms can store the color once and note how many times it repeats.</p>
+      <div class="pro-content">
+        <ul>
+          <li>Reducing storage space on devices and servers.</li>
+          <li>Speeding up data transmission over networks.</li>
+        </ul>
+      </div>
+      <div class="kids-content">
+        <ul>
+          <li>📱 It saves space on your iPad so you can download more games!</li>
+          <li>🚀 It makes YouTube videos load super fast!</li>
+        </ul>
+      </div>
 
       <div class="placeholder-box">
-        Placeholder for Image/Diagram/Animation (V2 Slider Goes Here)
+        <p>[Interactive Image Slider - Drag to see compression effect]</p>
       </div>
 
       <h3>Interactive Mini-Quiz</h3>
       <div class="quiz-section">
-        <p><strong>What is the primary goal of data compression?</strong></p>
+        <p class="pro-content"><strong>What is the primary goal of data compression?</strong></p>
+        <p class="kids-content"><strong>Why do we use compression magic? 🪄</strong></p>
 
         <label class="quiz-option">
-          <input type="radio" name="quiz1" value="security"> To increase data security
+          <input type="radio" name="quiz1" value="security">
+          <span class="pro-content">To increase data security</span>
+          <span class="kids-content">To hide secrets from pirates 🏴‍☠️</span>
         </label>
         <label class="quiz-option">
-          <input type="radio" name="quiz1" value="efficiency"> To reduce file size and improve efficiency
-        </label>
-        <label class="quiz-option">
-          <input type="radio" name="quiz1" value="formats"> To convert data into different formats
+          <input type="radio" name="quiz1" value="efficiency">
+          <span class="pro-content">To reduce file size and improve efficiency</span>
+          <span class="kids-content">To make files smaller and send them faster 🚀</span>
         </label>
 
         <button class="btn-primary" id="check-answer-btn">Check Answer</button>
+        <div id="quiz-feedback" style="margin-top: 15px; font-weight: bold;"></div>
       </div>
 
       <div class="bottom-nav">

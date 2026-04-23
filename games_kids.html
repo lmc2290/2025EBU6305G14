@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Compression</title>
+  <style>
+  </style>
+  <link rel="stylesheet" href="./games_kids.css">
+</head>
+<body>
+
+<header>
+  <div class="logo">🎈 Let's Discover! </div>
+  <a href="games.html" class="back-btn">⬅️ professional ver.</a>
+</header>
+
+<div class="container">
+  <h1>✨ Magical Compression</h1>
+  <p class="subtitle">Slide the block️</p>
+
+  <div class="game-board">
+
+    <div class="status-area">
+      <div class="status-box">
+        <span>clarity</span>
+        <span class="emoji-display" id="face-emoji">🤩</span>
+      </div>
+      <div class="status-box">
+        <span>size</span>
+        <div style="font-size: 40px; margin-top: 15px;">
+          🎒 <span id="size-text" style="color: #ee5253; font-size: 30px;">100%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="canvas-container">
+      <div class="upload-ui" id="upload-ui">
+        📸 upload a pic! <br>
+        <input type="file" id="imageLoader" accept="image/*">
+      </div>
+      <canvas id="gameCanvas"></canvas>
+    </div>
+
+    <div class="magic-slider-container">
+      <div class="slider-labels">
+        <span>📦 Tiny Size (Blurry)</span>
+        <span>🌟 Best Quality (Heavy)</span>
+      </div>
+      <input type="range" id="magicSlider" min="1" max="100" value="100">
+    </div>
+
+  </div>
+</div>
+
+<script src="./games_kids.js">
+</script>
+</body>
+</html>
