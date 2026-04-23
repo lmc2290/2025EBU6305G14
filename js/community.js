@@ -41,7 +41,6 @@ function renderPosts(data = posts) {
   data.forEach((p, i) => {
     if (!p.comments) p.comments = [];
 
-    /* 兼容旧字符串评论数据 */
     p.comments = p.comments.map(c => {
       if (typeof c === "string") {
         return { user: "You", text: c };
@@ -128,12 +127,10 @@ function renderPosts(data = posts) {
         </div>
 
         <div class="comment-input-wrap">
-          <input
-            type="text"
+          <input type="text"
             id="commentInput-${i}"
             class="comment-input"
-            placeholder="Write a comment..."
-          >
+            placeholder="Write a comment...">
 
           <button class="btn btn-primary" onclick="addComment(${i})">
             Send
@@ -173,6 +170,7 @@ function addPost() {
 
       savePosts();
       renderPosts();
+      renderLeaderboard();
       closeModal();
       clearInputs();
       showToast("Post created");
@@ -190,21 +188,18 @@ function addPost() {
 
     savePosts();
     renderPosts();
+    renderLeaderboard();
     closeModal();
     clearInputs();
     showToast("Post created");
   }
 }
 
-/* ---------- 评论系统 ---------- */
+/* ---------- 评论 ---------- */
 function toggleComments(i) {
   const box = document.getElementById(`commentBox-${i}`);
-
-  if (box.style.display === "none") {
-    box.style.display = "block";
-  } else {
-    box.style.display = "none";
-  }
+  box.style.display =
+    box.style.display === "none" ? "block" : "none";
 }
 
 function addComment(i) {
@@ -223,6 +218,7 @@ function addComment(i) {
 
   savePosts();
   renderPosts();
+  renderLeaderboard();
 
   setTimeout(() => {
     document.getElementById(`commentBox-${i}`).style.display = "block";
@@ -241,6 +237,7 @@ function deleteComment(postIndex, commentIndex) {
 
     savePosts();
     renderPosts();
+    renderLeaderboard();
 
     setTimeout(() => {
       document.getElementById(`commentBox-${postIndex}`).style.display =
@@ -256,6 +253,7 @@ function likePost(i) {
   posts[i].likes++;
   savePosts();
   renderPosts();
+  renderLeaderboard();
 }
 
 function deletePost(i) {
@@ -263,15 +261,14 @@ function deletePost(i) {
     posts.splice(i, 1);
     savePosts();
     renderPosts();
+    renderLeaderboard();
     showToast("Deleted");
   }
 }
 
 /* ---------- 搜索 ---------- */
 function searchPosts() {
-  const key = document
-    .getElementById("searchInput")
-    .value.toLowerCase();
+  const key = document.getElementById("searchInput").value.toLowerCase();
 
   const result = posts.filter(
     p =>
@@ -359,7 +356,6 @@ function renderKidsPosts() {
   }
 
   starText.innerText = stars;
-
   box.innerHTML = "";
 
   kidsPosts.forEach((p, i) => {
@@ -399,6 +395,7 @@ function addKidsPost() {
 
   savePosts();
   renderKidsPosts();
+  renderLeaderboard();
   closeKidsModal();
   showToast("Great job! +1 Star ⭐");
 }
@@ -410,6 +407,79 @@ function emojiLike(i, type) {
 
   savePosts();
   renderKidsPosts();
+}
+
+/* ---------- 排行榜 ---------- */
+function renderLeaderboard() {
+  const board = document.getElementById("leaderboard");
+  const kidsBoard = document.getElementById("kidsLeaderboard");
+
+  if (!board || !kidsBoard) return;
+
+  let totalLikes = 0;
+  let totalComments = 0;
+
+  posts.forEach(p => {
+    totalLikes += p.likes || 0;
+    totalComments += p.comments ? p.comments.length : 0;
+  });
+
+  const yourScore =
+    posts.length * 5 +
+    totalLikes * 2 +
+    totalComments * 3;
+
+  let users = [
+    { name: "Amy", score: 32 },
+    { name: "Tom", score: 26 },
+    { name: "Jack", score: 18 },
+    { name: "You", score: yourScore }
+  ];
+
+  users.sort((a, b) => b.score - a.score);
+
+  board.innerHTML = users.map((u, i) => {
+    let medal = "🏅";
+    if (i === 0) medal = "🥇";
+    else if (i === 1) medal = "🥈";
+    else if (i === 2) medal = "🥉";
+
+    return `
+      <div class="rank-row ${u.name === "You" ? "me-row" : ""}">
+        <div class="rank-left">
+          <span class="rank-medal">${medal}</span>
+          <span>${u.name}</span>
+        </div>
+        <strong>${u.score}</strong>
+      </div>
+    `;
+  }).join("");
+
+  let kids = [
+    { name: "Amy", score: 14 },
+    { name: "Ben", score: 11 },
+    { name: "Mia", score: 9 },
+    { name: "You", score: stars }
+  ];
+
+  kids.sort((a, b) => b.score - a.score);
+
+  kidsBoard.innerHTML = kids.map((u, i) => {
+    let medal = "⭐";
+    if (i === 0) medal = "👑";
+    else if (i === 1) medal = "🌟";
+    else if (i === 2) medal = "✨";
+
+    return `
+      <div class="rank-row ${u.name === "You" ? "me-row kids-me" : ""}">
+        <div class="rank-left">
+          <span class="rank-medal">${medal}</span>
+          <span>${u.name}</span>
+        </div>
+        <strong>${u.score}</strong>
+      </div>
+    `;
+  }).join("");
 }
 
 /* ---------- 模式切换 ---------- */
@@ -469,3 +539,4 @@ function calcSize(base64) {
 /* ---------- 初始化 ---------- */
 renderPosts();
 renderKidsPosts();
+renderLeaderboard();
