@@ -12,14 +12,13 @@
 
 <div class="container">
   <header>
-    <h1>Learning with Games</h1>
-    <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="learning.html" class="active">Learning</a>
-      <a href="games.html">Games</a>
-      <a href="test.html">Tests</a>
-      <a href="community.html">Community</a>
-    </div>
+    <div class="logo">Learning with Games</div> <nav>
+    <a href="homepage.html">Home</a>
+    <a href="learning.html" class="active">Learning</a>
+    <a href="games.html">Games</a>
+    <a href="test.html">Tests</a>
+    <a href="community.html">Community</a>
+  </nav>
   </header>
 
   <div class="breadcrumbs">
@@ -72,8 +71,15 @@
         </ul>
       </div>
 
-      <div class="placeholder-box">
-        <p>[Interactive Image Slider - Drag to see compression effect]</p>
+      <div class="image-slider-container">
+        <img src="https://images.unsplash.com/photo-1494500764479-0c8f2919a3d8?q=80&w=1000" alt="Compressed Image" class="image-low-res">
+
+        <img src="https://images.unsplash.com/photo-1494500764479-0c8f2919a3d8?q=80&w=1000" alt="Original Image" class="image-high-res" id="slider-high-res">
+
+        <input type="range" min="0" max="100" value="50" class="slider-control" id="compression-slider">
+
+        <div class="slider-label label-left">Highly Compressed (Lossy)</div>
+        <div class="slider-label label-right">Original 4K Quality</div>
       </div>
 
       <h3>Interactive Mini-Quiz</h3>
@@ -97,8 +103,8 @@
       </div>
 
       <div class="bottom-nav">
-        <button class="btn-secondary">← Previous Topic</button>
-        <button class="btn-primary">Next Topic →</button>
+        <div></div>
+        <a href="lossy.html"><button class="btn-primary">Next: Lossy vs Lossless →</button></a>
       </div>
     </main>
   </div>
