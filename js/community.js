@@ -1,4 +1,3 @@
-
 let posts = JSON.parse(localStorage.getItem("posts")) || [];
 let kidsPosts = JSON.parse(localStorage.getItem("kidsPosts")) || [];
 let stars = Number(localStorage.getItem("stars")) || 0;
@@ -11,7 +10,11 @@ if (posts.length === 0) {
       title: "Welcome Post",
       content: "Upload original image and preview smart compression.",
       likes: 0,
-      image: ""
+      image: "",
+      comments: [
+        { user: "Amy", text: "Great feature!" },
+        { user: "Tom", text: "Looks useful!" }
+      ]
     }
   ];
 }
@@ -36,6 +39,31 @@ function renderPosts(data = posts) {
   my.innerHTML = "";
 
   data.forEach((p, i) => {
+    if (!p.comments) p.comments = [];
+
+    p.comments = p.comments.map(c => {
+      if (typeof c === "string") {
+        return { user: "You", text: c };
+      }
+      return c;
+    });
+
+    const commentHTML =
+      p.comments.length === 0
+        ? `<p class="no-comment">No comments yet</p>`
+        : p.comments
+            .map((c, index) => `
+              <div class="comment-item">
+                <span><strong>${c.user}:</strong> ${c.text}</span>
+                ${
+                  c.user === "You"
+                    ? `<button class="mini-delete" onclick="deleteComment(${i},${index})">🗑</button>`
+                    : ""
+                }
+              </div>
+            `)
+            .join("");
+
     list.innerHTML += `
     <div class="post-card">
 
@@ -62,11 +90,11 @@ function renderPosts(data = posts) {
         </div>
 
         <input type="range"
-        min="20"
-        max="100"
-        value="100"
-        class="quality-slider"
-        oninput="changeQuality(${i},this.value)">
+          min="20"
+          max="100"
+          value="100"
+          class="quality-slider"
+          oninput="changeQuality(${i},this.value)">
 
         <div class="quality-info">
           <div>Original Size:
@@ -89,7 +117,25 @@ function renderPosts(data = posts) {
 
       <div class="post-actions">
         <button class="like-btn" onclick="likePost(${i})">👍 ${p.likes}</button>
+        <button class="like-btn" onclick="toggleComments(${i})">💬 ${p.comments.length}</button>
         <button class="delete-btn" onclick="deletePost(${i})">🗑</button>
+      </div>
+
+      <div class="comment-box" id="commentBox-${i}" style="display:none;">
+        <div class="comment-list">
+          ${commentHTML}
+        </div>
+
+        <div class="comment-input-wrap">
+          <input type="text"
+            id="commentInput-${i}"
+            class="comment-input"
+            placeholder="Write a comment...">
+
+          <button class="btn btn-primary" onclick="addComment(${i})">
+            Send
+          </button>
+        </div>
       </div>
 
     </div>
@@ -99,7 +145,7 @@ function renderPosts(data = posts) {
   });
 }
 
-/* ---------- 成人版发帖 ---------- */
+/* ---------- 发帖 ---------- */
 function addPost() {
   const title = document.getElementById("postTitle").value.trim();
   const content = document.getElementById("postContent").value.trim();
@@ -118,11 +164,13 @@ function addPost() {
         title,
         content,
         likes: 0,
-        image: e.target.result
+        image: e.target.result,
+        comments: []
       });
 
       savePosts();
       renderPosts();
+      renderLeaderboard();
       closeModal();
       clearInputs();
       showToast("Post created");
@@ -134,18 +182,104 @@ function addPost() {
       title,
       content,
       likes: 0,
-      image: ""
+      image: "",
+      comments: []
     });
 
     savePosts();
     renderPosts();
+    renderLeaderboard();
     closeModal();
     clearInputs();
     showToast("Post created");
   }
 }
 
-/* ---------- 成人版压缩 ---------- */
+/* ---------- 评论 ---------- */
+function toggleComments(i) {
+  const box = document.getElementById(`commentBox-${i}`);
+  box.style.display =
+    box.style.display === "none" ? "block" : "none";
+}
+
+function addComment(i) {
+  const input = document.getElementById(`commentInput-${i}`);
+  const text = input.value.trim();
+
+  if (!text) {
+    showToast("Write something first");
+    return;
+  }
+
+  posts[i].comments.push({
+    user: "You",
+    text: text
+  });
+
+  savePosts();
+  renderPosts();
+  renderLeaderboard();
+
+  setTimeout(() => {
+    document.getElementById(`commentBox-${i}`).style.display = "block";
+  }, 50);
+
+  showToast("Comment added");
+}
+
+function deleteComment(postIndex, commentIndex) {
+  const comment = posts[postIndex].comments[commentIndex];
+
+  if (comment.user !== "You") return;
+
+  if (confirm("Delete this comment?")) {
+    posts[postIndex].comments.splice(commentIndex, 1);
+
+    savePosts();
+    renderPosts();
+    renderLeaderboard();
+
+    setTimeout(() => {
+      document.getElementById(`commentBox-${postIndex}`).style.display =
+        "block";
+    }, 50);
+
+    showToast("Comment deleted");
+  }
+}
+
+/* ---------- 点赞/删帖 ---------- */
+function likePost(i) {
+  posts[i].likes++;
+  savePosts();
+  renderPosts();
+  renderLeaderboard();
+}
+
+function deletePost(i) {
+  if (confirm("Delete this post?")) {
+    posts.splice(i, 1);
+    savePosts();
+    renderPosts();
+    renderLeaderboard();
+    showToast("Deleted");
+  }
+}
+
+/* ---------- 搜索 ---------- */
+function searchPosts() {
+  const key = document.getElementById("searchInput").value.toLowerCase();
+
+  const result = posts.filter(
+    p =>
+      p.title.toLowerCase().includes(key) ||
+      p.content.toLowerCase().includes(key)
+  );
+
+  renderPosts(result);
+}
+
+/* ---------- 图片压缩 ---------- */
 function changeQuality(index, quality) {
   const original = posts[index].image;
 
@@ -203,36 +337,6 @@ function smartCompress(src, quality, callback) {
   img.src = src;
 }
 
-/* ---------- 成人版功能 ---------- */
-function likePost(i) {
-  posts[i].likes++;
-  savePosts();
-  renderPosts();
-}
-
-function deletePost(i) {
-  if (confirm("Delete this post?")) {
-    posts.splice(i, 1);
-    savePosts();
-    renderPosts();
-    showToast("Deleted");
-  }
-}
-
-function searchPosts() {
-  const key = document
-    .getElementById("searchInput")
-    .value.toLowerCase();
-
-  const result = posts.filter(
-    p =>
-      p.title.toLowerCase().includes(key) ||
-      p.content.toLowerCase().includes(key)
-  );
-
-  renderPosts(result);
-}
-
 /* ---------- 儿童版 ---------- */
 function renderKidsPosts() {
   const box = document.getElementById("kidsPostList");
@@ -247,41 +351,16 @@ function renderKidsPosts() {
         happy: 2,
         love: 1,
         star: 3
-      },
-      {
-        text: "I finished a game challenge!",
-        happy: 4,
-        love: 2,
-        star: 5
       }
     ];
   }
 
   starText.innerText = stars;
-
-  let badges = "";
-
-  if (kidsPosts.length >= 1) badges += `<span class="badge">⭐ First Post</span>`;
-  if (stars >= 5) badges += `<span class="badge">🌟 5 Stars</span>`;
-  if (stars >= 10) badges += `<span class="badge">👑 Super Learner</span>`;
-
-  box.innerHTML = `
-    <div class="kids-welcome">
-      <h2>🌈 Welcome Little Learner!</h2>
-      <p>Today Goal Progress</p>
-      <div class="progress-bar">
-        <div class="progress-fill" style="width:${Math.min(
-          stars * 10,
-          100
-        )}%"></div>
-      </div>
-      <div class="badge-wrap">${badges}</div>
-    </div>
-  `;
+  box.innerHTML = "";
 
   kidsPosts.forEach((p, i) => {
     box.innerHTML += `
-    <div class="kids-card rainbow-card">
+    <div class="kids-card">
       <h3>${p.text}</h3>
 
       <div class="kids-actions">
@@ -312,10 +391,11 @@ function addKidsPost() {
     star: 0
   });
 
-  stars += 1;
+  stars++;
 
   savePosts();
   renderKidsPosts();
+  renderLeaderboard();
   closeKidsModal();
   showToast("Great job! +1 Star ⭐");
 }
@@ -327,6 +407,79 @@ function emojiLike(i, type) {
 
   savePosts();
   renderKidsPosts();
+}
+
+/* ---------- 排行榜 ---------- */
+function renderLeaderboard() {
+  const board = document.getElementById("leaderboard");
+  const kidsBoard = document.getElementById("kidsLeaderboard");
+
+  if (!board || !kidsBoard) return;
+
+  let totalLikes = 0;
+  let totalComments = 0;
+
+  posts.forEach(p => {
+    totalLikes += p.likes || 0;
+    totalComments += p.comments ? p.comments.length : 0;
+  });
+
+  const yourScore =
+    posts.length * 5 +
+    totalLikes * 2 +
+    totalComments * 3;
+
+  let users = [
+    { name: "Amy", score: 32 },
+    { name: "Tom", score: 26 },
+    { name: "Jack", score: 18 },
+    { name: "You", score: yourScore }
+  ];
+
+  users.sort((a, b) => b.score - a.score);
+
+  board.innerHTML = users.map((u, i) => {
+    let medal = "🏅";
+    if (i === 0) medal = "🥇";
+    else if (i === 1) medal = "🥈";
+    else if (i === 2) medal = "🥉";
+
+    return `
+      <div class="rank-row ${u.name === "You" ? "me-row" : ""}">
+        <div class="rank-left">
+          <span class="rank-medal">${medal}</span>
+          <span>${u.name}</span>
+        </div>
+        <strong>${u.score}</strong>
+      </div>
+    `;
+  }).join("");
+
+  let kids = [
+    { name: "Amy", score: 14 },
+    { name: "Ben", score: 11 },
+    { name: "Mia", score: 9 },
+    { name: "You", score: stars }
+  ];
+
+  kids.sort((a, b) => b.score - a.score);
+
+  kidsBoard.innerHTML = kids.map((u, i) => {
+    let medal = "⭐";
+    if (i === 0) medal = "👑";
+    else if (i === 1) medal = "🌟";
+    else if (i === 2) medal = "✨";
+
+    return `
+      <div class="rank-row ${u.name === "You" ? "me-row kids-me" : ""}">
+        <div class="rank-left">
+          <span class="rank-medal">${medal}</span>
+          <span>${u.name}</span>
+        </div>
+        <strong>${u.score}</strong>
+      </div>
+    `;
+  }).join("");
 }
 
 /* ---------- 模式切换 ---------- */
@@ -342,7 +495,6 @@ function switchVersion() {
   document.querySelector(".mode-btn").innerText =
     kidsMode ? "🧑 Adult Mode" : "👶 Kids Mode";
 
-  /* 关键：切换主题 */
   document.body.classList.toggle("kids-mode", kidsMode);
 }
 
@@ -387,3 +539,4 @@ function calcSize(base64) {
 /* ---------- 初始化 ---------- */
 renderPosts();
 renderKidsPosts();
+renderLeaderboard();
