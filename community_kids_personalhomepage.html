@@ -1,4 +1,3 @@
-<!-- community_kids_personalhomepage.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,9 +24,15 @@
     <!-- 顶部资料 -->
     <section class="kids-profile">
 
-        <img src="https://i.pravatar.cc/120?img=5" class="avatar-large">
+        <!-- 点击头像 -->
+        <img id="kidsAvatar"
+             src="https://i.pravatar.cc/120?img=5"
+             class="avatar-large"
+             onclick="editKidsProfile()">
 
-        <h2>Little Learner</h2>
+        <!-- 点击名字 -->
+        <h2 id="kidsName" onclick="editKidsProfile()">Little Learner</h2>
+
         <p>Keep Growing Every Day!</p>
 
         <div class="stats">
@@ -79,5 +84,6 @@
 </main>
 
 <script src="js/community_kids_personalhomepage.js"></script>
+
 </body>
 </html>

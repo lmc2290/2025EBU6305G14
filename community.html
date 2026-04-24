@@ -11,6 +11,7 @@
 
 <header>
     <nav>
+
         <div class="logo">
             <h1>Learning with Games</h1>
         </div>
@@ -27,17 +28,16 @@
             <button class="mode-btn" onclick="switchVersion()">👶 Kids Mode</button>
             <button class="btn btn-secondary" onclick="toggleDarkMode()">🌙</button>
         </div>
+
     </nav>
 </header>
 
 <main class="community-container">
 
-    <!-- ===================================================
-    成人版
-    =================================================== -->
+    <!-- 成人版 -->
     <section id="adultVersion" class="version-box">
 
-        <!-- 左侧帖子区 -->
+        <!-- 左侧帖子 -->
         <section class="posts-section">
 
             <div class="top-bar">
@@ -54,66 +54,55 @@
 
         </section>
 
-
-        <!-- 右侧用户区 -->
+        <!-- 成人右侧 -->
         <section class="user-section">
 
-            <!-- 用户信息（点击跳转成人主页） -->
             <div class="user-box">
 
                 <div class="user-info clickable-profile"
-                     onclick="location.href='community_personalhomepage.html'">
+                     onclick="goAdultProfile()">
 
-                    <img src="https://i.pravatar.cc/80?img=3"
-                         class="avatar big-avatar">
+                    <img
+                            id="adultHomeAvatar"
+                            src="https://i.pravatar.cc/80?img=3"
+                            class="avatar big-avatar">
 
                     <div>
-                        <h3>Your Name</h3>
+                        <h3 id="adultHomeName">Your Name</h3>
                         <p>Level 5 Learner</p>
                     </div>
 
                 </div>
 
-                <button class="btn btn-primary full-btn"
-                        onclick="openModal()">
-                    + New Post
-                </button>
+                <button
+                        class="btn btn-primary full-btn"
+                        onclick="openModal()">+ New Post</button>
 
             </div>
-
 
             <!-- 排行榜 -->
             <div class="side-card leaderboard-card">
-
                 <h3>🏆 Leaderboard</h3>
-
                 <div id="leaderboard"></div>
-
             </div>
-
 
             <!-- 我的帖子 -->
             <div class="side-card">
-
                 <h3>Your Posts</h3>
-
                 <div id="myPosts"></div>
-
             </div>
 
         </section>
 
     </section>
 
+    <!-- 儿童版 -->
+    <section
+            id="kidsVersion"
+            class="version-box"
+            style="display:none;">
 
-    <!-- ===================================================
-    儿童版
-    =================================================== -->
-    <section id="kidsVersion"
-             class="version-box"
-             style="display:none;">
-
-        <!-- 左侧帖子 -->
+        <!-- 左侧 -->
         <section class="posts-section">
 
             <div class="top-bar">
@@ -124,50 +113,40 @@
 
         </section>
 
-
         <!-- 右侧 -->
         <section class="user-section">
 
-            <!-- 点击跳转儿童主页 -->
             <div class="user-box">
 
                 <div class="user-info clickable-profile"
-                     onclick="location.href='community_kids_personalhomepage.html'">
+                     onclick="goKidsProfile()">
 
-                    <img src="https://i.pravatar.cc/80?img=5"
-                         class="avatar big-avatar">
+                    <img
+                            id="kidsHomeAvatar"
+                            src="https://i.pravatar.cc/80?img=5"
+                            class="avatar big-avatar">
 
                     <div>
-                        <h3>Little Learner</h3>
-                        <p>
-                            Stars:
-                            <span id="starCount">0</span> ⭐
-                        </p>
+                        <h3 id="kidsHomeName">Little Learner</h3>
+                        <p>Stars: <span id="starCount">0</span> ⭐</p>
                     </div>
 
                 </div>
 
-                <button class="btn btn-primary full-btn"
-                        onclick="openKidsModal()">
-                    + I Learned
-                </button>
+                <button
+                        class="btn btn-primary full-btn"
+                        onclick="openKidsModal()">+ I Learned</button>
 
             </div>
-
 
             <!-- 儿童排行榜 -->
             <div class="side-card leaderboard-card kids-rank">
-
                 <h3>🌟 Star Ranking</h3>
-
                 <div id="kidsLeaderboard"></div>
-
             </div>
-
 
             <!-- 游戏说明 -->
             <div class="side-card">
-
                 <h3>Game Guide 🎮</h3>
 
                 <div class="game-guide">
@@ -185,52 +164,44 @@
 
 </main>
 
-
-<!-- ===================================================
-成人发帖弹窗
-=================================================== -->
+<!-- 成人发帖弹窗 -->
 <div class="modal" id="postModal">
 
     <div class="modal-content">
 
-        <span class="close"
-              onclick="closeModal()">
-              &times;
-        </span>
+<span class="close"
+      onclick="closeModal()">&times;</span>
 
         <h3>Create Post</h3>
 
-        <input id="postTitle"
-               placeholder="Title">
+        <input
+                id="postTitle"
+                placeholder="Title">
 
-        <textarea id="postContent"
-                  placeholder="Write something..."></textarea>
+        <textarea
+                id="postContent"
+                placeholder="Write something..."></textarea>
 
-        <input type="file"
-               id="postImage"
-               accept="image/*">
+        <input
+                type="file"
+                id="postImage"
+                accept="image/*">
 
-        <button class="btn btn-primary full-btn"
-                onclick="addPost()">
-            Post
-        </button>
+        <button
+                class="btn btn-primary full-btn"
+                onclick="addPost()">Post</button>
 
     </div>
 
 </div>
 
-
-<!-- ===================================================
-儿童发帖弹窗
-=================================================== -->
+<!-- 儿童发帖弹窗 -->
 <div class="modal" id="kidsModal">
 
     <div class="modal-content">
 
-        <span class="close"
-              onclick="closeKidsModal()">
-              &times;
-        </span>
+<span class="close"
+      onclick="closeKidsModal()">&times;</span>
 
         <h3>I Learned...</h3>
 
@@ -241,20 +212,56 @@
             <option>I finished a game challenge!</option>
         </select>
 
-        <button class="btn btn-primary full-btn"
-                onclick="addKidsPost()">
-            Share
-        </button>
+        <button
+                class="btn btn-primary full-btn"
+                onclick="addKidsPost()">Share</button>
 
     </div>
 
 </div>
 
-
-<!-- Toast -->
 <div id="toast"></div>
 
-
 <script src="js/community.js"></script>
+
+<script>
+    function goAdultProfile(){
+    location.href="community_personalhomepage.html";
+    }
+
+    function goKidsProfile(){
+    location.href="community_kids_personalhomepage.html";
+    }
+
+    /* 同步资料 */
+    function loadProfiles(){
+
+    let adultName = localStorage.getItem("adultName");
+    let adultAvatar = localStorage.getItem("adultAvatar");
+
+    if(adultName){
+    document.getElementById("adultHomeName").innerText = adultName;
+    }
+
+    if(adultAvatar){
+    document.getElementById("adultHomeAvatar").src = adultAvatar;
+    }
+
+    let kidsName = localStorage.getItem("kidsName");
+    let kidsAvatar = localStorage.getItem("kidsAvatar");
+
+    if(kidsName){
+    document.getElementById("kidsHomeName").innerText = kidsName;
+    }
+
+    if(kidsAvatar){
+    document.getElementById("kidsHomeAvatar").src = kidsAvatar;
+    }
+
+    }
+
+    loadProfiles();
+</script>
+
 </body>
 </html>

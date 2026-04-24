@@ -18,7 +18,6 @@ if (posts.length === 0) {
     }
   ];
 }
-
 savePosts();
 
 /* ---------- SAVE ---------- */
@@ -32,7 +31,6 @@ function savePosts() {
 function renderPosts(data = posts) {
   const list = document.getElementById("postList");
   const my = document.getElementById("myPosts");
-
   if (!list || !my) return;
 
   list.innerHTML = "";
@@ -40,7 +38,6 @@ function renderPosts(data = posts) {
 
   data.forEach((p, i) => {
     if (!p.comments) p.comments = [];
-
     p.comments = p.comments.map(c => {
       if (typeof c === "string") {
         return { user: "You", text: c };
@@ -48,97 +45,57 @@ function renderPosts(data = posts) {
       return c;
     });
 
-    const commentHTML =
-      p.comments.length === 0
-        ? `<p class="no-comment">No comments yet</p>`
-        : p.comments
-            .map((c, index) => `
-              <div class="comment-item">
-                <span><strong>${c.user}:</strong> ${c.text}</span>
-                ${
-                  c.user === "You"
-                    ? `<button class="mini-delete" onclick="deleteComment(${i},${index})">🗑</button>`
-                    : ""
-                }
-              </div>
-            `)
-            .join("");
+    const commentHTML = p.comments.length === 0
+      ? `<p class="no-comment">No comments yet</p>`
+      : p.comments.map((c, index) => `
+        <div class="comment-item">
+          <span><strong>${c.user}:</strong> ${c.text}</span>
+          ${c.user === "You" ? `<button class="mini-delete" onclick="deleteComment(${i},${index})">🗑</button>` : ""}
+        </div>
+      `).join("");
 
     list.innerHTML += `
-    <div class="post-card">
-
-      <div class="post-header">
-        <img src="https://i.pravatar.cc/50?img=${i + 3}" class="avatar">
-        <div>
-          <strong>Your Name</strong>
-          <p>Just now</p>
-        </div>
-      </div>
-
-      <h3>${p.title}</h3>
-      <p>${p.content}</p>
-
-      ${
-        p.image
-          ? `
-      <img src="${p.image}" id="img-${i}" class="post-img">
-
-      <div class="quality-wrap">
-        <div class="quality-head">
-          <span>Compression Preview</span>
-          <span id="qualityText-${i}">100%</span>
-        </div>
-
-        <input type="range"
-          min="20"
-          max="100"
-          value="100"
-          class="quality-slider"
-          oninput="changeQuality(${i},this.value)">
-
-        <div class="quality-info">
-          <div>Original Size:
-          <span id="origin-${i}">${calcSize(p.image)}</span></div>
-
-          <div>Current Size:
-          <span id="current-${i}">${calcSize(p.image)}</span></div>
-
-          <div>Saved:
-          <span id="saved-${i}">0%</span></div>
-
+      <div class="post-card">
+        <div class="post-header">
+          <img src="https://i.pravatar.cc/50?img=${i + 3}" class="avatar">
           <div>
-          <span id="tip-${i}">Original Quality</span>
+            <strong>Your Name</strong>
+            <p>Just now</p>
+          </div>
+        </div>
+        <h3>${p.title}</h3>
+        <p>${p.content}</p>
+        ${p.image ? `
+        <div>
+          <img src="${p.image}" id="img-${i}" class="post-img">
+          <div class="quality-wrap">
+            <div class="quality-head">
+              <span>Compression Preview</span>
+              <span id="qualityText-${i}">100%</span>
+            </div>
+            <input type="range" min="20" max="100" value="100" class="quality-slider" oninput="changeQuality(${i},this.value)">
+            <div class="quality-info">
+              <div>Original Size: <span id="origin-${i}">${calcSize(p.image)}</span></div>
+              <div>Current Size: <span id="current-${i}">${calcSize(p.image)}</span></div>
+              <div>Saved: <span id="saved-${i}">0%</span></div>
+              <div><span id="tip-${i}">Original Quality</span></div>
+            </div>
+          </div>
+        </div>
+        ` : ""}
+        <div class="post-actions">
+          <button class="like-btn" onclick="likePost(${i})">👍 ${p.likes}</button>
+          <button class="like-btn" onclick="toggleComments(${i})">💬 ${p.comments.length}</button>
+          <button class="delete-btn" onclick="deletePost(${i})">🗑</button>
+        </div>
+        <div class="comment-box" id="commentBox-${i}" style="display:none;">
+          <div class="comment-list">${commentHTML}</div>
+          <div class="comment-input-wrap">
+            <input type="text" id="commentInput-${i}" class="comment-input" placeholder="Write a comment...">
+            <button class="btn btn-primary" onclick="addComment(${i})">Send</button>
           </div>
         </div>
       </div>
-      `
-          : ""
-      }
-
-      <div class="post-actions">
-        <button class="like-btn" onclick="likePost(${i})">👍 ${p.likes}</button>
-        <button class="like-btn" onclick="toggleComments(${i})">💬 ${p.comments.length}</button>
-        <button class="delete-btn" onclick="deletePost(${i})">🗑</button>
-      </div>
-
-      <div class="comment-box" id="commentBox-${i}" style="display:none;">
-        <div class="comment-list">
-          ${commentHTML}
-        </div>
-
-        <div class="comment-input-wrap">
-          <input type="text"
-            id="commentInput-${i}"
-            class="comment-input"
-            placeholder="Write a comment...">
-
-          <button class="btn btn-primary" onclick="addComment(${i})">
-            Send
-          </button>
-        </div>
-      </div>
-
-    </div>
     `;
 
     my.innerHTML += `<p>${p.title}</p>`;
@@ -158,7 +115,6 @@ function addPost() {
 
   if (file) {
     const reader = new FileReader();
-
     reader.onload = function (e) {
       posts.unshift({
         title,
@@ -167,7 +123,6 @@ function addPost() {
         image: e.target.result,
         comments: []
       });
-
       savePosts();
       renderPosts();
       renderLeaderboard();
@@ -175,7 +130,6 @@ function addPost() {
       clearInputs();
       showToast("Post created");
     };
-
     reader.readAsDataURL(file);
   } else {
     posts.unshift({
@@ -185,7 +139,6 @@ function addPost() {
       image: "",
       comments: []
     });
-
     savePosts();
     renderPosts();
     renderLeaderboard();
@@ -198,8 +151,7 @@ function addPost() {
 /* ---------- 评论 ---------- */
 function toggleComments(i) {
   const box = document.getElementById(`commentBox-${i}`);
-  box.style.display =
-    box.style.display === "none" ? "block" : "none";
+  box.style.display = box.style.display === "none" ? "block" : "none";
 }
 
 function addComment(i) {
@@ -211,11 +163,7 @@ function addComment(i) {
     return;
   }
 
-  posts[i].comments.push({
-    user: "You",
-    text: text
-  });
-
+  posts[i].comments.push({ user: "You", text: text });
   savePosts();
   renderPosts();
   renderLeaderboard();
@@ -229,19 +177,16 @@ function addComment(i) {
 
 function deleteComment(postIndex, commentIndex) {
   const comment = posts[postIndex].comments[commentIndex];
-
   if (comment.user !== "You") return;
 
   if (confirm("Delete this comment?")) {
     posts[postIndex].comments.splice(commentIndex, 1);
-
     savePosts();
     renderPosts();
     renderLeaderboard();
 
     setTimeout(() => {
-      document.getElementById(`commentBox-${postIndex}`).style.display =
-        "block";
+      document.getElementById(`commentBox-${postIndex}`).style.display = "block";
     }, 50);
 
     showToast("Comment deleted");
@@ -269,40 +214,29 @@ function deletePost(i) {
 /* ---------- 搜索 ---------- */
 function searchPosts() {
   const key = document.getElementById("searchInput").value.toLowerCase();
-
   const result = posts.filter(
-    p =>
-      p.title.toLowerCase().includes(key) ||
-      p.content.toLowerCase().includes(key)
+    p => p.title.toLowerCase().includes(key) || p.content.toLowerCase().includes(key)
   );
-
   renderPosts(result);
 }
 
 /* ---------- 图片压缩 ---------- */
 function changeQuality(index, quality) {
   const original = posts[index].image;
-
-  document.getElementById(`qualityText-${index}`).innerText =
-    quality + "%";
+  document.getElementById(`qualityText-${index}`).innerText = quality + "%";
 
   smartCompress(original, quality / 100, function (newImg, format) {
     document.getElementById(`img-${index}`).src = newImg;
-
     const originalSize = getKB(original);
     const currentSize = getKB(newImg);
 
-    document.getElementById(`current-${index}`).innerText =
-      currentSize.toFixed(1) + " KB";
+    document.getElementById(`current-${index}`).innerText = currentSize.toFixed(1) + " KB";
 
     let saved = 100 - (currentSize / originalSize) * 100;
     if (saved < 0) saved = 0;
-
-    document.getElementById(`saved-${index}`).innerText =
-      saved.toFixed(0) + "%";
+    document.getElementById(`saved-${index}`).innerText = saved.toFixed(0) + "%";
 
     let tip = "";
-
     if (quality >= 90) tip = "HD Preview";
     else if (quality >= 70) tip = "Balanced Quality";
     else if (quality >= 50) tip = "Good Compression";
@@ -310,30 +244,28 @@ function changeQuality(index, quality) {
     else tip = "Ultra Low Size";
 
     tip += " · " + format.toUpperCase();
-
     document.getElementById(`tip-${index}`).innerText = tip;
   });
 }
 
 function smartCompress(src, quality, callback) {
   const img = new Image();
-
   img.onload = function () {
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
-
     canvas.width = img.width * quality;
     canvas.height = img.height * quality;
-
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
     const jpg = canvas.toDataURL("image/jpeg", quality);
     const webp = canvas.toDataURL("image/webp", quality);
 
-    if (getKB(webp) < getKB(jpg)) callback(webp, "webp");
-    else callback(jpg, "jpeg");
+    if (getKB(webp) < getKB(jpg)) {
+      callback(webp, "webp");
+    } else {
+      callback(jpg, "jpeg");
+    }
   };
-
   img.src = src;
 }
 
@@ -341,17 +273,11 @@ function smartCompress(src, quality, callback) {
 function renderKidsPosts() {
   const box = document.getElementById("kidsPostList");
   const starText = document.getElementById("starCount");
-
   if (!box) return;
 
   if (kidsPosts.length === 0) {
     kidsPosts = [
-      {
-        text: "I learned new words today!",
-        happy: 2,
-        love: 1,
-        star: 3
-      }
+      { text: "I learned new words today!", happy: 2, love: 1, star: 3 }
     ];
   }
 
@@ -360,15 +286,14 @@ function renderKidsPosts() {
 
   kidsPosts.forEach((p, i) => {
     box.innerHTML += `
-    <div class="kids-card">
-      <h3>${p.text}</h3>
-
-      <div class="kids-actions">
-        <button class="emoji-btn" onclick="emojiLike(${i},'😀')">😀 ${p.happy}</button>
-        <button class="emoji-btn" onclick="emojiLike(${i},'❤️')">❤️ ${p.love}</button>
-        <button class="emoji-btn" onclick="emojiLike(${i},'⭐')">⭐ ${p.star}</button>
+      <div class="kids-card">
+        <h3>${p.text}</h3>
+        <div class="kids-actions">
+          <button class="emoji-btn" onclick="emojiLike(${i},'😀')">😀 ${p.happy}</button>
+          <button class="emoji-btn" onclick="emojiLike(${i},'❤️')">❤️ ${p.love}</button>
+          <button class="emoji-btn" onclick="emojiLike(${i},'⭐')">⭐ ${p.star}</button>
+        </div>
       </div>
-    </div>
     `;
   });
 }
@@ -383,16 +308,8 @@ function closeKidsModal() {
 
 function addKidsPost() {
   const text = document.getElementById("kidsTemplate").value;
-
-  kidsPosts.unshift({
-    text,
-    happy: 0,
-    love: 0,
-    star: 0
-  });
-
+  kidsPosts.unshift({ text, happy: 0, love: 0, star: 0 });
   stars++;
-
   savePosts();
   renderKidsPosts();
   renderLeaderboard();
@@ -404,7 +321,6 @@ function emojiLike(i, type) {
   if (type === "😀") kidsPosts[i].happy++;
   if (type === "❤️") kidsPosts[i].love++;
   if (type === "⭐") kidsPosts[i].star++;
-
   savePosts();
   renderKidsPosts();
 }
@@ -413,22 +329,16 @@ function emojiLike(i, type) {
 function renderLeaderboard() {
   const board = document.getElementById("leaderboard");
   const kidsBoard = document.getElementById("kidsLeaderboard");
-
   if (!board || !kidsBoard) return;
 
   let totalLikes = 0;
   let totalComments = 0;
-
   posts.forEach(p => {
     totalLikes += p.likes || 0;
     totalComments += p.comments ? p.comments.length : 0;
   });
 
-  const yourScore =
-    posts.length * 5 +
-    totalLikes * 2 +
-    totalComments * 3;
-
+  const yourScore = posts.length * 5 + totalLikes * 2 + totalComments * 3;
   let users = [
     { name: "Amy", score: 32 },
     { name: "Tom", score: 26 },
@@ -437,7 +347,6 @@ function renderLeaderboard() {
   ];
 
   users.sort((a, b) => b.score - a.score);
-
   board.innerHTML = users.map((u, i) => {
     let medal = "🏅";
     if (i === 0) medal = "🥇";
@@ -463,7 +372,6 @@ function renderLeaderboard() {
   ];
 
   kids.sort((a, b) => b.score - a.score);
-
   kidsBoard.innerHTML = kids.map((u, i) => {
     let medal = "⭐";
     if (i === 0) medal = "👑";
@@ -485,16 +393,9 @@ function renderLeaderboard() {
 /* ---------- 模式切换 ---------- */
 function switchVersion() {
   kidsMode = !kidsMode;
-
-  document.getElementById("adultVersion").style.display =
-    kidsMode ? "none" : "flex";
-
-  document.getElementById("kidsVersion").style.display =
-    kidsMode ? "flex" : "none";
-
-  document.querySelector(".mode-btn").innerText =
-    kidsMode ? "🧑 Adult Mode" : "👶 Kids Mode";
-
+  document.getElementById("adultVersion").style.display = kidsMode ? "none" : "flex";
+  document.getElementById("kidsVersion").style.display = kidsMode ? "flex" : "none";
+  document.querySelector(".mode-btn").innerText = kidsMode ? "🧑 Adult Mode" : "👶 Kids Mode";
   document.body.classList.toggle("kids-mode", kidsMode);
 }
 
@@ -519,10 +420,8 @@ function toggleDarkMode() {
 
 function showToast(text) {
   const toast = document.getElementById("toast");
-
   toast.innerText = text;
   toast.style.display = "block";
-
   setTimeout(() => {
     toast.style.display = "none";
   }, 2000);

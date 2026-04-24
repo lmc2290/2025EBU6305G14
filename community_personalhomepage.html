@@ -25,12 +25,27 @@
 
 <main class="profile-container">
 
-  <!-- 顶部个人资料 -->
+  <!-- 顶部资料 -->
   <section class="profile-card">
 
-    <img src="https://i.pravatar.cc/120?img=3" class="avatar-large">
+    <!-- 可点击头像 -->
+    <img id="profileAvatar"
+         src="https://i.pravatar.cc/120?img=3"
+         class="avatar-large clickable"
+         onclick="changeAvatar()">
 
-    <h2>Your Name</h2>
+    <!-- 隐藏上传 -->
+    <input type="file"
+           id="avatarUpload"
+           accept="image/*"
+           style="display:none"
+           onchange="uploadAvatar(event)">
+
+    <!-- 可点击名字 -->
+    <h2 id="profileName"
+        class="clickable"
+        onclick="changeName()">Your Name</h2>
+
     <p>Level 5 Learner</p>
 
     <div class="stats">
@@ -51,26 +66,17 @@
       </div>
 
     </div>
-
   </section>
 
-
-  <!-- 内容区域 -->
+  <!-- 内容区 -->
   <section class="grid-layout">
 
-    <!-- 我的帖子 -->
     <div class="content-box">
-
       <h3>📝 My Posts</h3>
-
       <div id="myPosts"></div>
-
     </div>
 
-
-    <!-- 成就 -->
     <div class="content-box">
-
       <h3>🏆 Achievements</h3>
 
       <div class="badge">🥇 Top Contributor</div>
