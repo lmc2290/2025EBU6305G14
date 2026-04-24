@@ -439,3 +439,47 @@ canvas {
 .rle-secondary-btn:hover {
   background-color: #bdc3c7;
 }
+
+/* DCT Challenge Specific Styles */
+.dct-challenge-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+}
+
+.dct-comparison-box {
+  display: flex;
+  gap: 20px;
+  background: #f1f2f6;
+  padding: 15px;
+  border-radius: 12px;
+  border: 2px solid #dfe6e9;
+}
+
+.target-preview {
+  text-align: center;
+}
+
+.target-preview canvas {
+  border: 3px solid #e74c3c; /* Red border for target */
+  border-radius: 5px;
+  display: block !important; /* Force display for preview */
+}
+
+.current-preview canvas {
+  border: 3px solid #2ecc71; /* Green border for user's work */
+  border-radius: 5px;
+}
+
+/* Confetti Effect for Victory */
+.victory-flash {
+  animation: flash-green 0.5s ease-out;
+}
+
+@keyframes flash-green {
+  0% { background-color: rgba(46, 204, 113, 0); }
+  50% { background-color: rgba(46, 204, 113, 0.3); }
+  100% { background-color: rgba(46, 204, 113, 0); }
+}
