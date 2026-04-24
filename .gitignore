@@ -1,0 +1,8 @@
+# IDEA 本地配置文件，永久忽略
+.idea/
+*.iws
+*.ipr
+*.iml
+misc.xml
+modules.xml
+vcs.xml

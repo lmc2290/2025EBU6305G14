@@ -4,92 +4,195 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learning with Games - Test</title>
-    <link rel="stylesheet" href="common.css">
-    <link rel="stylesheet" href="test.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/test.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">
-                <h1>Learning with Games</h1>
+<header>
+    <nav>
+        <div class="logo">
+            <a href="homepage.html" id="logoText">Learning with Games</a>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="homepage.html" id="navHome">Home</a></li>
+            <li><a href="learning.html" id="navLearning">Learning</a></li>
+            <li><a href="games.html" id="navGames">Games</a></li>
+            <li><a href="test.html" class="active" id="navTest">Tests</a></li>
+            <li><a href="community.html" id="navCommunity">Community</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <div class="page-top">
+        <div class="breadcrumb" id="breadcrumbText">
+            <a href="homepage.html">Home</a> &gt; <a href="test.html">Tests</a> &gt; Compression Mock Test
+        </div>
+
+        <div class="utility-bar">
+            <div class="utility-group" role="group" aria-label="Language switcher">
+                <span id="languageLabel">Language</span>
+                <button class="tool-btn active" data-lang="en" type="button">EN</button>
+                <button class="tool-btn" data-lang="zh" type="button">中文</button>
             </div>
-            <ul class="nav-links">
-                <li><a href="homepage.html">Home</a></li>
-                <li><a href="learning.html">Learning</a></li>
-                <li><a href="games.html">Games</a></li>
-                <li><a href="test.html" class="active">Test</a></li>
-                <li><a href="community.html">Community</a></li>
+
+            <div class="utility-group" role="group" aria-label="Font size controls">
+                <span id="fontSizeLabel">Font Size</span>
+                <button class="tool-btn" data-font="15" type="button">A-</button>
+                <button class="tool-btn active" data-font="16" type="button">A</button>
+                <button class="tool-btn" data-font="18" type="button">A+</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Intro Screen -->
+    <section class="screen-card intro-card" id="introScreen">
+        <h2 id="introTitle">Compression Mock Test</h2>
+        <p id="introDescription">
+            Test your understanding of image compression with different difficulty levels, instant feedback, and bilingual support.
+        </p>
+
+        <div class="info-grid">
+            <div class="info-item">
+                <h3 id="infoTitle1">9 Questions</h3>
+                <p id="infoText1">Three difficulty levels for progressive learning.</p>
+            </div>
+            <div class="info-item">
+                <h3 id="infoTitle2">Instant Feedback</h3>
+                <p id="infoText2">Get explanations immediately after each answer.</p>
+            </div>
+            <div class="info-item">
+                <h3 id="infoTitle3">Bilingual Mode</h3>
+                <p id="infoText3">Switch freely between English and Chinese.</p>
+            </div>
+        </div>
+
+        <div class="resume-box hidden" id="resumeBox">
+            <p id="resumeText">You have an unfinished test session.</p>
+            <button class="btn btn-secondary" id="resumeQuizBtn" type="button">Continue Previous Session</button>
+        </div>
+
+        <div class="difficulty-section">
+            <h3 id="difficultyTitle">Choose a difficulty</h3>
+
+            <div class="difficulty-options">
+                <button class="difficulty-btn" data-difficulty="easy" type="button">
+                    <span class="difficulty-name" id="easyName">Easy</span>
+                    <span class="difficulty-desc" id="easyDesc">Basic concepts of compression</span>
+                </button>
+
+                <button class="difficulty-btn" data-difficulty="medium" type="button">
+                    <span class="difficulty-name" id="mediumName">Medium</span>
+                    <span class="difficulty-desc" id="mediumDesc">Compression methods and comparison</span>
+                </button>
+
+                <button class="difficulty-btn" data-difficulty="hard" type="button">
+                    <span class="difficulty-name" id="hardName">Hard</span>
+                    <span class="difficulty-desc" id="hardDesc">Advanced understanding and artifacts</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="start-actions">
+            <button class="btn btn-primary" id="startQuizBtn" type="button" disabled>Start Test</button>
+            <a href="learning.html" class="btn btn-secondary" id="goLearningBtn">Go to Learning Page</a>
+        </div>
+    </section>
+
+    <!-- Quiz Screen -->
+    <section class="quiz-wrapper hidden" id="quizScreen">
+        <div class="progress-header">
+            <span id="progressLabel">Progress</span>
+            <span id="progressCount">1 / 3</span>
+        </div>
+
+        <div
+                class="progress-bar"
+                id="progressTrack"
+                role="progressbar"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                aria-valuenow="0"
+                aria-label="Quiz progress"
+        >
+            <div class="progress" id="progressBar"></div>
+        </div>
+
+        <div class="question-card">
+            <div class="question-top">
+                <span class="difficulty-badge" id="difficultyBadge">Easy</span>
+                <span class="question-number" id="questionNumberText">Question 1 of 3</span>
+            </div>
+
+            <h2 id="questionTitle">Question title</h2>
+
+            <div class="status-message hidden" id="statusMessage" aria-live="polite"></div>
+
+            <div class="options" id="optionsContainer"></div>
+
+            <button class="btn btn-primary submit-btn" id="submitBtn" type="button">Submit Answer</button>
+        </div>
+
+        <div class="feedback-card" id="feedbackCard" aria-live="polite">
+            <h3 id="feedbackTitle"></h3>
+            <p id="feedbackText"></p>
+        </div>
+
+        <div class="navigation-buttons">
+            <button class="btn btn-secondary" id="prevBtn" type="button">Previous Question</button>
+            <button class="btn btn-primary" id="nextBtn" type="button">Next Question</button>
+        </div>
+    </section>
+
+    <!-- Result Screen -->
+    <section class="hidden" id="resultScreen">
+        <div class="result-card show">
+            <span class="difficulty-badge" id="resultDifficultyBadge">Easy</span>
+            <h2 id="resultTitle">Quiz Completed</h2>
+            <p id="resultSubtitle">You have finished the compression mock test.</p>
+
+            <div class="score-text" id="scoreText">0 / 0</div>
+            <p id="percentageText">Your score is 0%</p>
+            <p id="performanceText">Performance summary</p>
+
+            <div class="result-actions">
+                <button class="btn btn-primary" id="retryBtn" type="button">Try Again</button>
+                <a href="learning.html" class="btn btn-secondary" id="reviewLearningBtn">Review Learning Page</a>
+            </div>
+
+            <div class="review-box">
+                <h3 id="reviewTitle">Review incorrect answers</h3>
+                <div id="wrongAnswersList"></div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="footer-content">
+        <div class="footer-info">
+            <h4 id="footerTitle">Learning with Games</h4>
+            <p>Group Number: 2025EBU6305G14</p>
+            <p>© 2026 Queen Mary University of London</p>
+        </div>
+
+        <div class="footer-links">
+            <h4 id="footerQuickLinks">Quick Links</h4>
+            <ul>
+                <li><a href="homepage.html" id="footerHome">Home</a></li>
+                <li><a href="learning.html" id="footerLearning">Learning</a></li>
+                <li><a href="games.html" id="footerGames">Games</a></li>
+                <li><a href="test.html" id="footerTest">Tests</a></li>
+                <li><a href="community.html" id="footerCommunity">Community</a></li>
             </ul>
-        </nav>
-    </header>
-
-    <main>
-        <div class="breadcrumb">
-            <a href="index.html">Home</a> &gt; <a href="test.html">Test</a> &gt; Test Page
         </div>
+    </div>
+</footer>
 
-        <div class="progress-bar">
-            <div class="progress"></div>
-        </div>
-
-        <div class="test-container">
-            <div class="question-card">
-                <h2>Question X of Y: [Question Title]</h2>
-                
-                <div class="options">
-                    <div class="option">
-                        <input type="radio" id="option1" name="question" value="option1">
-                        <label for="option1">Option 1</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="option2" name="question" value="option2">
-                        <label for="option2">Option 2</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="option3" name="question" value="option3">
-                        <label for="option3">Option 3</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="option4" name="question" value="option4">
-                        <label for="option4">Option 4</label>
-                    </div>
-                </div>
-
-                <button class="btn btn-primary submit-btn">Submit Answer</button>
-            </div>
-
-            <div class="feedback-card">
-                <h3>[Feedback Title]</h3>
-                <p>[Feedback Explanation]</p>
-            </div>
-
-            <div class="navigation-buttons">
-                <button class="btn btn-secondary">Previous Question</button>
-                <button class="btn btn-primary">Next Question</button>
-            </div>
-        </div>
-    </main>
-
-    <footer>
-        <div class="footer-content">
-            <div class="footer-info">
-                <h4>Learning with Games</h4>
-                <p>Group Number: 2025EBU6305G14</p>
-                <p>© 2026 Queen Mary University of London</p>
-            </div>
-            <div class="footer-links">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="learning.html">Learning</a></li>
-                    <li><a href="games.html">Games</a></li>
-                    <li><a href="test.html">Test</a></li>
-                    <li><a href="profile.html">Profile</a></li>
-                </ul>
-            </div>
-        </div>
-    </footer>
-
-    <script src="test.js"></script>
+<script src="./js/test-i18n.js"></script>
+<script src="./js/test-data.js"></script>
+<script src="./js/test-storage.js"></script>
+<script src="./js/test.js"></script>
 </body>
 </html>
