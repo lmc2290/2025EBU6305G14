@@ -1,0 +1,191 @@
+/* community_personalhomepage.css */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:Arial,sans-serif;
+background:#f5f7fb;
+color:#333;
+transition:.3s;
+}
+
+body.dark{
+background:#1f1f1f;
+color:#fff;
+}
+
+/* Header */
+header{
+background:#fff;
+border-bottom:1px solid #eee;
+padding:1rem 0;
+}
+
+body.dark header{
+background:#2a2a2a;
+border-color:#444;
+}
+
+nav{
+max-width:1200px;
+margin:auto;
+padding:0 2rem;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.logo h1{
+color:#007bff;
+font-size:1.5rem;
+}
+
+.nav-right{
+display:flex;
+gap:10px;
+align-items:center;
+}
+
+.back-btn,
+.btn{
+padding:.7rem 1rem;
+border:none;
+border-radius:10px;
+text-decoration:none;
+cursor:pointer;
+font-weight:700;
+background:#fff;
+border:1px solid #ddd;
+color:#333;
+}
+
+/* Layout */
+.profile-container{
+max-width:1200px;
+margin:2rem auto;
+padding:0 1rem;
+}
+
+/* Profile Card */
+.profile-card{
+background:#fff;
+padding:2rem;
+border-radius:20px;
+box-shadow:0 8px 20px rgba(0,0,0,.05);
+text-align:center;
+margin-bottom:2rem;
+}
+
+body.dark .profile-card{
+background:#2a2a2a;
+}
+
+.avatar-large{
+width:120px;
+height:120px;
+border-radius:50%;
+margin-bottom:1rem;
+}
+
+.profile-card h2{
+margin-bottom:.4rem;
+}
+
+.profile-card p{
+color:#777;
+margin-bottom:1.5rem;
+}
+
+/* Stats */
+.stats{
+display:flex;
+justify-content:center;
+gap:1rem;
+flex-wrap:wrap;
+}
+
+.stat-box{
+background:#f7f9ff;
+padding:1rem 1.5rem;
+border-radius:16px;
+min-width:130px;
+}
+
+body.dark .stat-box{
+background:#3a3a3a;
+}
+
+.stat-box strong{
+display:block;
+font-size:1.5rem;
+color:#007bff;
+margin-bottom:6px;
+}
+
+/* Grid */
+.grid-layout{
+display:grid;
+grid-template-columns:2fr 1fr;
+gap:2rem;
+}
+
+.content-box{
+background:#fff;
+padding:1.5rem;
+border-radius:20px;
+box-shadow:0 8px 20px rgba(0,0,0,.05);
+}
+
+body.dark .content-box{
+background:#2a2a2a;
+}
+
+.content-box h3{
+margin-bottom:1rem;
+}
+
+/* My posts */
+.post-item{
+padding:1rem;
+border-radius:14px;
+background:#f7f9ff;
+margin-bottom:1rem;
+font-weight:600;
+}
+
+body.dark .post-item{
+background:#3a3a3a;
+}
+
+/* Badge */
+.badge{
+padding:12px 14px;
+border-radius:14px;
+background:linear-gradient(90deg,#007bff,#4da3ff);
+color:#fff;
+font-weight:700;
+margin-bottom:12px;
+}
+
+/* Responsive */
+@media(max-width:768px){
+
+.grid-layout{
+grid-template-columns:1fr;
+}
+
+.stats{
+flex-direction:column;
+align-items:center;
+}
+
+nav{
+flex-direction:column;
+gap:1rem;
+}
+
+}

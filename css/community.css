@@ -544,3 +544,16 @@ grid-column:auto;
 }
 
 }
+
+.profile-link{
+text-decoration:none;
+color:inherit;
+display:block;
+border-radius:18px;
+transition:.25s;
+}
+
+.profile-link:hover{
+transform:translateY(-3px);
+opacity:.92;
+}

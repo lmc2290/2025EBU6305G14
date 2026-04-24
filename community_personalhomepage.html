@@ -1,0 +1,89 @@
+<!-- community_personalhomepage.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Homepage</title>
+  <link rel="stylesheet" href="css/community_personalhomepage.css">
+</head>
+
+<body>
+
+<header>
+  <nav>
+    <div class="logo">
+      <h1>Learning with Games</h1>
+    </div>
+
+    <div class="nav-right">
+      <a href="community.html" class="back-btn">← Back</a>
+      <button class="btn" onclick="toggleDarkMode()">🌙</button>
+    </div>
+  </nav>
+</header>
+
+<main class="profile-container">
+
+  <!-- 顶部个人资料 -->
+  <section class="profile-card">
+
+    <img src="https://i.pravatar.cc/120?img=3" class="avatar-large">
+
+    <h2>Your Name</h2>
+    <p>Level 5 Learner</p>
+
+    <div class="stats">
+
+      <div class="stat-box">
+        <strong id="postCount">0</strong>
+        <span>Posts</span>
+      </div>
+
+      <div class="stat-box">
+        <strong id="likeCount">0</strong>
+        <span>Likes</span>
+      </div>
+
+      <div class="stat-box">
+        <strong>#2</strong>
+        <span>Rank</span>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- 内容区域 -->
+  <section class="grid-layout">
+
+    <!-- 我的帖子 -->
+    <div class="content-box">
+
+      <h3>📝 My Posts</h3>
+
+      <div id="myPosts"></div>
+
+    </div>
+
+
+    <!-- 成就 -->
+    <div class="content-box">
+
+      <h3>🏆 Achievements</h3>
+
+      <div class="badge">🥇 Top Contributor</div>
+      <div class="badge">👍 10 Likes Club</div>
+      <div class="badge">📝 First Post</div>
+      <div class="badge">📷 Shared Images</div>
+
+    </div>
+
+  </section>
+
+</main>
+
+<script src="js/community_personalhomepage.js"></script>
+</body>
+</html>
