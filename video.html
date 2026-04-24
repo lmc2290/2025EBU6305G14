@@ -10,8 +10,13 @@
 <body>
 <div class="container">
     <header>
-        <h1>Learning with Games</h1>
-        <div class="nav-links"><a href="index.html">Home</a><a href="learning.html" class="active">Learning</a><a href="games.html">Games</a><a href="test.html">Tests</a><a href="community.html">Community</a></div>
+        <div class="logo">Learning with Games</div> <nav>
+        <a href="homepage.html">Home</a>
+        <a href="learning.html" class="active">Learning</a>
+        <a href="games.html">Games</a>
+        <a href="test.html">Tests</a>
+        <a href="community.html">Community</a>
+    </nav>
     </header>
     <div class="breadcrumbs">Home > Learning > Video Compression</div>
     <div class="main-layout">
@@ -37,13 +42,15 @@
                 <p>Video is essentially a sequence of images (frames) played very fast. Video compression relies heavily on "Temporal Redundancy".</p>
                 <p>Instead of saving 60 full images for every second of video, formats like MP4/H.264 save one full "Keyframe" (I-frame) and then only record the <strong>differences</strong> or <strong>movements</strong> in the subsequent frames (P-frames). If a news anchor is talking, only their lips and face movements are saved; the background desk and wall are reused from the first frame.</p>
             </div>
-            <div class="kids-content">
-                <p>Videos are just lots of pictures moving really fast! 🎬</p>
-                <p>If we want to film a news reporter on TV, the background wall doesn't move. So, the computer takes ONE picture of the wall, and then only draws the reporter's mouth moving! It doesn't waste time drawing the wall over and over again. This is called saving only the <strong>changes</strong>!</p>
-            </div>
+            <div class="video-demo-container">
+                <div class="static-background">
+                    <span>Static Wall (Saved Only Once)</span>
+                </div>
+                <div class="moving-ball"></div>
 
-            <div class="placeholder-box">
-                <p>[V3 Idea: Animation showing a static background and only a moving ball]</p>
+                <div class="demo-caption">
+                    <strong>Smart Compression:</strong> The computer only saves the red ball's movement. It ignores the static background after the first frame!
+                </div>
             </div>
 
             <h3>Interactive Mini-Quiz</h3>
@@ -65,8 +72,8 @@
             </div>
 
             <div class="bottom-nav">
-                <a href="image-techniques.html"><button class="btn-secondary">← Image Techniques</button></a>
-                <a href="audio.html"><button class="btn-primary">Audio Compression →</button></a>
+                <a href="image-techniques.html"><button class="btn-secondary">← Prev: Image Tech</button></a>
+                <a href="audio.html"><button class="btn-primary">Next: Audio Tech →</button></a>
             </div>
         </main>
     </div>
