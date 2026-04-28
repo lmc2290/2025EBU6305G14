@@ -10,14 +10,13 @@
 <body>
 <div class="container">
   <header>
-    <h1>Learning with Games</h1>
-    <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="learning.html" class="active">Learning</a>
-      <a href="games.html">Games</a>
-      <a href="test.html">Tests</a>
-      <a href="community.html">Community</a>
-    </div>
+    <div class="logo">Learning with Games</div> <nav>
+    <a href="homepage.html">Home</a>
+    <a href="learning.html" class="active">Learning</a>
+    <a href="games.html">Games</a>
+    <a href="test.html">Tests</a>
+    <a href="community.html">Community</a>
+  </nav>
   </header>
 
   <div class="breadcrumbs">Home > Learning > Lossy vs. Lossless</div>
@@ -55,10 +54,19 @@
         <p><strong>Lossy (Quick Sketch):</strong> 🎨 Imagine drawing a quick sketch of a complicated painting. You might leave out tiny details like a single blade of grass, but it still looks like the same painting! We use this for photos and music to save lots of space.</p>
       </div>
 
-      <div class="placeholder-box">
-        <p>[V3 Idea: A slider showing a crisp text image (Lossless) vs a blurry text image (Lossy)]</p>
-      </div>
+      <div class="lossy-demo-container">
+        <div class="demo-card">
+          <h4>1. Photo (Lossy is OK)</h4>
+          <div class="visual-box photo-box"> Hover to Compress </div>
+          <p class="result-text">It's a bit blurry, but still a beautiful sunset! 🌅</p>
+        </div>
 
+        <div class="demo-card">
+          <h4>2. Code (Lossless is REQUIRED)</h4>
+          <div class="visual-box text-box"></div>
+          <p class="result-text">Error! The code is completely broken! ❌</p>
+        </div>
+      </div>
       <h3>Interactive Mini-Quiz</h3>
       <div class="quiz-section">
         <p class="pro-content"><strong>For which of the following files MUST you use Lossless compression?</strong></p>
@@ -79,8 +87,8 @@
       </div>
 
       <div class="bottom-nav">
-        <a href="learning.html"><button class="btn-secondary">← Intro</button></a>
-        <a href="image-techniques.html"><button class="btn-primary">Image Techniques →</button></a>
+        <a href="learning.html"><button class="btn-secondary">← Prev: Intro</button></a>
+        <a href="image-techniques.html"><button class="btn-primary">Next: Image Tech →</button></a>
       </div>
     </main>
   </div>

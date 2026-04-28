@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learning with Games - Test</title>
-    <link rel="stylesheet" href="./css/common.css">
-    <link rel="stylesheet" href="./css/test.css">
+    <title>Learning with Games - Smart Compression Assessment</title>
+    <link rel="stylesheet" href="css/test.css">
 </head>
 <body>
 <header>
@@ -27,7 +26,7 @@
 <main>
     <div class="page-top">
         <div class="breadcrumb" id="breadcrumbText">
-            <a href="homepage.html">Home</a> &gt; <a href="test.html">Tests</a> &gt; Compression Mock Test
+            <a href="homepage.html">Home</a> &gt; <a href="test.html">Tests</a> &gt; Smart Compression Assessment
         </div>
 
         <div class="utility-bar">
@@ -48,63 +47,56 @@
 
     <!-- Intro Screen -->
     <section class="screen-card intro-card" id="introScreen">
-        <h2 id="introTitle">Compression Mock Test</h2>
-        <p id="introDescription">
-            Test your understanding of image compression with different difficulty levels, instant feedback, and bilingual support.
-        </p>
+        <div class="intro-hero">
+            <div>
+                <span class="hero-badge" id="heroBadge">Adaptive + Visual + Diagnostic</span>
+                <h2 id="introTitle">Smart Compression Assessment</h2>
+                <p id="introDescription">
+                    This test uses adaptive routing, visual judgement questions, micro follow-up tasks, and personalised feedback to evaluate your understanding of image compression.
+                </p>
+            </div>
+        </div>
 
         <div class="info-grid">
             <div class="info-item">
-                <h3 id="infoTitle1">9 Questions</h3>
-                <p id="infoText1">Three difficulty levels for progressive learning.</p>
+                <h3 id="infoTitle1">Adaptive Path</h3>
+                <p id="infoText1">The route changes after diagnostic questions and sends you to the most suitable difficulty path.</p>
             </div>
             <div class="info-item">
-                <h3 id="infoTitle2">Instant Feedback</h3>
-                <p id="infoText2">Get explanations immediately after each answer.</p>
+                <h3 id="infoTitle2">Visual Judgement</h3>
+                <p id="infoText2">You will compare compression examples and identify visible artifacts, not just answer text questions.</p>
             </div>
             <div class="info-item">
-                <h3 id="infoTitle3">Bilingual Mode</h3>
-                <p id="infoText3">Switch freely between English and Chinese.</p>
+                <h3 id="infoTitle3">Follow-up Tasks</h3>
+                <p id="infoText3">If you answer incorrectly, you get a short corrective mini-question to reinforce the concept.</p>
+            </div>
+            <div class="info-item">
+                <h3 id="infoTitle4">Capability Profile</h3>
+                <p id="infoText4">Your result page shows strengths, weak points, and recommended review directions.</p>
             </div>
         </div>
 
         <div class="resume-box hidden" id="resumeBox">
-            <p id="resumeText">You have an unfinished test session.</p>
+            <p id="resumeText">You have an unfinished assessment session.</p>
             <button class="btn btn-secondary" id="resumeQuizBtn" type="button">Continue Previous Session</button>
         </div>
 
-        <div class="difficulty-section">
-            <h3 id="difficultyTitle">Choose a difficulty</h3>
-
-            <div class="difficulty-options">
-                <button class="difficulty-btn" data-difficulty="easy" type="button">
-                    <span class="difficulty-name" id="easyName">Easy</span>
-                    <span class="difficulty-desc" id="easyDesc">Basic concepts of compression</span>
-                </button>
-
-                <button class="difficulty-btn" data-difficulty="medium" type="button">
-                    <span class="difficulty-name" id="mediumName">Medium</span>
-                    <span class="difficulty-desc" id="mediumDesc">Compression methods and comparison</span>
-                </button>
-
-                <button class="difficulty-btn" data-difficulty="hard" type="button">
-                    <span class="difficulty-name" id="hardName">Hard</span>
-                    <span class="difficulty-desc" id="hardDesc">Advanced understanding and artifacts</span>
-                </button>
-            </div>
-        </div>
-
         <div class="start-actions">
-            <button class="btn btn-primary" id="startQuizBtn" type="button" disabled>Start Test</button>
+            <button class="btn btn-primary" id="startQuizBtn" type="button">Start Smart Assessment</button>
             <a href="learning.html" class="btn btn-secondary" id="goLearningBtn">Go to Learning Page</a>
         </div>
     </section>
 
     <!-- Quiz Screen -->
     <section class="quiz-wrapper hidden" id="quizScreen">
+        <div class="route-banner">
+            <span class="route-badge" id="routeBadge">Diagnostic Route</span>
+            <span class="route-description" id="routeDescription">The system is currently diagnosing your level.</span>
+        </div>
+
         <div class="progress-header">
             <span id="progressLabel">Progress</span>
-            <span id="progressCount">1 / 3</span>
+            <span id="progressCount">1 / 6</span>
         </div>
 
         <div
@@ -114,20 +106,23 @@
                 aria-valuemin="0"
                 aria-valuemax="100"
                 aria-valuenow="0"
-                aria-label="Quiz progress"
+                aria-label="Assessment progress"
         >
             <div class="progress" id="progressBar"></div>
         </div>
 
         <div class="question-card">
             <div class="question-top">
-                <span class="difficulty-badge" id="difficultyBadge">Easy</span>
-                <span class="question-number" id="questionNumberText">Question 1 of 3</span>
+                <span class="difficulty-badge" id="difficultyBadge">Diagnostic</span>
+                <span class="question-number" id="questionNumberText">Question 1 of 6</span>
             </div>
 
             <h2 id="questionTitle">Question title</h2>
+            <p class="question-prompt" id="questionPrompt">Question prompt</p>
 
             <div class="status-message hidden" id="statusMessage" aria-live="polite"></div>
+
+            <div class="visual-zone hidden" id="visualZone"></div>
 
             <div class="options" id="optionsContainer"></div>
 
@@ -139,6 +134,23 @@
             <p id="feedbackText"></p>
         </div>
 
+        <div class="follow-up-card hidden" id="followUpCard">
+            <div class="follow-up-top">
+                <span class="mini-badge" id="followUpBadge">Micro Follow-up</span>
+            </div>
+            <h3 id="followUpTitle">Follow-up Question</h3>
+            <p id="followUpPrompt">Follow-up prompt</p>
+
+            <div class="follow-up-options" id="followUpOptions"></div>
+
+            <button class="btn btn-secondary" id="submitFollowUpBtn" type="button">Submit Follow-up</button>
+
+            <div class="follow-up-feedback hidden" id="followUpFeedback">
+                <h4 id="followUpFeedbackTitle"></h4>
+                <p id="followUpFeedbackText"></p>
+            </div>
+        </div>
+
         <div class="navigation-buttons">
             <button class="btn btn-secondary" id="prevBtn" type="button">Previous Question</button>
             <button class="btn btn-primary" id="nextBtn" type="button">Next Question</button>
@@ -148,21 +160,36 @@
     <!-- Result Screen -->
     <section class="hidden" id="resultScreen">
         <div class="result-card show">
-            <span class="difficulty-badge" id="resultDifficultyBadge">Easy</span>
-            <h2 id="resultTitle">Quiz Completed</h2>
-            <p id="resultSubtitle">You have finished the compression mock test.</p>
+            <div class="result-header">
+                <span class="route-badge" id="resultRouteBadge">Adaptive Route</span>
+                <span class="learner-tag" id="learnerTag">Compression Explorer</span>
+            </div>
+
+            <h2 id="resultTitle">Assessment Completed</h2>
+            <p id="resultSubtitle">You have completed the smart compression assessment.</p>
 
             <div class="score-text" id="scoreText">0 / 0</div>
             <p id="percentageText">Your score is 0%</p>
             <p id="performanceText">Performance summary</p>
 
+            <div class="profile-box">
+                <h3 id="profileTitle">Capability Profile</h3>
+                <div class="profile-grid" id="profileGrid"></div>
+            </div>
+
+            <div class="suggestions-box">
+                <h3 id="suggestionsTitle">Recommended Next Steps</h3>
+                <ul id="suggestionsList"></ul>
+            </div>
+
             <div class="result-actions">
-                <button class="btn btn-primary" id="retryBtn" type="button">Try Again</button>
+                <button class="btn btn-primary" id="retryWrongBtn" type="button">Retry Wrong Questions Only</button>
+                <button class="btn btn-secondary" id="restartAssessmentBtn" type="button">Restart Full Assessment</button>
                 <a href="learning.html" class="btn btn-secondary" id="reviewLearningBtn">Review Learning Page</a>
             </div>
 
             <div class="review-box">
-                <h3 id="reviewTitle">Review incorrect answers</h3>
+                <h3 id="reviewTitle">Review Incorrect Answers</h3>
                 <div id="wrongAnswersList"></div>
             </div>
         </div>
@@ -190,9 +217,6 @@
     </div>
 </footer>
 
-<script src="./js/test-i18n.js"></script>
-<script src="./js/test-data.js"></script>
-<script src="./js/test-storage.js"></script>
-<script src="./js/test.js"></script>
+<script src="js/test.js"></script>
 </body>
 </html>
