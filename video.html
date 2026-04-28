@@ -37,10 +37,15 @@
                 <span class="mode-label">🧸 Kids Mode</span>
             </div>
 
-            <h2>Video Compression</h2>
             <div class="pro-content">
-                <p>Video is essentially a sequence of images (frames) played very fast. Video compression relies heavily on "Temporal Redundancy".</p>
-                <p>Instead of saving 60 full images for every second of video, formats like MP4/H.264 save one full "Keyframe" (I-frame) and then only record the <strong>differences</strong> or <strong>movements</strong> in the subsequent frames (P-frames). If a news anchor is talking, only their lips and face movements are saved; the background desk and wall are reused from the first frame.</p>
+                <p>Video encoding (like H.264 or HEVC) is arguably the most complex form of compression. Because video is just a rapid sequence of images, it contains massive <strong>Temporal Redundancy</strong> (data that doesn't change between frames). Encoders use <strong>Motion Estimation</strong> algorithms to track moving blocks of pixels rather than redrawing them.</p>
+
+                <details class="deep-dive-box">
+                    <summary>🔬 Deep Dive: I, P, and B Frames (GOP)</summary>
+                    <div class="details-content">
+                        <p>Video streams are organized into a Group of Pictures (GOP). <strong>I-frames (Intra)</strong> are full images (like a JPEG). <strong>P-frames (Predicted)</strong> only store changes from the previous frame. <strong>B-frames (Bi-directional)</strong> are the most efficient: they calculate pixel movements by looking at both past AND future frames to predict the current frame's content.</p>
+                    </div>
+                </details>
             </div>
             <div class="video-demo-container">
                 <div class="static-background">
@@ -55,17 +60,18 @@
 
             <h3>Interactive Mini-Quiz</h3>
             <div class="quiz-section">
-                <p class="pro-content"><strong>What is the main principle behind temporal video compression?</strong></p>
-                <p class="kids-content"><strong>How do computers make video files smaller? 📺</strong></p>
-                <label class="quiz-option">
-                    <input type="radio" name="quiz1" value="wrong">
-                    <span class="pro-content">Making the video black and white</span>
-                    <span class="kids-content">Making the video play super slow 🐢</span>
-                </label>
+                <p class="pro-content"><strong>What is simultaneous auditory masking?</strong></p>
+                <p class="kids-content"><strong>What trick does the computer use for music? 🎵</strong></p>
+
                 <label class="quiz-option">
                     <input type="radio" name="quiz1" value="efficiency">
-                    <span class="pro-content">Only saving the differences between consecutive frames</span>
-                    <span class="kids-content">Only saving the parts that move (like a mouth speaking) 👄</span>
+                    <span class="pro-content">When a loud sound makes a quieter, simultaneous sound inaudible</span>
+                    <span class="kids-content">Deleting quiet whispers when a loud drum is playing 🥁</span>
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="quiz1" value="wrong">
+                    <span class="pro-content">Reducing the sampling rate below the Nyquist limit</span>
+                    <span class="kids-content">Making the singers sing super fast 🏃‍♂️</span>
                 </label>
                 <button class="btn-primary" id="check-answer-btn">Check Answer</button>
                 <div id="quiz-feedback" style="margin-top: 15px; font-weight: bold;"></div>
