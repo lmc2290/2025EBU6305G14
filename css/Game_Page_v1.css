@@ -265,29 +265,31 @@ canvas {
 .slider-container input[type="range"] {
   flex: 1;
 }
-
-/* kids mode */
+/* 美化 Kids Mode 按钮 */
 .kids-mode-btn {
   position: absolute;
   right: 0;
   top: 0;
-  background-color: #ff9f43;
+  display: inline-block;
+  background-color: #ff9f43; /* 明快的橙色 */
   color: white;
-  padding: 10px 20px;
-  border-radius: 25px;
   text-decoration: none;
   font-weight: bold;
   font-size: 16px;
-  box-shadow: 0 4px 6px rgba(255, 159, 67, 0.3);
-  transition: transform 0.2s, background-color 0.2s;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 25px; /* 圆角 */
+  border: 3px solid #ff7f50;
+  box-shadow: 0 4px 0 #e66767; /* 立体阴影 */
+  transition: transform 0.1s, box-shadow 0.1s, filter 0.2s;
 }
 
 .kids-mode-btn:hover {
-  background-color: #ff7675;
-  transform: translateY(-2px);
+  filter: brightness(1.1); /* 鼠标悬浮变亮 */
+}
+
+.kids-mode-btn:active {
+  transform: translateY(4px); /* 点击按下效果 */
+  box-shadow: 0 0 0 #e66767;
 }
 /* ==========================================
    RLE Game Specific Styles
@@ -482,4 +484,72 @@ canvas {
   0% { background-color: rgba(46, 204, 113, 0); }
   50% { background-color: rgba(46, 204, 113, 0.3); }
   100% { background-color: rgba(46, 204, 113, 0); }
+}
+/* 勋章墙容器布局 */
+.achievement-wall {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* 勋章条目基础样式：默认灰色且半透明 */
+.achievement-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  opacity: 0.4;
+  filter: grayscale(1);
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.medal-icon {
+  background: #bdc3c7;
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.medal-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.medal-info strong {
+  font-size: 14px;
+  color: #2c3e50;
+}
+
+.medal-info span {
+  font-size: 11px;
+  color: #7f8c8d;
+}
+
+/* --- 已解锁状态 --- */
+.achievement-item.unlocked {
+  opacity: 1;
+  filter: grayscale(0);
+  background: #fff;
+  border: 1px solid #f1c40f;
+  box-shadow: 0 4px 12px rgba(241, 196, 15, 0.2);
+  transform: scale(1.05);
+}
+
+.achievement-item.unlocked .medal-icon {
+  background: linear-gradient(135deg, #f1c40f, #f39c12);
+  animation: medal-glow 2s infinite;
+}
+
+@keyframes medal-glow {
+  0% { box-shadow: 0 0 0 0 rgba(241, 196, 15, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(241, 196, 15, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(241, 196, 15, 0); }
 }

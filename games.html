@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Educational Game Platform</title>
-    <style>
-    </style>
     <link rel="stylesheet" href="./css/Game_Page_v1.css">
 </head>
 <body>
@@ -26,9 +24,9 @@
         Home > Games > <span id="breadcrumb-title">Compression Challenge</span>
     </div>
 
-    <div class="header-section">
-        <a href="games_kids.html" class="kids-mode-btn">
-        </a>
+    <div class="header-section" style="position: relative;">
+        <a href="games_kids.html" class="kids-mode-btn">🎈 Switch to Kids Mode</a>
+
         <h1><span id="page-title">Compression Challenge</span> Game</h1>
         <div class="game-tabs">
             <button class="tab-btn active" onclick="switchMode('compression')">Compression Challenge</button>
@@ -40,14 +38,31 @@
     <div class="main-layout">
         <aside class="instructions-panel">
             <h3>Instructions</h3>
+            <div class="achievements-container" style="margin-top: 30px; border-top: 2px dashed #eee; padding-top: 20px;">
+                <h3 style="color: #2c3e50; margin-bottom: 15px;">🏅 My Achievements</h3>
+                <div class="achievement-wall">
+                    <div class="achievement-item" id="ach-pixel-saver">
+                        <div class="medal-icon">
+                            <svg viewBox="0 0 24 24" width="40" height="40"><path fill="currentColor" d="M17,3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V7L17,3M12,19A3,3 0 0,1 9,16A3,3 0 0,1 12,13A3,3 0 0,1 15,16A3,3 0 0,1 12,19M15,9H5V5H15V9Z" /></svg>
+                        </div>
+                        <div class="medal-info">
+                            <strong>Pixel Saver</strong>
+                            <span>Save 10MB total</span>
+                        </div>
+                    </div>
+
+                    <div class="achievement-item" id="ach-rle-master">
+                        <div class="medal-icon">
+                            <svg viewBox="0 0 24 24" width="40" height="40"><path fill="currentColor" d="M7,2V13H10V22L17,10H13L17,2H7Z" /></svg>
+                        </div>
+                        <div class="medal-info">
+                            <strong>RLE Master</strong>
+                            <span>Solve RLE < 30s</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div id="instruction-content">
-                <p style="margin-bottom: 15px;">Welcome to the Compression Challenge! Your goal is to compress images to their smallest size without losing too much quality.</p>
-                <ul>
-                    <li>Upload your own image to start the compressor.</li>
-                    <li>Adjust compression settings (quality, format).</li>
-                    <li>Aim for the highest score by balancing size and quality.</li>
-                    <li>Watch out for time limits!</li>
-                </ul>
             </div>
         </aside>
 
@@ -55,19 +70,18 @@
             <div class="stats-bar">
                 <div class="stat-box">
                     <span>SCORE</span>
-                    <strong id="score-display">1250</strong>
+                    <strong id="score-display">0</strong>
                 </div>
                 <div class="stat-box">
                     <span>TIME</span>
-                    <strong id="time-display">01:45</strong>
+                    <strong id="time-display">00:00</strong>
                 </div>
                 <div class="metrics-box">
                     <div class="metrics-info">
                         <strong>Quality Metrics</strong>
-                        <p id="psnr-display">PSNR: 35.2 dB</p>
-                        <p id="ssim-display">SSIM: 0.94</p>
+                        <p id="psnr-display">PSNR: -- dB</p>
+                        <p id="ssim-display">SSIM: --</p>
                     </div>
-                    <div class="stars">☆☆☆</div>
                 </div>
             </div>
 
@@ -80,43 +94,29 @@
 
                 <div id="rle-visual-area" style="display: none; width: 100%; height: 100%; flex-direction: column; justify-content: center; align-items: center; background: #fff;">
                     <h3 style="margin-bottom: 20px; color: #2c3e50;">Original Data (Uncompressed)</h3>
-                    <div id="rle-blocks-container" class="rle-blocks-container">
-                    </div>
+                    <div id="rle-blocks-container" class="rle-blocks-container"></div>
                 </div>
             </div>
 
             <div class="interactive-controls" id="specific-controls">
-                <label>Quality Level:</label>
-                <div class="slider-container">
-                    <span>Low</span>
-                    <input type="range" min="1" max="100" value="80" oninput="updateMetrics(this.value)">
-                    <span>High</span>
-                </div>
             </div>
 
             <div class="progress-section">
                 <div class="progress-header">
                     <span>Remaining Size</span>
-                    <span id="size-percentage">60%</span>
+                    <span id="size-percentage">100%</span>
                 </div>
                 <div class="progress-bar">
-                    <div class="progress-fill" id="progress-bar-fill"></div>
+                    <div class="progress-fill" id="progress-bar-fill" style="width: 100%;"></div>
                 </div>
             </div>
 
-            <div class="controls">
-                <button id="start-btn">▶ Start</button>
-                <button id="pause-btn">⏸ Pause</button>
-                <button id="restart-btn">↻ Restart</button>
-            </div>
-
-            <p class="feedback-text" id="feedback-msg">"Great compression! You saved 40% file size."</p>
+            <p class="feedback-text" id="feedback-msg">Upload an image to start your career!</p>
 
         </main>
     </div>
 </div>
 
-<script src="./js/Game_Page_v1.js">
-</script>
+<script src="./js/Game_Page_v1.js"></script>
 </body>
 </html>

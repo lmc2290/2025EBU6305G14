@@ -34,14 +34,48 @@ let dctTargetBlur = 0;
 let currentDCTBlur = 0;
 let freqBackgroundCanvas = null;
 
-// 【新增】DCT专属的内置默认图片对象
 let dctImageObj = null;
-const DEFAULT_DCT_IMAGE_SRC = 'image_a48e5b.jpg'; // 指向你上传的那张海景图
+const DEFAULT_DCT_IMAGE_SRC = 'image_a48e5b.jpg';
 
 const RLE_COLORS = [
   { name: 'Red', hex: '#ff4757' },
   { name: 'Blue', hex: '#1e90ff' },
   { name: 'Green', hex: '#2ed573' }
+];
+
+// Compression Challenge 关卡数据与状态
+let compCurrentLevel = 0;
+let ultimateSaves = []; // 用于存储终极关卡的3次提交
+
+const COMPRESSION_LEVELS = [
+  {
+    type: 'standard',
+    client: "Blogger Bob",
+    story: "I need a tiny thumbnail for my blog list. It will be displayed very small, so I don't care if it's a bit blocky, just make it load FAST!",
+    targetSize: 20,
+    targetPSNR: 0
+  },
+  {
+    type: 'standard',
+    client: "Social Media Influencer",
+    story: "I'm posting this to MyGram. It needs to look decent on mobile phones, but the app limits my file size.",
+    targetSize: 45,
+    targetPSNR: 30
+  },
+  {
+    type: 'standard',
+    client: "Professional Print Shop",
+    story: "We are printing this for a billboard. We can tolerate a slightly large file, but the quality must be near-perfect! No visible artifacts allowed.",
+    targetSize: 85,
+    targetPSNR: 38
+  },
+  {
+    type: 'ultimate',
+    client: "Ultimate Boss: The Lead Web Developer",
+    story: "I need 3 versions of this image: a Thumbnail, a Mobile display, and a High-Res Desktop version. You have a STRICT TOTAL BUDGET of 150% for all three combined! Average quality must stay above 28dB.",
+    budget: 150,
+    avgPSNR: 28
+  }
 ];
 
 // ==========================================
@@ -51,18 +85,24 @@ const MODE_DATA = {
   compression: {
     title: "Compression Challenge",
     instructions: `
-            <p style="margin-bottom: 15px;">Welcome to the Compression Challenge! Balance size and quality.</p>
+            <div id="comp-mission-brief" style="background: #e1f5fe; padding: 15px; border-left: 5px solid #3498db; border-radius: 4px; margin-bottom: 15px;">
+                <h4 style="color: #2980b9; margin-bottom: 5px;">Mission Board</h4>
+                <p>Upload an image to reveal your first client contract!</p>
+            </div>
             <ul>
-                <li>Upload your image to start.</li>
-                <li>Adjust the compression quality slider.</li>
-                <li>Aim for the lowest size while keeping PSNR above 30dB!</li>
+                <li>Read the client's strict requirements carefully.</li>
+                <li>Adjust the slider to balance Size and Quality (PSNR).</li>
+                <li>Click <b>Submit</b> to evaluate your compression!</li>
             </ul>`,
     controlsHtml: `
-            <label>JPEG Quality Level:</label>
-            <div class="slider-container">
-                <span>Low (Blocky)</span>
-                <input type="range" id="quality-slider" min="1" max="100" value="80" oninput="handleCompressionChange(this.value)">
-                <span>High (Clear)</span>
+            <div id="comp-controls-area" style="opacity: 0.5; pointer-events: none;">
+                <label style="font-weight: bold; color: #2c3e50;">Adjust JPEG Quality:</label>
+                <div class="slider-container" style="margin: 15px 0;">
+                    <span style="color: #e74c3c;">Low (Blocky)</span>
+                    <input type="range" id="quality-slider" min="1" max="100" value="100" oninput="handleCompressionChange(this.value)">
+                    <span style="color: #2ecc71;">High (Clear)</span>
+                </div>
+                <button class="controls button rle-check-btn" id="comp-submit-btn" onclick="submitCompression()" style="width: 100%;">📬 Submit to Client</button>
             </div>`
   },
   rle: {
@@ -86,7 +126,7 @@ const MODE_DATA = {
                 <li><strong>Bottom-Right:</strong> High frequencies (sharp edges/details).</li>
                 <li>Watch the Frequency Map: as you cut high frequencies, the image blurs, but file size drops massively!</li>
             </ul>`,
-    controlsHtml: `` // DCT 的 HTML 将由 JS 动态完全接管
+    controlsHtml: ``
   }
 };
 
@@ -124,12 +164,17 @@ function handleImageUpload(e) {
       canvas.height = height;
 
       resetCanvas();
-      startGame();
+
+      if (currentMode === 'compression') {
+        compCurrentLevel = 0;
+        ultimateSaves = [];
+        loadCompressionLevel();
+        startGame();
+      }
     }
     img.src = event.target.result;
   }
   if (e.target.files[0]) {
-    baseFileSize = e.target.files[0].size;
     reader.readAsDataURL(e.target.files[0]);
   }
 }
@@ -140,17 +185,10 @@ function resetCanvas() {
   ctx.drawImage(originalImage, 0, 0, canvas.width, canvas.height);
 }
 
-// 加载 DCT 默认图片
 function loadDCTImage(callback) {
-  if (dctImageObj) {
-    callback();
-    return;
-  }
+  if (dctImageObj) return callback();
   const img = new Image();
-  img.onload = () => {
-    dctImageObj = img;
-    callback();
-  };
+  img.onload = () => { dctImageObj = img; callback(); };
   img.src = DEFAULT_DCT_IMAGE_SRC;
 }
 
@@ -167,19 +205,14 @@ function switchMode(mode, event) {
   document.getElementById('page-title').innerText = data.title;
   document.getElementById('instruction-content').innerHTML = data.instructions;
 
-  // 【修复点】：每次切换模式时，强制重置下方控制区的 HTML！
-  // 彻底清除上一个模式（特别是 DCT 模式）强行塞入的残留界面
   const specificControls = document.getElementById('specific-controls');
-  if (specificControls) {
-    specificControls.innerHTML = data.controlsHtml;
-  }
+  if (specificControls) specificControls.innerHTML = data.controlsHtml;
 
   const rleVisualArea = document.getElementById('rle-visual-area');
   const canvasContainer = document.getElementById('canvas-container');
   const metricsBox = document.querySelector('.metrics-box');
   const bottomControls = document.querySelector('.game-panel > .controls');
 
-  // 每次切换模式，重置全局计时器
   pauseGame();
   secondsElapsed = 0;
   timeDisplay.innerText = "00:00";
@@ -188,7 +221,6 @@ function switchMode(mode, event) {
     canvasContainer.style.display = 'flex';
     canvas.style.display = 'none';
     uploadUI.style.display = 'none';
-
     rleVisualArea.style.display = 'flex';
     if (metricsBox) metricsBox.style.display = 'none';
     if (bottomControls) bottomControls.style.display = 'none';
@@ -202,27 +234,113 @@ function switchMode(mode, event) {
     showDCTStartScreen();
 
   } else {
-    // 基础 Compression 模式
     rleVisualArea.style.display = 'none';
     canvasContainer.style.display = 'flex';
     if (metricsBox) metricsBox.style.display = 'flex';
-    if (bottomControls) bottomControls.style.display = 'flex';
+    if (bottomControls) bottomControls.style.display = 'none';
 
     if (originalImage) {
       canvas.style.display = 'block';
       uploadUI.style.display = 'none';
-      handleCompressionChange(80);
+      loadCompressionLevel();
       startGame();
     } else {
       canvas.style.display = 'none';
       uploadUI.style.display = 'block';
+      scoreDisplay.innerText = "0";
+      feedbackMsg.innerText = "Upload an image to start your career!";
     }
   }
 }
 
 // ==========================================
-// 5. Basic Compression Logic
+// 5. Compression Challenge (Career + Ultimate Mode)
 // ==========================================
+let currentCompMetrics = { size: 100, psnr: "Infinity" };
+
+function loadCompressionLevel() {
+  if (compCurrentLevel >= COMPRESSION_LEVELS.length) {
+    document.getElementById('comp-mission-brief').innerHTML = `
+            <h4 style="color: #27ae60;">🎉 Career Completed!</h4>
+            <p>You have satisfied all clients and conquered the Ultimate Boss! You are a Master Compression Engineer!</p>
+        `;
+    document.getElementById('comp-controls-area').style.display = 'none';
+    feedbackMsg.style.color = "#2ecc71";
+    feedbackMsg.innerText = "Game Over. Your final score is locked in!";
+    pauseGame();
+    return;
+  }
+
+  const level = COMPRESSION_LEVELS[compCurrentLevel];
+  const brief = document.getElementById('comp-mission-brief');
+  const submitBtn = document.getElementById('comp-submit-btn');
+
+  if (level.type === 'standard') {
+    brief.style.borderLeft = "5px solid #3498db";
+    brief.style.background = "#e1f5fe";
+    brief.innerHTML = `
+            <h4 style="color: #2980b9; margin-bottom: 5px;">Client ${compCurrentLevel + 1}: ${level.client}</h4>
+            <p style="font-size: 14px; font-style: italic; color: #555; margin-bottom: 10px;">"${level.story}"</p>
+            <div style="background: #fff; padding: 10px; border-radius: 4px; border: 1px solid #bce8f1;">
+                <b style="color: #e74c3c;">Targets:</b><br>
+                📉 Size: Must be <b>&le; ${level.targetSize}%</b><br>
+                ✨ Quality: ${level.targetPSNR > 0 ? `Must be <b>&ge; ${level.targetPSNR} dB</b>` : `Any quality is acceptable.`}
+            </div>
+        `;
+    submitBtn.innerText = "📬 Submit to Client";
+    submitBtn.style.backgroundColor = "#2ecc71";
+
+  } else if (level.type === 'ultimate') {
+    let totalUsed = ultimateSaves.reduce((sum, save) => sum + save.size, 0);
+    let stages = ["Thumbnail", "Mobile Display", "High-Res Desktop"];
+    let currentTarget = stages[ultimateSaves.length];
+
+    let historyHtml = '<ul style="margin: 10px 0 0 0; padding-left: 20px; font-size: 13px;">';
+    for (let i = 0; i < 3; i++) {
+      if (i < ultimateSaves.length) {
+        historyHtml += `<li style="color: #27ae60;">✅ ${stages[i]}: Size <b>${ultimateSaves[i].size}%</b>, PSNR <b>${ultimateSaves[i].psnr}dB</b></li>`;
+      } else if (i === ultimateSaves.length) {
+        historyHtml += `<li style="color: #e67e22; font-weight:bold;">▶ ${stages[i]}: Pending your choice...</li>`;
+      } else {
+        historyHtml += `<li style="color: #95a5a6;">⏳ ${stages[i]}: Locked</li>`;
+      }
+    }
+    historyHtml += '</ul>';
+
+    let currentAvgPsnr = ultimateSaves.length > 0
+        ? (ultimateSaves.reduce((sum, s) => sum + s.psnr, 0) / ultimateSaves.length).toFixed(1)
+        : "0.0";
+
+    brief.style.borderLeft = "5px solid #8e44ad";
+    brief.style.background = "#f4ecf7";
+    brief.innerHTML = `
+            <h4 style="color: #8e44ad; margin-bottom: 5px;">🔥 Final Boss: ${level.client}</h4>
+            <p style="font-size: 14px; font-style: italic; color: #555; margin-bottom: 10px;">"${level.story}"</p>
+            <div style="background: #fff; padding: 10px; border-radius: 4px; border: 1px solid #d2b4de;">
+                <b style="color: #e74c3c;">Global Constraints:</b><br>
+                📦 Total Budget: <b>${level.budget}%</b> (Used: <span style="color:${totalUsed>level.budget?'red':'#2ecc71'}">${totalUsed}%</span>)<br>
+                ✨ Minimum Avg PSNR: <b>${level.avgPSNR} dB</b> (Current Avg: ${currentAvgPsnr} dB)<br>
+                <hr style="margin: 8px 0; border: 0; border-top: 1px dashed #eee;">
+                <b style="color: #2980b9;">Submission Tracker:</b>
+                ${historyHtml}
+            </div>
+        `;
+    submitBtn.innerText = `💾 Save ${currentTarget} Version`;
+    submitBtn.style.backgroundColor = "#9b59b6";
+  }
+
+  const controls = document.getElementById('comp-controls-area');
+  if (controls) {
+    controls.style.opacity = '1';
+    controls.style.pointerEvents = 'auto';
+    document.getElementById('quality-slider').value = 100;
+  }
+
+  handleCompressionChange(100);
+  feedbackMsg.style.color = "#7f8c8d";
+  feedbackMsg.innerText = "Adjust the slider to meet the targets...";
+}
+
 function handleCompressionChange(quality) {
   if (!originalImage) return;
   resetCanvas();
@@ -233,19 +351,125 @@ function handleCompressionChange(quality) {
 
   img.onload = () => {
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    const sizeRatio = Math.max(10, Math.floor(qualityLevel * 85 + 15));
-    const psnr = (20 + (qualityLevel * 25)).toFixed(1);
-    const ssim = (0.50 + (qualityLevel * 0.49)).toFixed(2);
-    updateMetricsUI(sizeRatio, psnr, ssim, quality);
+
+    currentCompMetrics.size = Math.max(5, Math.floor(qualityLevel * 95 + 5));
+    currentCompMetrics.psnr = qualityLevel === 1 ? "Infinity" : (20 + (qualityLevel * 25)).toFixed(1);
+    const ssim = qualityLevel === 1 ? "1.00" : (0.50 + (qualityLevel * 0.49)).toFixed(2);
+
+    sizePercentage.innerText = `${currentCompMetrics.size}%`;
+    progressBarFill.style.width = `${currentCompMetrics.size}%`;
+    psnrDisplay.innerText = `PSNR: ${currentCompMetrics.psnr} ${currentCompMetrics.psnr !== "Infinity" ? 'dB' : ''}`;
+    ssimDisplay.innerText = `SSIM: ${ssim}`;
   };
   img.src = compressedDataUrl;
 }
 
+function submitCompression() {
+  const level = COMPRESSION_LEVELS[compCurrentLevel];
+  const currentPSNRValue = currentCompMetrics.psnr === "Infinity" ? 100 : parseFloat(currentCompMetrics.psnr);
+
+  // --- 方案一：标准关卡逻辑 ---
+  if (level.type === 'standard') {
+    let isSuccess = true;
+    let failReason = "";
+
+    if (currentCompMetrics.size > level.targetSize) {
+      isSuccess = false;
+      failReason = "File is still too large!";
+    } else if (currentPSNRValue < level.targetPSNR) {
+      isSuccess = false;
+      failReason = "The quality is too blurry for the client!";
+    }
+
+    if (isSuccess) {
+      playSuccessSound();
+
+      // === 【成就 Hook】：校验是否达成 Pixel Saver ===
+      checkAchievements('compression_saved', currentCompMetrics.size);
+
+      feedbackMsg.style.color = "#2ecc71";
+      feedbackMsg.innerText = `Contract Fulfilled! Client is happy. (+500 pts)`;
+
+      let currentScore = parseInt(scoreDisplay.innerText) || 0;
+      scoreDisplay.innerText = currentScore + 500 + (level.targetSize - currentCompMetrics.size) * 10;
+
+      const btn = document.getElementById('comp-submit-btn');
+      btn.innerText = "🚀 Next Client";
+      btn.style.backgroundColor = "#f39c12";
+      btn.onclick = () => {
+        compCurrentLevel++;
+        loadCompressionLevel();
+        btn.onclick = submitCompression;
+      };
+    } else {
+      feedbackMsg.style.color = "#e74c3c";
+      feedbackMsg.innerText = `Client Rejected: ${failReason}`;
+      document.getElementById('comp-controls-area').animate([
+        { transform: 'translateX(0)' }, { transform: 'translateX(-10px)' },
+        { transform: 'translateX(10px)' }, { transform: 'translateX(0)' }
+      ], { duration: 300 });
+
+      let currentScore = parseInt(scoreDisplay.innerText) || 0;
+      if (currentScore > 50) scoreDisplay.innerText = currentScore - 50;
+    }
+
+    // --- 方案三：极限资源分配（Boss战）逻辑 ---
+  } else if (level.type === 'ultimate') {
+    ultimateSaves.push({ size: currentCompMetrics.size, psnr: currentPSNRValue });
+
+    if (ultimateSaves.length < 3) {
+      playSuccessSound();
+
+      // === 【成就 Hook】：即使是子任务提交，也计算节省的空间 ===
+      checkAchievements('compression_saved', currentCompMetrics.size);
+
+      feedbackMsg.style.color = "#3498db";
+      feedbackMsg.innerText = `Version saved! Now allocate space for the next one.`;
+      loadCompressionLevel();
+    } else {
+      let totalSize = ultimateSaves.reduce((sum, s) => sum + s.size, 0);
+      let avgPSNR = ultimateSaves.reduce((sum, s) => sum + s.psnr, 0) / 3;
+
+      if (totalSize <= level.budget && avgPSNR >= level.avgPSNR) {
+        playSuccessSound();
+        feedbackMsg.style.color = "#2ecc71";
+        feedbackMsg.innerText = `Ultimate Boss Defeated! Perfect Resource Management! (+2000 pts)`;
+
+        let currentScore = parseInt(scoreDisplay.innerText) || 0;
+        scoreDisplay.innerText = currentScore + 2000;
+
+        const btn = document.getElementById('comp-submit-btn');
+        btn.innerText = "🏆 View Final Results";
+        btn.style.backgroundColor = "#f1c40f";
+        btn.onclick = () => {
+          compCurrentLevel++;
+          loadCompressionLevel();
+        };
+      } else {
+        let failReason = totalSize > level.budget ? `Exceeded Data Budget (${totalSize}% > ${level.budget}%)!` : `Average quality too low (${avgPSNR.toFixed(1)} < ${level.avgPSNR})!`;
+        feedbackMsg.style.color = "#e74c3c";
+        feedbackMsg.innerText = `Boss Fight Failed: ${failReason} Try again!`;
+
+        document.getElementById('comp-controls-area').animate([
+          { transform: 'translateX(0)' }, { transform: 'translateX(-10px)' },
+          { transform: 'translateX(10px)' }, { transform: 'translateX(0)' }
+        ], { duration: 300 });
+
+        let currentScore = parseInt(scoreDisplay.innerText) || 0;
+        if (currentScore > 200) scoreDisplay.innerText = currentScore - 200;
+
+        ultimateSaves = [];
+        setTimeout(loadCompressionLevel, 2000);
+      }
+    }
+  }
+}
+
 // ==========================================
-// 6. DCT Challenge Logic (Frequency Detective)
+// 6. DCT Challenge Logic
 // ==========================================
 function showDCTStartScreen() {
-  pauseGame(); // 【修复】点击 Back 按钮退回时，确保时间停止
+  pauseGame();
   timeDisplay.innerText = "00:00";
 
   const area = document.getElementById('specific-controls');
@@ -257,12 +481,10 @@ function showDCTStartScreen() {
         </div>
     `;
 
-  // 提前在后台加载默认海景图
   loadDCTImage(() => {});
 }
 
 function startDCTChallenge() {
-  // 确保图片加载完成后再渲染 UI
   loadDCTImage(() => {
     dctTargetBlur = Math.floor(Math.random() * 13) + 2;
     currentDCTBlur = 0;
@@ -301,14 +523,12 @@ function startDCTChallenge() {
             </div>
         `;
 
-    // 渲染左侧的 Target 目标图
     const tCanvas = document.getElementById('targetCanvas');
     tCanvas.width = 400; tCanvas.height = 300;
     const tCtx = tCanvas.getContext('2d');
     tCtx.filter = `blur(${dctTargetBlur}px)`;
     tCtx.drawImage(dctImageObj, 0, 0, 400, 300);
 
-    // 准备右侧的 Current 你的图
     const cCanvas = document.getElementById('currentCanvas');
     cCanvas.width = 400; cCanvas.height = 300;
 
@@ -347,7 +567,6 @@ function handleDCTChange(blurAmount) {
   currentDCTBlur = parseFloat(blurAmount);
   if (!dctImageObj) return;
 
-  // 【修改】将空间模糊效果应用到专属的 Current Canvas 上，而不是原生的大 Canvas
   const cCanvas = document.getElementById('currentCanvas');
   if (cCanvas) {
     const cCtx = cCanvas.getContext('2d');
@@ -356,7 +575,6 @@ function handleDCTChange(blurAmount) {
     cCtx.drawImage(dctImageObj, 0, 0, cCanvas.width, cCanvas.height);
   }
 
-  // 绘制频域图
   const freqCanvas = document.getElementById('dct-freq-canvas');
   if (freqCanvas) {
     const fCtx = freqCanvas.getContext('2d');
@@ -381,11 +599,14 @@ function handleDCTChange(blurAmount) {
     fCtx.stroke();
   }
 
-  // 更新下方进度条数值，但【不再实时更新分数】
   const sizeRatio = Math.max(15, 100 - (blurAmount * 4));
   const psnr = Math.max(15, (40 - blurAmount * 1.5)).toFixed(1);
   const ssim = Math.max(0.3, (0.98 - blurAmount * 0.03)).toFixed(2);
-  updateMetricsUI(sizeRatio, psnr, ssim, 100 - (blurAmount * 5));
+
+  sizePercentage.innerText = `${sizeRatio}%`;
+  progressBarFill.style.width = `${sizeRatio}%`;
+  psnrDisplay.innerText = `PSNR: ${psnr} dB`;
+  ssimDisplay.innerText = `SSIM: ${ssim}`;
 }
 
 function checkDCTMatch() {
@@ -396,7 +617,6 @@ function checkDCTMatch() {
     feedbackMsg.innerText = "Match Found! You've correctly identified the frequency cut-off.";
     feedbackMsg.style.color = "#2ecc71";
 
-    // 游戏结算时再给分
     const bonus = Math.max(0, 500 - secondsElapsed * 10);
     scoreDisplay.innerText = parseInt(scoreDisplay.innerText) + bonus;
 
@@ -408,7 +628,6 @@ function checkDCTMatch() {
     feedbackMsg.style.color = "#e74c3c";
   }
 }
-
 
 // ==========================================
 // 7. RLE Puzzle Logic
@@ -551,7 +770,8 @@ function initRLEPuzzleWithDifficulty(diff) {
   actionGroup.appendChild(helperRow);
   inputsContainer.appendChild(actionGroup);
 
-  updateMetricsUI(100, "Perfect", "1.00", 100);
+  sizePercentage.innerText = `100%`;
+  progressBarFill.style.width = `100%`;
   feedbackMsg.innerText = "Count the blocks and compress!";
   feedbackMsg.style.color = "#7f8c8d";
 }
@@ -578,6 +798,10 @@ function checkRLEPuzzle() {
 
   pauseGame();
   playSuccessSound();
+
+  // === 【成就 Hook】：校验是否达成 RLE Master ===
+  checkAchievements('rle_complete', secondsElapsed);
+
   feedbackMsg.style.color = "#2ecc71";
   feedbackMsg.innerText = "Awesome! Data successfully compressed via RLE!";
 
@@ -602,7 +826,10 @@ function checkRLEPuzzle() {
   const compressedBlocksCount = currentRLEAnswer.length;
   const sizeRatio = Math.floor((compressedBlocksCount / totalOriginalBlocks) * 100);
 
-  setTimeout(() => { updateMetricsUI(sizeRatio, "Perfect", "1.00", 100); }, 500);
+  setTimeout(() => {
+    sizePercentage.innerText = `${sizeRatio}%`;
+    progressBarFill.style.width = `${sizeRatio}%`;
+  }, 500);
 
   document.querySelectorAll('.rle-input-group input, .rle-input-group select').forEach(el => el.disabled = true);
 
@@ -653,30 +880,8 @@ function playSuccessSound() {
 }
 
 // ==========================================
-// 8. Shared UI & Timer Logic
+// 8. Timer & Start Logic
 // ==========================================
-function updateMetricsUI(sizeRatio, psnr, ssim, qualityVal) {
-  sizePercentage.innerText = `${sizeRatio}%`;
-  progressBarFill.style.width = `${sizeRatio}%`;
-  psnrDisplay.innerText = `PSNR: ${psnr} ${psnr !== "Infinity" ? 'dB' : ''}`;
-  ssimDisplay.innerText = `SSIM: ${ssim}`;
-
-  // 【修复】只有在基础 Compression 模式才实时改分数
-  if (currentMode === 'compression') {
-    let score = 1000 + (100 - sizeRatio) * 15 - (100 - qualityVal) * 10;
-    if (score < 0) score = 0;
-    scoreDisplay.innerText = Math.floor(score);
-
-    if (sizeRatio > 80) feedbackMsg.innerText = "File is still very large. Try compressing more!";
-    else if (sizeRatio < 30 && psnr < 25) feedbackMsg.innerText = "Careful! Quality is dropping too low.";
-    else feedbackMsg.innerText = `Great balance! You saved ${100 - sizeRatio}% file size.`;
-  }
-}
-
-document.getElementById('start-btn').addEventListener('click', startGame);
-document.getElementById('pause-btn').addEventListener('click', pauseGame);
-document.getElementById('restart-btn').addEventListener('click', restartGame);
-
 function formatTime(totalSeconds) {
   const m = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
   const s = (totalSeconds % 60).toString().padStart(2, '0');
@@ -684,18 +889,12 @@ function formatTime(totalSeconds) {
 }
 
 function startGame() {
-  // 基础模式且没传图才拦截，挑战模式不需要传图了
-  if (currentMode === 'compression' && !originalImage) {
-    alert("Please upload an image first!");
-    return;
-  }
   if (!isPlaying) {
     isPlaying = true;
     gameTimer = setInterval(() => {
       secondsElapsed++;
       timeDisplay.innerText = formatTime(secondsElapsed);
 
-      // RLE 模式时间惩罚
       if (currentMode === 'rle') {
         let currentScore = parseInt(scoreDisplay.innerText);
         if (currentScore > 0 && secondsElapsed % 2 === 0) {
@@ -711,11 +910,84 @@ function pauseGame() {
   clearInterval(gameTimer);
 }
 
-function restartGame() {
-  pauseGame();
-  secondsElapsed = 0;
-  timeDisplay.innerText = "00:00";
-  if (originalImage || currentMode === 'rle' || currentMode === 'dct') {
-    switchMode(currentMode);
+// ==========================================
+// 9. Achievement System (LocalStorage)
+// ==========================================
+
+// 初始化成就数据结构
+let userStats = {
+  totalMBDSaved: 0,
+  rleBestTime: Infinity,
+  unlocked: {
+    pixelSaver: false,
+    rleMaster: false
+  }
+};
+
+// 从本地存储加载数据
+function loadStats() {
+  const saved = localStorage.getItem('compression_game_stats');
+  if (saved) {
+    userStats = JSON.parse(saved);
+    updateAchievementUI();
   }
 }
+
+// 保存数据到本地
+function saveStats() {
+  localStorage.setItem('compression_game_stats', JSON.stringify(userStats));
+  updateAchievementUI();
+}
+
+// 更新界面显示状态
+function updateAchievementUI() {
+  const pixelBadge = document.getElementById('ach-pixel-saver');
+  const rleBadge = document.getElementById('ach-rle-master');
+
+  if (pixelBadge && userStats.unlocked.pixelSaver) {
+    pixelBadge.classList.add('unlocked');
+  }
+  if (rleBadge && userStats.unlocked.rleMaster) {
+    rleBadge.classList.add('unlocked');
+  }
+}
+
+// 核心判定函数
+function checkAchievements(type, value) {
+  let newlyUnlocked = false;
+
+  if (type === 'compression_saved') {
+    // 假设原始文件是 1MB，计算本次节省的 MB
+    const savedThisTime = (100 - value) / 100;
+    userStats.totalMBDSaved += savedThisTime;
+
+    if (userStats.totalMBDSaved >= 10 && !userStats.unlocked.pixelSaver) {
+      userStats.unlocked.pixelSaver = true;
+      newlyUnlocked = true;
+    }
+  }
+
+  if (type === 'rle_complete') {
+    // value 是通关秒数
+    if (value < 30 && !userStats.unlocked.rleMaster) {
+      userStats.unlocked.rleMaster = true;
+      newlyUnlocked = true;
+    }
+    if (value < userStats.rleBestTime) userStats.rleBestTime = value;
+  }
+
+  if (newlyUnlocked) {
+    setTimeout(() => {
+      alert("🎉 New Achievement Unlocked! Check your achievements board.");
+    }, 300); // 稍微延迟一下，让原本的过关反馈先渲染
+  }
+  saveStats();
+}
+
+// ==========================================
+// 10. Initialization
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+  loadStats(); // 页面一加载就读取勋章数据
+  switchMode('compression');
+});
