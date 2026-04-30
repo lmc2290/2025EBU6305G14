@@ -5,9 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kids Personal Homepage</title>
     <link rel="stylesheet" href="css/community_kids_personalhomepage.css">
+
+    <style>
+        .top-tools{
+            background:#fff;
+            border-bottom:1px solid #eee;
+            padding:10px 20px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            flex-wrap:wrap;
+        }
+
+        .breadcrumb{
+            font-size:14px;
+            color:#666;
+        }
+
+        .tool-right{
+            display:flex;
+            gap:8px;
+        }
+
+        .tool-btn{
+            padding:6px 10px;
+            border:none;
+            border-radius:8px;
+            background:#fff;
+            box-shadow:0 2px 6px rgba(0,0,0,.08);
+            cursor:pointer;
+        }
+
+        .font-btn{ width:40px; }
+    </style>
+
 </head>
 
 <body>
+
+<!-- ===== 新增工具栏 ===== -->
+<div class="top-tools">
+    <div class="breadcrumb" id="breadcrumb">
+        Home > Kids Profile
+    </div>
+
+    <div class="tool-right">
+        <button class="tool-btn" onclick="switchLang()" id="langBtn">中文</button>
+        <button class="tool-btn font-btn" onclick="changeFont(-1)">A-</button>
+        <button class="tool-btn font-btn" onclick="changeFont(0)">A</button>
+        <button class="tool-btn font-btn" onclick="changeFont(1)">A+</button>
+    </div>
+</div>
 
 <header>
     <nav>
@@ -21,16 +69,13 @@
 
 <main class="kids-container">
 
-    <!-- 顶部资料 -->
     <section class="kids-profile">
 
-        <!-- 点击头像 -->
         <img id="kidsAvatar"
              src="https://i.pravatar.cc/120?img=5"
              class="avatar-large"
              onclick="editKidsProfile()">
 
-        <!-- 点击名字 -->
         <h2 id="kidsName" onclick="editKidsProfile()">Little Learner</h2>
 
         <p>Keep Growing Every Day!</p>
@@ -56,7 +101,6 @@
 
     </section>
 
-    <!-- 内容区 -->
     <section class="kids-grid">
 
         <div class="kids-box">
