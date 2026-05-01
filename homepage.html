@@ -9,97 +9,309 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
     <title>Learning with Games - Home</title>
     <link rel="stylesheet" href="homepage.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <nav aria-label="Main navigation">
-            <div class="logo">
-                <a href="homepage.html" aria-label="Home">
-                    <h1>Learning with Games</h1>
-                </a>
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="homepage.html" class="nav-logo">
+                <span class="logo-icon">🎮</span>
+                <span class="logo-text">Learning<span class="highlight">Games</span></span>
+            </a>
+            
+            <div class="nav-menu" id="nav-menu">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="homepage.html" class="nav-link active">
+                            <span class="nav-icon">🏠</span>
+                            Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="learning.html" class="nav-link">
+                            <span class="nav-icon">📚</span>
+                            Learning
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="games.html" class="nav-link">
+                            <span class="nav-icon">🎯</span>
+                            Games
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="test.html" class="nav-link">
+                            <span class="nav-icon">📝</span>
+                            Tests
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="community.html" class="nav-link">
+                            <span class="nav-icon">👥</span>
+                            Community
+                        </a>
+                    </li>
+                </ul>
+                
+                <div class="nav-auth">
+                    <a href="#" class="btn btn-outline">Login</a>
+                    <a href="#" class="btn btn-primary">Sign Up</a>
+                </div>
             </div>
-            <button class="mobile-menu-toggle" aria-label="Toggle menu" onclick="toggleMobileMenu()">
-                ☰
+            
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
             </button>
-            <ul class="nav-links" aria-label="Navigation links">
-                <li><a href="homepage.html" class="active" aria-current="page">Home</a></li>
-                <li><a href="learning.html">Learning</a></li>
-                <li><a href="games.html">Games</a></li>
-                <li><a href="test.html">Tests</a></li>
-                <li><a href="community.html">Community</a></li>
-            </ul>
-            <div class="auth-buttons" aria-label="Authentication buttons">
-                <a href="#" class="btn btn-secondary" aria-label="Login">Login</a>
-                <a href="#" class="btn btn-primary" aria-label="Sign up">Sign Up</a>
-            </div>
         </nav>
     </header>
 
     <main>
         <section class="hero">
-            <div class="hero-content">
-                <h2>Unlock the Secrets of Digital Media!</h2>
-                <p>Learn about image compression, video encoding, and more through interactive lessons and fun games.</p>
-                <div class="hero-buttons">
-                    <a href="learning.html" class="btn btn-primary">Start Learning</a>
-                    <a href="games.html" class="btn btn-secondary">Play Games</a>
+            <div class="hero-bg">
+                <div class="hero-overlay"></div>
+            </div>
+            <div class="hero-content container">
+                <div class="hero-text">
+                    <span class="hero-subtitle">Welcome to</span>
+                    <h1 class="hero-title">Learning with Games</h1>
+                    <p class="hero-description">
+                        Discover the fascinating world of digital media through interactive lessons 
+                        and engaging games. Master image compression, video encoding, and more!
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="learning.html" class="btn btn-primary btn-lg">
+                            <span>Start Learning</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                        <a href="games.html" class="btn btn-outline btn-lg">
+                            <span>Play Games</span>
+                            <span class="btn-icon">🎮</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-image-wrapper">
+                        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Interactive%20learning%20game%20website%20hero%20image%20with%20digital%20media%20concepts&image_size=landscape_16_9" 
+                             alt="Interactive learning illustration" 
+                             class="hero-image"
+                             loading="eager">
+                        <div class="hero-image-decoration"></div>
+                    </div>
                 </div>
             </div>
-            <div class="hero-image">
-                <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Interactive%20learning%20game%20website%20hero%20image%20with%20digital%20media%20concepts&image_size=landscape_16_9" alt="Interactive learning game website hero image" class="hero-img" loading="lazy">
+            <div class="hero-scroll">
+                <span>Scroll to explore</span>
+                <div class="scroll-indicator">
+                    <div class="scroll-dot"></div>
+                </div>
             </div>
         </section>
 
-        <section class="features">
-            <h3>What We Offer</h3>
-            <div class="feature-cards">
-                <div class="feature-card">
-                    <div class="card-icon">📚</div>
-                    <h4>Interactive Learning</h4>
-                    <p>Engaging lessons on digital media concepts</p>
+        <section class="features section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-subtitle">What We Offer</span>
+                    <h2 class="section-title">Explore Our Features</h2>
+                    <p class="section-description">
+                        Discover tools and resources designed to make learning digital media concepts fun and engaging.
+                    </p>
                 </div>
-                <div class="feature-card">
-                    <div class="card-icon">🎮</div>
-                    <h4>Educational Games</h4>
-                    <p>Fun games that reinforce learning</p>
-                </div>
-                <div class="feature-card">
-                    <div class="card-icon">📊</div>
-                    <h4>Progress Tracking</h4>
-                    <p>Monitor your learning journey</p>
-                </div>
-                <div class="feature-card">
-                    <div class="card-icon">👥</div>
-                    <h4>Community</h4>
-                    <p>Connect with other learners</p>
+                
+                <div class="features-grid">
+                    <article class="feature-card" data-aos="fade-up" data-aos-delay="0">
+                        <div class="feature-icon">
+                            <span>📚</span>
+                        </div>
+                        <h3 class="feature-title">Interactive Learning</h3>
+                        <p class="feature-text">
+                            Engaging lessons on digital media concepts with interactive content that adapts to your learning pace.
+                        </p>
+                        <a href="learning.html" class="feature-link">
+                            Learn more
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </article>
+                    
+                    <article class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="feature-icon">
+                            <span>🎮</span>
+                        </div>
+                        <h3 class="feature-title">Educational Games</h3>
+                        <p class="feature-text">
+                            Fun games that reinforce learning through interactive challenges and rewarding gameplay mechanics.
+                        </p>
+                        <a href="games.html" class="feature-link">
+                            Play now
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </article>
+                    
+                    <article class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="feature-icon">
+                            <span>📊</span>
+                        </div>
+                        <h3 class="feature-title">Progress Tracking</h3>
+                        <p class="feature-text">
+                            Monitor your learning journey with detailed statistics and progress indicators.
+                        </p>
+                        <a href="test.html" class="feature-link">
+                            Track progress
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </article>
+                    
+                    <article class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="feature-icon">
+                            <span>👥</span>
+                        </div>
+                        <h3 class="feature-title">Community</h3>
+                        <p class="feature-text">
+                            Connect with other learners, share insights, and collaborate on projects together.
+                        </p>
+                        <a href="community.html" class="feature-link">
+                            Join community
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </article>
                 </div>
             </div>
         </section>
 
-        <section class="about">
-            <div class="about-content">
-                <h3>About Our Project</h3>
-                <p>Our website is designed to help users learn about digital media concepts, particularly image compression, through interactive lessons and games. We aim to make learning fun and engaging for students, educators, and anyone interested in digital media.</p>
+        <section class="about section">
+            <div class="container">
+                <div class="about-content">
+                    <div class="about-text">
+                        <span class="section-subtitle">About Us</span>
+                        <h2 class="section-title">About Our Project</h2>
+                        <p class="about-description">
+                            Our website is designed to help users learn about digital media concepts, 
+                            particularly image compression and video encoding, through interactive lessons 
+                            and engaging games.
+                        </p>
+                        <p class="about-description">
+                            We aim to make learning fun and accessible for students, educators, and 
+                            anyone interested in digital media. Our team at Queen Mary University of 
+                            London has developed this platform to enhance the educational experience.
+                        </p>
+                        <div class="about-stats">
+                            <div class="stat-item">
+                                <span class="stat-number">4+</span>
+                                <span class="stat-label">Interactive Games</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">10+</span>
+                                <span class="stat-label">Learning Modules</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">100+</span>
+                                <span class="stat-label">Active Users</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-visual">
+                        <div class="about-image-wrapper">
+                            <div class="about-decoration"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2 class="cta-title">Ready to Start Your Learning Journey?</h2>
+                    <p class="cta-description">
+                        Join thousands of learners mastering digital media concepts through play.
+                    </p>
+                    <div class="cta-buttons">
+                        <a href="learning.html" class="btn btn-primary btn-lg">
+                            Get Started Now
+                        </a>
+                        <a href="community.html" class="btn btn-outline btn-lg">
+                            Learn More
+                        </a>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-info">
-                <h4>Learning with Games</h4>
-                <p>Group Number: 2025EBU6305G14</p>
-                <p>© 2026 Queen Mary University of London</p>
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <a href="homepage.html" class="footer-logo">
+                            <span class="logo-icon">🎮</span>
+                            <span class="logo-text">Learning<span class="highlight">Games</span></span>
+                        </a>
+                        <p class="footer-description">
+                            Making digital media education accessible and enjoyable for everyone.
+                        </p>
+                        <div class="footer-social">
+                            <a href="#" class="social-link" aria-label="GitHub">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-links">
+                        <h4 class="footer-title">Quick Links</h4>
+                        <ul class="footer-list">
+                            <li><a href="homepage.html">Home</a></li>
+                            <li><a href="learning.html">Learning</a></li>
+                            <li><a href="games.html">Games</a></li>
+                            <li><a href="test.html">Tests</a></li>
+                            <li><a href="community.html">Community</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-links">
+                        <h4 class="footer-title">Resources</h4>
+                        <ul class="footer-list">
+                            <li><a href="#">Documentation</a></li>
+                            <li><a href="#">Help Center</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms of Service</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-contact">
+                        <h4 class="footer-title">Contact Us</h4>
+                        <p class="footer-text">
+                            Group Number: 2025EBU6305G14
+                        </p>
+                        <p class="footer-text">
+                            Queen Mary University of London
+                        </p>
+                        <p class="footer-text">
+                            © 2026 Learning with Games
+                        </p>
+                    </div>
+                </div>
             </div>
-            <div class="footer-links">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="homepage.html">Home</a></li>
-                    <li><a href="learning.html">Learning</a></li>
-                    <li><a href="games.html">Games</a></li>
-                    <li><a href="test.html">Tests</a></li>
-                    <li><a href="community.html">Community</a></li>
-                </ul>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="container">
+                <p class="footer-copyright">
+                    Made with ❤️ by Team 2025EBU6305G14
+                </p>
             </div>
         </div>
     </footer>
