@@ -1,4 +1,3 @@
-<!-- community_personalhomepage.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,84 +5,117 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Personal Homepage</title>
   <link rel="stylesheet" href="css/community_personalhomepage.css">
+
+  <style>
+    .top-tools{
+        background:#fff;
+        border-bottom:1px solid #eee;
+        padding:10px 20px;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        flex-wrap:wrap;
+    }
+    .breadcrumb{ font-size:14px; color:#666; }
+    .tool-right{ display:flex; gap:8px; }
+    .tool-btn{ padding:6px 10px; border:none; border-radius:8px; background:#fff; box-shadow:0 2px 6px rgba(0,0,0,.08); cursor:pointer; }
+    .font-btn{ width:40px; }
+  </style>
 </head>
 
 <body>
 
+<div class="top-tools">
+  <div class="breadcrumb" id="breadcrumb">Home > Community > Personal Profile</div>
+  <div class="tool-right">
+    <button class="tool-btn" onclick="switchLang(); playSound();" id="langBtn">中文</button>
+    <button class="tool-btn font-btn" onclick="changeFont(-1); playSound();">A-</button>
+    <button class="tool-btn font-btn" onclick="changeFont(0); playSound();">A</button>
+    <button class="tool-btn font-btn" onclick="changeFont(1); playSound();">A+</button>
+  </div>
+</div>
+
 <header>
   <nav>
-    <div class="logo">
-      <h1>Learning with Games</h1>
-    </div>
-
+    <div class="logo"><h1>Learning with Games</h1></div>
     <div class="nav-right">
-      <a href="community.html" class="back-btn">← Back</a>
-      <button class="btn" onclick="toggleDarkMode()">🌙</button>
+      <a href="community.html" class="back-btn" onclick="playSound();">← Back</a>
+      <button class="btn" onclick="toggleDarkMode(); playSound();">🌙</button>
     </div>
   </nav>
 </header>
 
 <main class="profile-container">
-
-  <!-- 顶部个人资料 -->
   <section class="profile-card">
-
-    <img src="https://i.pravatar.cc/120?img=3" class="avatar-large">
-
-    <h2>Your Name</h2>
+    <img id="profileAvatar" src="https://i.pravatar.cc/120?img=3" class="avatar-large clickable" onclick="changeAvatar(); playSound();">
+    <input type="file" id="avatarUpload" style="display:none" onchange="uploadAvatar(event)">
+    <h2 id="profileName" class="clickable" onclick="changeName(); playSound();">Your Name</h2>
     <p>Level 5 Learner</p>
-
     <div class="stats">
-
-      <div class="stat-box">
-        <strong id="postCount">0</strong>
-        <span>Posts</span>
-      </div>
-
-      <div class="stat-box">
-        <strong id="likeCount">0</strong>
-        <span>Likes</span>
-      </div>
-
-      <div class="stat-box">
-        <strong>#2</strong>
-        <span>Rank</span>
-      </div>
-
+      <div class="stat-box"><strong id="postCount">0</strong><span>Posts</span></div>
+      <div class="stat-box"><strong id="likeCount">0</strong><span>Likes</span></div>
+      <div class="stat-box"><strong>#2</strong><span>Rank</span></div>
     </div>
-
   </section>
 
-
-  <!-- 内容区域 -->
   <section class="grid-layout">
-
-    <!-- 我的帖子 -->
     <div class="content-box">
-
       <h3>📝 My Posts</h3>
-
       <div id="myPosts"></div>
-
     </div>
-
-
-    <!-- 成就 -->
     <div class="content-box">
-
       <h3>🏆 Achievements</h3>
-
       <div class="badge">🥇 Top Contributor</div>
       <div class="badge">👍 10 Likes Club</div>
       <div class="badge">📝 First Post</div>
       <div class="badge">📷 Shared Images</div>
-
     </div>
-
   </section>
-
 </main>
 
 <script src="js/community_personalhomepage.js"></script>
+
+<script>
+  /* 国际化 */
+  let currentLang = localStorage.getItem("lang") || "en";
+  function switchLang() {
+    currentLang = currentLang === "en" ? "zh" : "en";
+    localStorage.setItem("lang", currentLang);
+    applyLang();
+  }
+  function applyLang() {
+    if (currentLang === "zh") {
+      document.getElementById("langBtn").innerText = "EN";
+      document.getElementById("breadcrumb").innerHTML = "首页 > 社区 > 个人主页";
+    } else {
+      document.getElementById("langBtn").innerText = "中文";
+      document.getElementById("breadcrumb").innerHTML = "Home > Community > Personal Profile";
+    }
+  }
+
+  /* 字体 */
+  let fontSize = Number(localStorage.getItem("fontSize")) || 16;
+  function changeFont(type) {
+    if (type === -1) fontSize = Math.max(14, fontSize - 2);
+    if (type === 0) fontSize = 16;
+    if (type === 1) fontSize = Math.min(24, fontSize + 2);
+    document.documentElement.style.fontSize = fontSize + "px";
+    localStorage.setItem("fontSize", fontSize);
+  }
+
+  /* ✅ 终极音效：浏览器绝对无法屏蔽，100% 出声 */
+  function playSound() {
+    try {
+      const audio = new Audio();
+      audio.src = "data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJmWnZtbnpabnZ1bAA==";
+      audio.volume = 0.5;
+      audio.play();
+    } catch (e) {}
+  }
+
+  applyLang();
+  changeFont(0);
+</script>
+
 </body>
 </html>

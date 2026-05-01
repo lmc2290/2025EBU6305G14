@@ -5,256 +5,167 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Community</title>
     <link rel="stylesheet" href="css/community.css">
+
+    <style>
+        .top-tools{
+            background:#f8f9fa;
+            border-bottom:1px solid #eee;
+            padding:10px 30px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            flex-wrap:wrap;
+            gap:10px;
+        }
+        .breadcrumb{ font-size:14px; color:#666; }
+        .breadcrumb span{ margin:0 6px; }
+        .tool-right{ display:flex; gap:8px; flex-wrap:wrap; }
+        .tool-btn{ padding:6px 12px; border:none; border-radius:8px; cursor:pointer; background:#fff; box-shadow:0 2px 6px rgba(0,0,0,.08); }
+        .font-btn{ width:42px; }
+        body.dark .top-tools{ background:#1d1d1d; border-color:#333; }
+    </style>
 </head>
 
 <body>
+<div class="top-tools">
+    <div class="breadcrumb" id="breadcrumb">Home <span>></span> Community</div>
+    <div class="tool-right">
+        <button class="tool-btn" onclick="switchLang()" id="langBtn">中文</button>
+        <button class="tool-btn font-btn" onclick="changeFont(-1)">A-</button>
+        <button class="tool-btn font-btn" onclick="changeFont(0)">A</button>
+        <button class="tool-btn font-btn" onclick="changeFont(1)">A+</button>
+    </div>
+</div>
 
 <header>
     <nav>
-        <div class="logo">
-            <h1>Learning with Games</h1>
-        </div>
-
+        <div class="logo"><h1>Learning with Games</h1></div>
         <ul class="nav-links">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Learning</a></li>
-            <li><a href="#">Games</a></li>
-            <li><a href="#">Tests</a></li>
-            <li><a href="#" class="active">Community</a></li>
+            <li><a href="homepage.html" id="navHome">Home</a></li>
+            <li><a href="learning.html" id="navLearning">Learning</a></li>
+            <li><a href="games.html" id="navGames">Games</a></li>
+            <li><a href="test.html" id="navTests">Tests</a></li>
+            <li><a href="community.html" class="active" id="navCommunity">Community</a></li>
         </ul>
-
         <div class="nav-right">
-            <button class="mode-btn" onclick="switchVersion()">👶 Kids Mode</button>
+            <button class="mode-btn" onclick="switchVersion()" id="modeBtn">👶 Kids Mode</button>
             <button class="btn btn-secondary" onclick="toggleDarkMode()">🌙</button>
         </div>
     </nav>
 </header>
 
 <main class="community-container">
-
-    <!-- ===================================================
-    成人版
-    =================================================== -->
     <section id="adultVersion" class="version-box">
-
-        <!-- 左侧帖子区 -->
         <section class="posts-section">
-
             <div class="top-bar">
-                <h2>Explore Posts</h2>
-
-                <input
-                        type="text"
-                        id="searchInput"
-                        placeholder="Search posts..."
-                        onkeyup="searchPosts()">
+                <h2 id="exploreTitle">Explore Posts</h2>
+                <input type="text" id="searchInput" placeholder="Search posts..." onkeyup="searchPosts()">
             </div>
-
             <div class="posts-scroll" id="postList"></div>
-
         </section>
-
-
-        <!-- 右侧用户区 -->
         <section class="user-section">
-
-            <!-- 用户信息（点击跳转成人主页） -->
             <div class="user-box">
-
-                <div class="user-info clickable-profile"
-                     onclick="location.href='community_personalhomepage.html'">
-
-                    <img src="https://i.pravatar.cc/80?img=3"
-                         class="avatar big-avatar">
-
-                    <div>
-                        <h3>Your Name</h3>
-                        <p>Level 5 Learner</p>
-                    </div>
-
+                <div class="user-info clickable-profile" onclick="goAdultProfile()">
+                    <img id="adultHomeAvatar" src="https://i.pravatar.cc/80?img=3" class="avatar big-avatar">
+                    <div><h3 id="adultHomeName">Your Name</h3><p id="adultLevel">Level 5 Learner</p></div>
                 </div>
-
-                <button class="btn btn-primary full-btn"
-                        onclick="openModal()">
-                    + New Post
-                </button>
-
+                <button class="btn btn-primary full-btn" onclick="openModal()" id="newPostBtn">+ New Post</button>
             </div>
-
-
-            <!-- 排行榜 -->
-            <div class="side-card leaderboard-card">
-
-                <h3>🏆 Leaderboard</h3>
-
-                <div id="leaderboard"></div>
-
-            </div>
-
-
-            <!-- 我的帖子 -->
-            <div class="side-card">
-
-                <h3>Your Posts</h3>
-
-                <div id="myPosts"></div>
-
-            </div>
-
+            <div class="side-card leaderboard-card"><h3 id="leaderTitle">🏆 Leaderboard</h3><div id="leaderboard"></div></div>
+            <div class="side-card"><h3 id="yourPostTitle">Your Posts</h3><div id="myPosts"></div></div>
         </section>
-
     </section>
 
-
-    <!-- ===================================================
-    儿童版
-    =================================================== -->
-    <section id="kidsVersion"
-             class="version-box"
-             style="display:none;">
-
-        <!-- 左侧帖子 -->
+    <section id="kidsVersion" class="version-box" style="display:none;">
         <section class="posts-section">
-
-            <div class="top-bar">
-                <h2>Kids Community ⭐</h2>
-            </div>
-
+            <div class="top-bar"><h2 id="kidsCommunityTitle">Kids Community ⭐</h2></div>
             <div class="posts-scroll" id="kidsPostList"></div>
-
         </section>
-
-
-        <!-- 右侧 -->
         <section class="user-section">
-
-            <!-- 点击跳转儿童主页 -->
             <div class="user-box">
-
-                <div class="user-info clickable-profile"
-                     onclick="location.href='community_kids_personalhomepage.html'">
-
-                    <img src="https://i.pravatar.cc/80?img=5"
-                         class="avatar big-avatar">
-
-                    <div>
-                        <h3>Little Learner</h3>
-                        <p>
-                            Stars:
-                            <span id="starCount">0</span> ⭐
-                        </p>
-                    </div>
-
+                <div class="user-info clickable-profile" onclick="goKidsProfile()">
+                    <img id="kidsHomeAvatar" src="https://i.pravatar.cc/80?img=5" class="avatar big-avatar">
+                    <div><h3 id="kidsHomeName">Little Learner</h3><p><span id="starLabel">Stars</span>: <span id="starCount">0</span> ⭐</p></div>
                 </div>
-
-                <button class="btn btn-primary full-btn"
-                        onclick="openKidsModal()">
-                    + I Learned
-                </button>
-
+                <button class="btn btn-primary full-btn" onclick="openKidsModal()" id="learnBtn">+ I Learned</button>
             </div>
-
-
-            <!-- 儿童排行榜 -->
-            <div class="side-card leaderboard-card kids-rank">
-
-                <h3>🌟 Star Ranking</h3>
-
-                <div id="kidsLeaderboard"></div>
-
-            </div>
-
-
-            <!-- 游戏说明 -->
-            <div class="side-card">
-
-                <h3>Game Guide 🎮</h3>
-
-                <div class="game-guide">
-                    20% = Easy 😄<br>
-                    50% = Medium 😎<br>
-                    80% = Hard 🔥<br>
-                    100% = Master 👑
-                </div>
-
-            </div>
-
+            <div class="side-card leaderboard-card kids-rank"><h3 id="starRankTitle">🌟 Star Ranking</h3><div id="kidsLeaderboard"></div></div>
+            <div class="side-card"><h3 id="guideTitle">Game Guide 🎮</h3><div class="game-guide" id="guideBox"></div></div>
         </section>
-
     </section>
-
 </main>
 
-
-<!-- ===================================================
-成人发帖弹窗
-=================================================== -->
 <div class="modal" id="postModal">
-
     <div class="modal-content">
-
-        <span class="close"
-              onclick="closeModal()">
-              &times;
-        </span>
-
-        <h3>Create Post</h3>
-
-        <input id="postTitle"
-               placeholder="Title">
-
-        <textarea id="postContent"
-                  placeholder="Write something..."></textarea>
-
-        <input type="file"
-               id="postImage"
-               accept="image/*">
-
-        <button class="btn btn-primary full-btn"
-                onclick="addPost()">
-            Post
-        </button>
-
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h3 id="createPostTitle">Create Post</h3>
+        <input id="postTitle" placeholder="Title">
+        <textarea id="postContent" placeholder="Write something..."></textarea>
+        <input type="file" id="postImage" accept="image/*">
+        <button class="btn btn-primary full-btn" onclick="addPost()" id="postBtn">Post</button>
     </div>
-
 </div>
 
-
-<!-- ===================================================
-儿童发帖弹窗
-=================================================== -->
 <div class="modal" id="kidsModal">
-
     <div class="modal-content">
-
-        <span class="close"
-              onclick="closeKidsModal()">
-              &times;
-        </span>
-
-        <h3>I Learned...</h3>
-
+        <span class="close" onclick="closeKidsModal()">&times;</span>
+        <h3 id="learnModalTitle">I Learned...</h3>
         <select id="kidsTemplate">
             <option>I learned new words today!</option>
             <option>I learned math skills today!</option>
             <option>I learned science facts today!</option>
             <option>I finished a game challenge!</option>
         </select>
-
-        <button class="btn btn-primary full-btn"
-                onclick="addKidsPost()">
-            Share
-        </button>
-
+        <button class="btn btn-primary full-btn" onclick="addKidsPost()" id="shareBtn">Share</button>
     </div>
-
 </div>
 
-
-<!-- Toast -->
 <div id="toast"></div>
-
-
 <script src="js/community.js"></script>
+
+<script>
+    function goAdultProfile(){ playSound('profile'); location.href="community_personalhomepage.html"; }
+    function goKidsProfile(){ playSound('profile'); location.href="community_kids_personalhomepage.html"; }
+    function loadProfiles(){
+        let a=localStorage.getItem("adultName"),b=localStorage.getItem("adultAvatar");
+        if(a)document.getElementById("adultHomeName").innerText=a;if(b)document.getElementById("adultHomeAvatar").src=b;
+        let c=localStorage.getItem("kidsName"),d=localStorage.getItem("kidsAvatar");
+        if(c)document.getElementById("kidsHomeName").innerText=c;if(d)document.getElementById("kidsHomeAvatar").src=d;
+    }
+    let currentLang=localStorage.getItem("lang")||"en";
+    function switchLang(){currentLang=currentLang==="en"?"zh":"en";localStorage.setItem("lang",currentLang);applyLang();}
+    function applyLang(){
+        if(currentLang==="zh"){
+            document.getElementById("langBtn").innerText="EN";document.getElementById("breadcrumb").innerHTML='首页 <span>></span> 社区';
+            document.getElementById("navHome").innerText="首页";document.getElementById("navLearning").innerText="学习";document.getElementById("navGames").innerText="游戏";document.getElementById("navTests").innerText="测试";document.getElementById("navCommunity").innerText="社区";
+            document.getElementById("exploreTitle").innerText="探索帖子";document.getElementById("searchInput").placeholder="搜索帖子...";document.getElementById("adultLevel").innerText="5级学习者";document.getElementById("newPostBtn").innerText="+ 发帖";
+            document.getElementById("leaderTitle").innerText="🏆 排行榜";document.getElementById("yourPostTitle").innerText="我的帖子";document.getElementById("kidsCommunityTitle").innerText="儿童社区 ⭐";
+            document.getElementById("starLabel").innerText="星星";document.getElementById("learnBtn").innerText="+ 我学会了";document.getElementById("starRankTitle").innerText="🌟 星星排行";document.getElementById("guideTitle").innerText="游戏说明 🎮";
+            document.getElementById("guideBox").innerHTML='20% = 简单 😄<br>50% = 中等 😎<br>80% = 困难 🔥<br>100% = 大师 👑';
+            document.getElementById("createPostTitle").innerText="创建帖子";document.getElementById("postTitle").placeholder="标题";document.getElementById("postContent").placeholder="写点内容...";document.getElementById("postBtn").innerText="发布";
+            document.getElementById("learnModalTitle").innerText="我学会了...";document.getElementById("shareBtn").innerText="分享";
+        }else{
+            document.getElementById("langBtn").innerText="中文";document.getElementById("breadcrumb").innerHTML='Home <span>></span> Community';
+            document.getElementById("navHome").innerText="Home";document.getElementById("navLearning").innerText="Learning";document.getElementById("navGames").innerText="Games";document.getElementById("navTests").innerText="Tests";document.getElementById("navCommunity").innerText="Community";
+            document.getElementById("exploreTitle").innerText="Explore Posts";document.getElementById("searchInput").placeholder="Search posts...";document.getElementById("adultLevel").innerText="Level 5 Learner";document.getElementById("newPostBtn").innerText="+ New Post";
+            document.getElementById("leaderTitle").innerText="🏆 Leaderboard";document.getElementById("yourPostTitle").innerText="Your Posts";document.getElementById("kidsCommunityTitle").innerText="Kids Community ⭐";
+            document.getElementById("starLabel").innerText="Stars";document.getElementById("learnBtn").innerText="+ I Learned";document.getElementById("starRankTitle").innerText="🌟 Star Ranking";document.getElementById("guideTitle").innerText="Game Guide 🎮";
+            document.getElementById("guideBox").innerHTML='20% = Easy 😄<br>50% = Medium 😎<br>80% = Hard 🔥<br>100% = Master 👑';
+            document.getElementById("createPostTitle").innerText="Create Post";document.getElementById("postTitle").placeholder="Title";document.getElementById("postContent").placeholder="Write something...";document.getElementById("postBtn").innerText="Post";
+            document.getElementById("learnModalTitle").innerText="I Learned...";document.getElementById("shareBtn").innerText="Share";
+        }
+        if(renderPosts)renderPosts();if(renderKidsPosts)renderKidsPosts();if(renderLeaderboard)renderLeaderboard();
+    }
+    let fontSize=Number(localStorage.getItem("fontSize"))||16;
+    function changeFont(t){if(t===-1)fontSize=Math.max(14,fontSize-2);if(t===0)fontSize=16;if(t===1)fontSize=Math.min(24,fontSize+2);document.documentElement.style.fontSize=fontSize+"px";localStorage.setItem("fontSize",fontSize);}
+    loadProfiles();applyLang();changeFont(0);
+</script>
+
+<script>
+    function playSound(t){let c=new (window.AudioContext||window.webkitAudioContext)(),o=c.createOscillator(),s=c.createGain(),e=document.body.classList.contains("kids-mode"),a=400,l=0.1,i=.12;e?(o.type="sine","click"===t?(a=680,l=.1):"close"===t?(a=520,l=.15):"success"===t?(a=850,l=.22):"profile"===t&&(a=720,l=.12)):(o.type="sine","click"===t?(a=380,l=.09):"close"===t?(a=320,l=.14):"success"===t?(a=450,l=.2):"profile"===t&&(a=410,l=.1)),s.gain.value=i,o.frequency.value=a,s.gain.setValueAtTime(0,c.currentTime),s.gain.linearRampToValueAtTime(i,c.currentTime+.02),s.gain.linearRampToValueAtTime(0,c.currentTime+l),o.connect(s),s.connect(c.destination),o.start(),o.stop(c.currentTime+l+.05)}
+    document.addEventListener("DOMContentLoaded",()=>{document.querySelectorAll("button:not(.close)").forEach(t=>{t.addEventListener("click",()=>playSound("click"))}),document.querySelectorAll(".close").forEach(t=>{t.addEventListener("click",()=>playSound("close"))})});
+    const _oldAddPost=addPost;addPost=function(){_oldAddPost();setTimeout(()=>playSound("success"),100)}
+    const _oldAddKidsPost=addKidsPost;addKidsPost=function(){_oldAddKidsPost();setTimeout(()=>playSound("success"),100)}
+</script>
 </body>
 </html>

@@ -557,3 +557,94 @@ transition:.25s;
 transform:translateY(-3px);
 opacity:.92;
 }
+
+/* =============================================
+   全局响应式适配 → 手机 / 平板 / 电脑 全部兼容
+   复制到所有页面的 <style> 里即可！
+============================================= */
+@media (max-width: 1024px) {
+  .version-box,
+  .grid-layout,
+  .kids-grid {
+    flex-direction: column;
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  /* 导航栏自动换行适配手机 */
+  nav {
+    flex-direction: column;
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 16px;
+  }
+
+  /* 主内容自动变成单列 */
+  .community-container,
+  .profile-container,
+  .kids-container {
+    padding: 0 14px;
+    margin: 14px auto;
+  }
+
+  /* 双栏 → 单栏 */
+  .community-left,
+  .community-right,
+  .posts-section,
+  .user-section {
+    width: 100% !important;
+    flex: unset !important;
+  }
+
+  /* 卡片自动适配 */
+  .post-card,
+  .profile-card,
+  .kids-profile,
+  .content-box,
+  .kids-box {
+    padding: 14px;
+    border-radius: 16px;
+  }
+
+  /* 头像缩小 */
+  .avatar-large {
+    width: 90px;
+    height: 90px;
+  }
+
+  /* 统计栏竖排 */
+  .stats {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* 顶部工具栏自动适配 */
+  .top-tools {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  /* 模态框全屏 */
+  .modal-content {
+    width: 92%;
+    padding: 16px;
+  }
+}
+
+/* 极小屏手机 */
+@media (max-width: 400px) {
+  body {
+    font-size: 14px;
+  }
+
+  .logo h1 {
+    font-size: 18px;
+  }
+}
