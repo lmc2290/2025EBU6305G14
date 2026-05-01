@@ -1,182 +1,272 @@
 /* community_kids_personalhomepage.css */
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+ *{
+ margin:0;
+ padding:0;
+ box-sizing:border-box;
+ }
 
-body{
-font-family:'Comic Sans MS',Arial,sans-serif;
-background:linear-gradient(180deg,#dff6ff,#fff5fd);
-color:#333;
-}
+ body{
+ font-family:'Comic Sans MS',Arial,sans-serif;
+ background:linear-gradient(180deg,#dff6ff,#fff5fd);
+ color:#333;
+ }
 
-/* Header */
-header{
-background:#ffffffcc;
-backdrop-filter:blur(10px);
-padding:1rem 0;
-border-bottom:1px solid #eee;
-}
+ /* Header */
+ header{
+ background:#ffffffcc;
+ backdrop-filter:blur(10px);
+ padding:1rem 0;
+ border-bottom:1px solid #eee;
+ }
 
-nav{
-max-width:1200px;
-margin:auto;
-padding:0 2rem;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
+ nav{
+ max-width:1200px;
+ margin:auto;
+ padding:0 2rem;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ }
 
-.logo h1{
-color:#ff8a00;
-font-size:1.5rem;
-font-weight:900;
-}
+ .logo h1{
+ color:#ff8a00;
+ font-size:1.5rem;
+ font-weight:900;
+ }
 
-.back-btn{
-text-decoration:none;
-padding:.75rem 1rem;
-border-radius:12px;
-background:#fff;
-color:#333;
-font-weight:700;
-box-shadow:0 6px 14px rgba(0,0,0,.08);
-}
+ .back-btn{
+ text-decoration:none;
+ padding:.75rem 1rem;
+ border-radius:12px;
+ background:#fff;
+ color:#333;
+ font-weight:700;
+ box-shadow:0 6px 14px rgba(0,0,0,.08);
+ }
 
-/* Layout */
-.kids-container{
-max-width:1200px;
-margin:2rem auto;
-padding:0 1rem;
-}
+ /* Layout */
+ .kids-container{
+ max-width:1200px;
+ margin:2rem auto;
+ padding:0 1rem;
+ }
 
-/* Top Card */
-.kids-profile{
-text-align:center;
-padding:2rem;
-border-radius:28px;
-background:linear-gradient(135deg,#fff7a8,#ffd6ec);
-box-shadow:0 14px 28px rgba(0,0,0,.08);
-margin-bottom:2rem;
-border:4px solid #fff;
-}
+ /* Top Card */
+ .kids-profile{
+ text-align:center;
+ padding:2rem;
+ border-radius:28px;
+ background:linear-gradient(135deg,#fff7a8,#ffd6ec);
+ box-shadow:0 14px 28px rgba(0,0,0,.08);
+ margin-bottom:2rem;
+ border:4px solid #fff;
+ }
 
-.avatar-large{
-width:120px;
-height:120px;
-border-radius:50%;
-margin-bottom:1rem;
-}
+ .avatar-large{
+ width:120px;
+ height:120px;
+ border-radius:50%;
+ margin-bottom:1rem;
+ }
 
-.kids-profile h2{
-font-size:2rem;
-font-weight:900;
-margin-bottom:.5rem;
-}
+ .kids-profile h2{
+ font-size:2rem;
+ font-weight:900;
+ margin-bottom:.5rem;
+ }
 
-.kids-profile p{
-font-weight:700;
-color:#555;
-margin-bottom:1.5rem;
-}
+ .kids-profile p{
+ font-weight:700;
+ color:#555;
+ margin-bottom:1.5rem;
+ }
 
-/* Stats */
-.stats{
-display:flex;
-justify-content:center;
-gap:1rem;
-flex-wrap:wrap;
-}
+ /* Stats */
+ .stats{
+ display:flex;
+ justify-content:center;
+ gap:1rem;
+ flex-wrap:wrap;
+ }
 
-.stat-card{
-background:#fff;
-padding:1rem 1.4rem;
-border-radius:20px;
-min-width:120px;
-box-shadow:0 8px 16px rgba(0,0,0,.06);
-}
+ .stat-card{
+ background:#fff;
+ padding:1rem 1.4rem;
+ border-radius:20px;
+ min-width:120px;
+ box-shadow:0 8px 16px rgba(0,0,0,.06);
+ }
 
-.stat-card strong{
-display:block;
-font-size:1.6rem;
-margin-bottom:6px;
-color:#ff8a00;
-font-weight:900;
-}
+ .stat-card strong{
+ display:block;
+ font-size:1.6rem;
+ margin-bottom:6px;
+ color:#ff8a00;
+ font-weight:900;
+ }
 
-/* Grid */
-.kids-grid{
-display:grid;
-grid-template-columns:2fr 1fr;
-gap:2rem;
-}
+ /* Grid */
+ .kids-grid{
+ display:grid;
+ grid-template-columns:2fr 1fr;
+ gap:2rem;
+ }
 
-.kids-box{
-padding:1.5rem;
-border-radius:28px;
-background:linear-gradient(135deg,#ffffff,#fdf7ff);
-box-shadow:0 12px 22px rgba(0,0,0,.06);
-border:4px solid #fff;
-}
+ .kids-box{
+ padding:1.5rem;
+ border-radius:28px;
+ background:linear-gradient(135deg,#ffffff,#fdf7ff);
+ box-shadow:0 12px 22px rgba(0,0,0,.06);
+ border:4px solid #fff;
+ }
 
-.kids-box h3{
-margin-bottom:1rem;
-font-size:1.25rem;
-font-weight:900;
-}
+ .kids-box h3{
+ margin-bottom:1rem;
+ font-size:1.25rem;
+ font-weight:900;
+ }
 
-/* Posts */
-.post-card{
-padding:1rem;
-border-radius:18px;
-background:linear-gradient(135deg,#dff6ff,#fff);
-margin-bottom:1rem;
-font-weight:800;
-}
+ /* Posts */
+ .post-card{
+ padding:1rem;
+ border-radius:18px;
+ background:linear-gradient(135deg,#dff6ff,#fff);
+ margin-bottom:1rem;
+ font-weight:800;
+ }
 
-/* Badges */
-.badge{
-padding:12px 14px;
-border-radius:18px;
-margin-bottom:12px;
-font-weight:900;
-background:linear-gradient(90deg,#ffb347,#ffd93d);
-}
+ /* Badges */
+ .badge{
+ padding:12px 14px;
+ border-radius:18px;
+ margin-bottom:12px;
+ font-weight:900;
+ background:linear-gradient(90deg,#ffb347,#ffd93d);
+ }
 
-/* Progress */
-.progress{
-width:100%;
-height:20px;
-background:#eee;
-border-radius:30px;
-overflow:hidden;
-margin-top:12px;
-}
+ /* Progress */
+ .progress{
+ width:100%;
+ height:20px;
+ background:#eee;
+ border-radius:30px;
+ overflow:hidden;
+ margin-top:12px;
+ }
 
-.fill{
-height:100%;
-width:0%;
-background:linear-gradient(90deg,#00c9ff,#92fe9d);
-transition:.4s;
-}
+ .fill{
+ height:100%;
+ width:0%;
+ background:linear-gradient(90deg,#00c9ff,#92fe9d);
+ transition:.4s;
+ }
 
-/* Responsive */
-@media(max-width:768px){
+ /* Responsive */
+ @media(max-width:768px){
 
-.kids-grid{
-grid-template-columns:1fr;
-}
+ .kids-grid{
+ grid-template-columns:1fr;
+ }
 
-.stats{
-flex-direction:column;
-align-items:center;
-}
+ .stats{
+ flex-direction:column;
+ align-items:center;
+ }
 
-nav{
-flex-direction:column;
-gap:1rem;
-}
+ nav{
+ flex-direction:column;
+ gap:1rem;
+ }
 
-}
+ }
+ /* =============================================
+    全局响应式适配 → 手机 / 平板 / 电脑 全部兼容
+    复制到所有页面的 <style> 里即可！
+ ============================================= */
+ @media (max-width: 1024px) {
+   .version-box,
+   .grid-layout,
+   .kids-grid {
+     flex-direction: column;
+     grid-template-columns: 1fr;
+   }
+ }
+
+ @media (max-width: 768px) {
+   /* 导航栏自动换行适配手机 */
+   nav {
+     flex-direction: column;
+     gap: 12px;
+     padding: 14px;
+   }
+
+   .nav-links {
+     flex-wrap: wrap;
+     justify-content: center;
+     gap: 10px 16px;
+   }
+
+   /* 主内容自动变成单列 */
+   .community-container,
+   .profile-container,
+   .kids-container {
+     padding: 0 14px;
+     margin: 14px auto;
+   }
+
+   /* 双栏 → 单栏 */
+   .community-left,
+   .community-right,
+   .posts-section,
+   .user-section {
+     width: 100% !important;
+     flex: unset !important;
+   }
+
+   /* 卡片自动适配 */
+   .post-card,
+   .profile-card,
+   .kids-profile,
+   .content-box,
+   .kids-box {
+     padding: 14px;
+     border-radius: 16px;
+   }
+
+   /* 头像缩小 */
+   .avatar-large {
+     width: 90px;
+     height: 90px;
+   }
+
+   /* 统计栏竖排 */
+   .stats {
+     flex-direction: column;
+     align-items: center;
+   }
+
+   /* 顶部工具栏自动适配 */
+   .top-tools {
+     flex-direction: column;
+     gap: 8px;
+     align-items: flex-start;
+   }
+
+   /* 模态框全屏 */
+   .modal-content {
+     width: 92%;
+     padding: 16px;
+   }
+ }
+
+ /* 极小屏手机 */
+ @media (max-width: 400px) {
+   body {
+     font-size: 14px;
+   }
+
+   .logo h1 {
+     font-size: 18px;
+   }
+ }

@@ -16,93 +16,48 @@
             align-items:center;
             flex-wrap:wrap;
         }
-
-        .breadcrumb{
-            font-size:14px;
-            color:#666;
-        }
-
-        .tool-right{
-            display:flex;
-            gap:8px;
-        }
-
-        .tool-btn{
-            padding:6px 10px;
-            border:none;
-            border-radius:8px;
-            background:#fff;
-            box-shadow:0 2px 6px rgba(0,0,0,.08);
-            cursor:pointer;
-        }
-
+        .breadcrumb{ font-size:14px; color:#666; }
+        .tool-right{ display:flex; gap:8px; }
+        .tool-btn{ padding:6px 10px; border:none; border-radius:8px; background:#fff; box-shadow:0 2px 6px rgba(0,0,0,.08); cursor:pointer; }
         .font-btn{ width:40px; }
-    </style>
 
+        /* ✅ 修复布局错乱：禁止字体缩小破坏页面 */
+        body { font-size: 16px !important; }
+    </style>
 </head>
 
 <body>
 
-<!-- ===== 新增工具栏 ===== -->
 <div class="top-tools">
-    <div class="breadcrumb" id="breadcrumb">
-        Home > Kids Profile
-    </div>
-
+    <div class="breadcrumb" id="breadcrumb">Home > Community > Kids Profile</div>
     <div class="tool-right">
-        <button class="tool-btn" onclick="switchLang()" id="langBtn">中文</button>
-        <button class="tool-btn font-btn" onclick="changeFont(-1)">A-</button>
-        <button class="tool-btn font-btn" onclick="changeFont(0)">A</button>
-        <button class="tool-btn font-btn" onclick="changeFont(1)">A+</button>
+        <button class="tool-btn" onclick="switchLang(); playSound();" id="langBtn">中文</button>
+        <button class="tool-btn font-btn" onclick="playSound();">A-</button>
+        <button class="tool-btn font-btn" onclick="playSound();">A</button>
+        <button class="tool-btn font-btn" onclick="playSound();">A+</button>
     </div>
 </div>
 
 <header>
     <nav>
-        <div class="logo">
-            <h1>Learning with Games</h1>
-        </div>
-
-        <a href="community.html" class="back-btn">← Back</a>
+        <div class="logo"><h1>Learning with Games</h1></div>
+        <a href="community.html" class="back-btn" onclick="playSound();">← Back</a>
     </nav>
 </header>
 
 <main class="kids-container">
-
     <section class="kids-profile">
-
-        <img id="kidsAvatar"
-             src="https://i.pravatar.cc/120?img=5"
-             class="avatar-large"
-             onclick="editKidsProfile()">
-
-        <h2 id="kidsName" onclick="editKidsProfile()">Little Learner</h2>
-
+        <img id="kidsAvatar" src="https://i.pravatar.cc/120?img=5" class="avatar-large" onclick="editKidsProfile(); playSound();">
+        <h2 id="kidsName" onclick="editKidsProfile(); playSound();">Little Learner</h2>
         <p>Keep Growing Every Day!</p>
-
         <div class="stats">
-
-            <div class="stat-card">
-                <strong id="starCount">0</strong>
-                <span>Stars</span>
-            </div>
-
-            <div class="stat-card">
-                <strong>#1</strong>
-                <span>Rank</span>
-            </div>
-
-            <div class="stat-card">
-                <strong>👑</strong>
-                <span>Hero</span>
-            </div>
-
+            <div class="stat-card"><strong id="starCount">0</strong><span>Stars</span></div>
+            <div class="stat-card"><strong>#1</strong><span>Rank</span></div>
+            <div class="stat-card"><strong>👑</strong><span>Hero</span></div>
         </div>
-
     </section>
 
     <section class="kids-grid">
-
         <div class="kids-box">
             <h3>📚 My Learning Posts</h3>
             <div id="kidsPosts"></div>
@@ -110,24 +65,46 @@
 
         <div class="kids-box">
             <h3>🎖 Achievements</h3>
-
             <div class="badge">⭐ First Share</div>
             <div class="badge">🌟 5 Stars</div>
             <div class="badge">👑 Super Learner</div>
-
             <h3 style="margin-top:20px;">Today Progress</h3>
-
-            <div class="progress">
-                <div class="fill" id="progressFill"></div>
-            </div>
-
+            <div class="progress"><div class="fill" id="progressFill"></div></div>
         </div>
-
     </section>
-
 </main>
 
 <script src="js/community_kids_personalhomepage.js"></script>
+
+<script>
+    /* 国际化 */
+    let currentLang = localStorage.getItem("lang") || "en";
+    function switchLang() {
+      currentLang = currentLang === "en" ? "zh" : "en";
+      localStorage.setItem("lang", currentLang);
+      applyLang();
+    }
+    function applyLang() {
+      if (currentLang === "zh") {
+        document.getElementById("langBtn").innerText = "EN";
+        document.getElementById("breadcrumb").innerHTML = "首页 > 社区 > 儿童主页";
+      } else {
+        document.getElementById("langBtn").innerText = "中文";
+        document.getElementById("breadcrumb").innerHTML = "Home > Community > Kids Profile";
+      }
+    }
+
+    /* ✅ 稳定音效：点击必响 */
+    function playSound() {
+      try {
+        let a = new Audio("https://cdn.jsdelivr.net/gh/volgnv/static/kids-click.mp3");
+        a.volume = 0.4;
+        a.play().catch(()=>{});
+      }catch(e){}
+    }
+
+    applyLang();
+</script>
 
 </body>
 </html>
