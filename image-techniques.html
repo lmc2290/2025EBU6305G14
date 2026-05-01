@@ -43,8 +43,14 @@
       <h2>Image Compression Techniques</h2>
 
       <div class="pro-content">
-        <p>Images contain thousands or millions of pixels. Storing every single one is inefficient. Algorithms like JPEG and PNG use "Spatial Redundancy" to compress images.</p>
-        <p>For example, if an image has a large blue sky, instead of saving "blue, blue, blue..." a thousand times, the computer saves the instruction: "1,000 pixels of this exact shade of blue". Furthermore, lossy formats like JPEG discard high-frequency color variations that the human eye is biologically poor at detecting.</p>
+        <p>Modern image compression formats like JPEG rely on <strong>Spatial Redundancy</strong> and human biological limitations. The first step is often <strong>Chroma Subsampling</strong> (e.g., 4:2:0 format), which discards up to 75% of color information while preserving brightness (Luma), because the human retina has far more rod cells (brightness) than cone cells (color).</p>
+
+        <details class="deep-dive-box">
+          <summary>🔬 Deep Dive: Discrete Cosine Transform (DCT)</summary>
+          <div class="details-content">
+            <p>JPEG compression divides an image into 8x8 pixel blocks and applies the Discrete Cosine Transform (DCT). DCT converts the spatial pixel values into "frequency" coefficients. The algorithm then applies a <strong>Quantization Matrix</strong> to divide these coefficients, effectively rounding high-frequency details (rapid color changes) to zero. When zipped using Huffman coding, these zeros compress massively.</p>
+          </div>
+        </details>
       </div>
 
       <div class="kids-content">
@@ -63,17 +69,17 @@
 
       <h3>Interactive Mini-Quiz</h3>
       <div class="quiz-section">
-        <p class="pro-content"><strong>What is spatial redundancy in image compression?</strong></p>
+        <p class="pro-content"><strong>What is the purpose of Chroma Subsampling?</strong></p>
         <p class="kids-content"><strong>How does the "Smart Painter" save time? 👨‍🎨</strong></p>
 
         <label class="quiz-option">
           <input type="radio" name="quiz1" value="wrong">
-          <span class="pro-content">Removing the middle of the image</span>
+          <span class="pro-content">To remove the center pixels of an image</span>
           <span class="kids-content">Cutting the picture in half ✂️</span>
         </label>
         <label class="quiz-option">
           <input type="radio" name="quiz1" value="efficiency">
-          <span class="pro-content">Grouping areas of the same color/data</span>
+          <span class="pro-content">To discard color data while keeping brightness intact</span>
           <span class="kids-content">Saying "Paint this whole block blue" instead of dot-by-dot 🟦</span>
         </label>
         <button class="btn-primary" id="check-answer-btn">Check Answer</button>

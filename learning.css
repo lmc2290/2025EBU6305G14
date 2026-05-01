@@ -505,3 +505,51 @@ body.kids-theme .btn-primary {
 }
 
 .image-tech-box:hover .hover-hint { opacity: 0; }
+/*quiz ui*/
+.quiz-section {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    margin-top: 15px;
+}
+
+/* 让选项变成上下排列，且像卡片一样可以点击 */
+.quiz-option {
+    display: block; /* 核心：强制换行 */
+    background: #ffffff;
+    padding: 15px 20px;
+    margin: 12px 0; /* 上下留出间距 */
+    border-radius: 8px;
+    border: 2px solid #e0e0e0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 15px;
+}
+
+/* 鼠标放上去时的交互反馈 */
+.quiz-option:hover {
+    border-color: #3498db; /* 队友常用的蓝色 */
+    background: #f0f8ff;
+}
+
+/* 稍微放大一点单选框，对齐文字 */
+.quiz-option input[type="radio"] {
+    margin-right: 12px;
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+/* Check Answer 按钮优化 */
+#check-answer-btn {
+    margin-top: 10px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+#check-answer-btn:hover { background-color: #2980b9; }

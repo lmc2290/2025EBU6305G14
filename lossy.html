@@ -43,9 +43,15 @@
       <h2>Lossy vs. Lossless Compression</h2>
 
       <div class="pro-content">
-        <p>Not all compression methods are created equal. They generally fall into two categories: Lossless and Lossy.</p>
-        <p><strong>Lossless Compression:</strong> Reduces file size without any loss of data. When uncompressed, the file is an exact replica of the original. This is crucial for text files, source code, and software where losing a single character breaks everything (e.g., ZIP files).</p>
-        <p><strong>Lossy Compression:</strong> Discards some data that is deemed "less important" or unnoticeable to human perception. The uncompressed file is an approximation of the original. This is widely used for images, video, and audio to achieve massive file size reductions (e.g., JPEG, MP3).</p>
+        <p>Compression algorithms fall into two strict paradigms. <strong>Lossless compression</strong> uses algorithms like Lempel-Ziv-Welch (LZW) or Huffman coding to create an exact bit-for-bit reconstruction of the original data. This is mandatory for executables, text, and source code.</p>
+        <p><strong>Lossy compression</strong> (used in JPEG, MP3, MP4) achieves exponentially higher compression ratios by permanently discarding data. It relies on mathematical transforms (like DCT) and quantization to remove high-frequency details that human sensory organs (eyes and ears) are biologically incapable of perceiving.</p>
+
+        <details class="deep-dive-box">
+          <summary>🔬 Deep Dive: Huffman Coding</summary>
+          <div class="details-content">
+            <p>Invented by David Huffman in 1952, this is a cornerstone of lossless compression. It assigns variable-length binary codes to input characters based on their frequency of occurrence. The most frequent character (e.g., 'e' in English) gets the shortest code (e.g., '0'), while rare characters get longer codes, minimizing the overall file size using a binary tree structure.</p>
+          </div>
+        </details>
       </div>
 
       <div class="kids-content">
@@ -74,12 +80,12 @@
 
         <label class="quiz-option">
           <input type="radio" name="quiz1" value="efficiency">
-          <span class="pro-content">A bank statement text file</span>
+          <span class="pro-content">A compiled software executable (.exe)</span>
           <span class="kids-content">A math homework text file 📝</span>
         </label>
         <label class="quiz-option">
           <input type="radio" name="quiz1" value="wrong">
-          <span class="pro-content">A photograph of a landscape</span>
+          <span class="pro-content">A high-resolution landscape photograph</span>
           <span class="kids-content">A fun YouTube video 🎬</span>
         </label>
         <button class="btn-primary" id="check-answer-btn">Check Answer</button>

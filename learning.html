@@ -12,13 +12,14 @@
 
 <div class="container">
   <header>
-    <div class="logo">Learning with Games</div> <nav>
-    <a href="homepage.html">Home</a>
-    <a href="learning.html" class="active">Learning</a>
-    <a href="games.html">Games</a>
-    <a href="test.html">Tests</a>
-    <a href="community.html">Community</a>
-  </nav>
+    <div class="logo">Learning with Games</div>
+    <nav>
+      <a href="homepage.html">Home</a>
+      <a href="learning.html" class="active">Learning</a>
+      <a href="games.html">Games</a>
+      <a href="test.html">Tests</a>
+      <a href="community.html">Community</a>
+    </nav>
   </header>
 
   <div class="breadcrumbs">
@@ -50,34 +51,40 @@
       <h2>Introduction to Compression</h2>
 
       <div class="pro-content">
-        <p>Compression is the process of encoding information using fewer bits than the original representation. It's a fundamental concept in digital technology, allowing us to store and transmit data more efficiently. Think of it as packing a suitcase — you want to fit as much as possible while taking up the least amount of space.</p>
+        <p>In computer science, data compression (or source coding) is the process of encoding information using fewer bits than the original representation. It relies heavily on the principles of <strong>Information Theory</strong>, established by Claude Shannon in 1948.</p>
+        <p>The core idea is to exploit <strong>statistical redundancy</strong>. If certain data patterns repeat frequently, they can be represented by shorter codes. The theoretical limit of how much data can be compressed without losing information is determined by its <strong>Entropy</strong> (the average unpredictability in a random variable).</p>
+
+        <details class="deep-dive-box">
+          <summary>🔬 Deep Dive: Shannon's Source Coding Theorem</summary>
+          <div class="details-content">
+            <p>Shannon's theorem states that it is impossible to compress the data such that the coding rate is less than the Shannon entropy of the source, without it being virtually certain that information will be lost. This sets the fundamental mathematical boundary for all lossless compression algorithms (like ZIP or FLAC).</p>
+          </div>
+        </details>
       </div>
 
       <div class="kids-content">
         <p>Imagine packing for a magical holiday! 🧳 You want to fit all your favorite toys into one small suitcase. <strong>Compression</strong> is like magically shrinking your stuff so it all fits perfectly, making your bag super light to carry! ✨</p>
+        <p>When you get to your hotel, you just use the magic wand again to un-shrink them, and everything is exactly as you left it!</p>
       </div>
 
       <h3>Why is Compression Important?</h3>
       <div class="pro-content">
         <ul>
-          <li>Reducing storage space on devices and servers.</li>
-          <li>Speeding up data transmission over networks.</li>
+          <li><strong>Bandwidth Optimization:</strong> Speeding up data transmission over TCP/IP networks.</li>
+          <li><strong>Storage Efficiency:</strong> Reducing the physical footprint on SSDs and cloud server farms.</li>
         </ul>
       </div>
       <div class="kids-content">
         <ul>
           <li>📱 It saves space on your iPad so you can download more games!</li>
-          <li>🚀 It makes YouTube videos load super fast!</li>
+          <li>🚀 It makes YouTube videos load super fast without buffering!</li>
         </ul>
       </div>
 
       <div class="image-slider-container">
         <img src="https://images.unsplash.com/photo-1494500764479-0c8f2919a3d8?q=80&w=1000" alt="Compressed Image" class="image-low-res">
-
         <img src="https://images.unsplash.com/photo-1494500764479-0c8f2919a3d8?q=80&w=1000" alt="Original Image" class="image-high-res" id="slider-high-res">
-
         <input type="range" min="0" max="100" value="50" class="slider-control" id="compression-slider">
-
         <div class="slider-label label-left">Highly Compressed (Lossy)</div>
         <div class="slider-label label-right">Original 4K Quality</div>
       </div>
@@ -103,8 +110,7 @@
       </div>
 
       <div class="bottom-nav">
-        <div></div>
-        <a href="lossy.html"><button class="btn-primary">Next: Lossy vs Lossless →</button></a>
+        <div></div> <a href="lossy.html"><button class="btn-primary">Next: Lossy vs Lossless →</button></a>
       </div>
     </main>
   </div>
