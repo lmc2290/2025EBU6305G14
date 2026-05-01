@@ -1,92 +1,298 @@
-// JavaScript for Home Page - Version 2
+// JavaScript for Home Page - Enhanced Visual Design
 
-// DOM Elements
-const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-const navLinks = document.querySelector('.nav-links');
-
-// Smooth scrolling for navigation links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        const targetElement = document.querySelector(targetId);
-        if (targetElement) {
-            targetElement.scrollIntoView({
-                behavior: 'smooth'
+document.addEventListener('DOMContentLoaded', function() {
+    // ========================================
+    // Mobile Navigation Toggle
+    // ========================================
+    const navToggle = document.getElementById('nav-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    const header = document.getElementById('header');
+    
+    if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function() {
+            navToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+        });
+        
+        // Close menu when clicking on nav links
+        const navLinks = navMenu.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.style.overflow = '';
             });
-        }
-    });
-});
-
-// Active navigation link based on current page
-const setActiveNavigation = () => {
-    const currentPage = window.location.pathname;
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        const linkHref = link.getAttribute('href');
-        if (linkHref === currentPage.split('/').pop()) {
-            link.classList.add('active');
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
+                navToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    }
+    
+    // ========================================
+    // Header Scroll Effect
+    // ========================================
+    let lastScroll = 0;
+    
+    window.addEventListener('scroll', function() {
+        const currentScroll = window.pageYOffset;
+        
+        if (currentScroll > 50) {
+            header.classList.add('scrolled');
         } else {
-            link.classList.remove('active');
+            header.classList.remove('scrolled');
         }
+        
+        lastScroll = currentScroll;
     });
-};
-
-// Mobile menu toggle
-function toggleMobileMenu() {
-    navLinks.classList.toggle('mobile-menu');
-    // Update aria-expanded attribute
-    const isExpanded = navLinks.classList.contains('mobile-menu');
-    mobileMenuToggle.setAttribute('aria-expanded', isExpanded);
-}
-
-// Add click event to mobile menu toggle
-if (mobileMenuToggle) {
-    mobileMenuToggle.addEventListener('click', toggleMobileMenu);
-}
-
-// Close mobile menu when clicking on a nav link
-document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', function() {
-        if (navLinks.classList.contains('mobile-menu')) {
-            navLinks.classList.remove('mobile-menu');
-            if (mobileMenuToggle) {
-                mobileMenuToggle.setAttribute('aria-expanded', 'false');
+    
+    // ========================================
+    // Active Navigation Link
+    // ========================================
+    const currentPath = window.location.pathname;
+    const navLinkItems = document.querySelectorAll('.nav-link');
+    
+    navLinkItems.forEach(link => {
+        const href = link.getAttribute('href');
+        if (currentPath.includes(href) && href !== 'homepage.html') {
+            link.classList.add('active');
+        } else if (currentPath.endsWith('/') || currentPath.endsWith('index.html')) {
+            if (href === 'homepage.html') {
+                link.classList.add('active');
             }
         }
     });
-});
-
-// Scroll event - change header style on scroll
-window.addEventListener('scroll', function() {
-    const header = document.querySelector('header');
-    if (window.scrollY > 50) {
-        header.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
-        header.style.padding = '0.5rem 0';
-    } else {
-        header.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.1)';
-        header.style.padding = '1rem 0';
+    
+    // ========================================
+    // Smooth Scroll for Anchor Links
+    // ========================================
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href !== '#') {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            }
+        });
+    });
+    
+    // ========================================
+    // Intersection Observer for Animations
+    // ========================================
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+    };
+    
+    const animateOnScroll = (entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    };
+    
+    const observer = new IntersectionObserver(animateOnScroll, observerOptions);
+    
+    // Observe feature cards
+    const featureCards = document.querySelectorAll('.feature-card');
+    featureCards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+        observer.observe(card);
+    });
+    
+    // Observe section headers
+    const sectionHeaders = document.querySelectorAll('.section-header');
+    sectionHeaders.forEach(header => {
+        header.style.opacity = '0';
+        header.style.transform = 'translateY(20px)';
+        header.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(header);
+    });
+    
+    // ========================================
+    // Button Hover Effects
+    // ========================================
+    const buttons = document.querySelectorAll('.btn');
+    buttons.forEach(btn => {
+        btn.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-2px)';
+        });
+        
+        btn.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+    
+    // ========================================
+    // Feature Card Hover Effects
+    // ========================================
+    const featureIcons = document.querySelectorAll('.feature-icon');
+    featureIcons.forEach(icon => {
+        const parent = icon.closest('.feature-card');
+        if (parent) {
+            parent.addEventListener('mouseenter', function() {
+                icon.style.transform = 'scale(1.1)';
+            });
+            parent.addEventListener('mouseleave', function() {
+                icon.style.transform = 'scale(1)';
+            });
+        }
+    });
+    
+    // ========================================
+    // Image Loading Effect
+    // ========================================
+    const heroImage = document.querySelector('.hero-image');
+    if (heroImage) {
+        heroImage.addEventListener('load', function() {
+            this.classList.add('loaded');
+        });
+        
+        if (heroImage.complete) {
+            heroImage.classList.add('loaded');
+        }
     }
+    
+    // ========================================
+    // Scroll Progress Indicator
+    // ========================================
+    const scrollIndicator = document.querySelector('.hero-scroll');
+    if (scrollIndicator) {
+        window.addEventListener('scroll', function() {
+            const scrollY = window.pageYOffset;
+            const windowHeight = window.innerHeight;
+            const docHeight = document.documentElement.scrollHeight;
+            
+            if (scrollY > windowHeight * 0.5) {
+                scrollIndicator.style.opacity = '0';
+            } else {
+                scrollIndicator.style.opacity = '1';
+            }
+        });
+    }
+    
+    // ========================================
+    // Lazy Loading Images
+    // ========================================
+    const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.classList.add('loaded');
+                    observer.unobserve(img);
+                }
+            });
+        });
+        
+        lazyImages.forEach(img => {
+            imageObserver.observe(img);
+        });
+    } else {
+        // Fallback for browsers without IntersectionObserver
+        lazyImages.forEach(img => {
+            img.classList.add('loaded');
+        });
+    }
+    
+    // ========================================
+    // Keyboard Navigation Support
+    // ========================================
+    document.addEventListener('keydown', function(e) {
+        // Escape key closes mobile menu
+        if (e.key === 'Escape' && navMenu && navMenu.classList.contains('active')) {
+            navToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+    
+    // ========================================
+    // Performance: Debounced Scroll Handler
+    // ========================================
+    let ticking = false;
+    
+    window.addEventListener('scroll', function() {
+        if (!ticking) {
+            window.requestAnimationFrame(function() {
+                // Scroll-based operations can be added here
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+    
+    // ========================================
+    // Console Log
+    // ========================================
+    console.log('Home Page loaded successfully - Enhanced Visual Design');
 });
 
-// Initialize functions
-const init = () => {
-    setActiveNavigation();
-    console.log('Home Page loaded successfully - Version 2');
-};
+// ========================================
+// Utility Functions
+// ========================================
 
-// Run initialization when DOM is loaded
-document.addEventListener('DOMContentLoaded', init);
-
-// Placeholder for future features
-// These can be implemented in version 3 and 4
-function futureFeature1() {
-    // Example: Dynamic content loading
+// Debounce function for performance
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
 }
 
-function futureFeature2() {
-    // Example: User authentication
+// Throttle function for scroll events
+function throttle(func, limit) {
+    let inThrottle;
+    return function(...args) {
+        if (!inThrottle) {
+            func.apply(this, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    };
 }
 
-function futureFeature3() {
-    // Example: Interactive elements
+// ========================================
+// Future Features Placeholder
+// ========================================
+
+// User Authentication Handler
+function handleUserAuth() {
+    // Placeholder for user authentication
+    console.log('User authentication feature placeholder');
+}
+
+// Community Features Handler
+function handleCommunityFeatures() {
+    // Placeholder for community features
+    console.log('Community features placeholder');
+}
+
+// Advanced Game Features Handler
+function handleAdvancedGameFeatures() {
+    // Placeholder for advanced game features
+    console.log('Advanced game features placeholder');
 }
