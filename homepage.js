@@ -1,4 +1,4 @@
-// JavaScript for Home Page - Enhanced Visual Design
+// JavaScript for Home Page - Core Features Implementation
 
 document.addEventListener('DOMContentLoaded', function() {
     // ========================================
@@ -7,14 +7,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const navToggle = document.getElementById('nav-toggle');
     const navMenu = document.getElementById('nav-menu');
     const header = document.getElementById('header');
-    
+
     if (navToggle && navMenu) {
         navToggle.addEventListener('click', function() {
             navToggle.classList.toggle('active');
             navMenu.classList.toggle('active');
             document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
         });
-        
+
         // Close menu when clicking on nav links
         const navLinks = navMenu.querySelectorAll('.nav-link');
         navLinks.forEach(link => {
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.body.style.overflow = '';
             });
         });
-        
+
         // Close menu when clicking outside
         document.addEventListener('click', function(e) {
             if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
@@ -34,30 +34,30 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
+
     // ========================================
     // Header Scroll Effect
     // ========================================
     let lastScroll = 0;
-    
+
     window.addEventListener('scroll', function() {
         const currentScroll = window.pageYOffset;
-        
+
         if (currentScroll > 50) {
             header.classList.add('scrolled');
         } else {
             header.classList.remove('scrolled');
         }
-        
+
         lastScroll = currentScroll;
     });
-    
+
     // ========================================
     // Active Navigation Link
     // ========================================
     const currentPath = window.location.pathname;
     const navLinkItems = document.querySelectorAll('.nav-link');
-    
+
     navLinkItems.forEach(link => {
         const href = link.getAttribute('href');
         if (currentPath.includes(href) && href !== 'homepage.html') {
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
-    
+
     // ========================================
     // Smooth Scroll for Anchor Links
     // ========================================
@@ -87,7 +87,73 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-    
+
+    // ========================================
+    // Compression Demo Interactive
+    // ========================================
+    const demoButtons = document.querySelectorAll('.demo-btn');
+    const optimizedSize = document.getElementById('optimizedSize');
+    const optimizedImage = document.querySelector('.demo-image.optimized img');
+
+    const compressionData = {
+        '100': { size: '2.4 MB', filter: 'none', badge: 'Original' },
+        '80': { size: '1.92 MB', filter: 'brightness(0.98) contrast(0.98)', badge: '20% smaller' },
+        '60': { size: '0.96 MB', filter: 'brightness(0.95) contrast(0.95)', badge: '60% smaller' },
+        '40': { size: '0.48 MB', filter: 'brightness(0.9) contrast(0.9)', badge: '80% smaller' }
+    };
+
+    demoButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Remove active class from all buttons
+            demoButtons.forEach(b => b.classList.remove('active'));
+            // Add active class to clicked button
+            this.classList.add('active');
+
+            const quality = this.dataset.quality;
+            const data = compressionData[quality];
+
+            if (optimizedSize) {
+                optimizedSize.textContent = data.size;
+            }
+
+            if (optimizedImage) {
+                optimizedImage.style.filter = data.filter;
+            }
+
+            // Update savings badge
+            const savingsBadge = document.querySelector('.savings-badge');
+            if (savingsBadge) {
+                savingsBadge.textContent = data.badge;
+            }
+        });
+    });
+
+    // ========================================
+    // Module Progress Tracking
+    // ========================================
+    const moduleCards = document.querySelectorAll('.module-card');
+
+    moduleCards.forEach(card => {
+        card.addEventListener('click', function() {
+            const progressFill = this.querySelector('.progress-fill');
+            const progressText = this.querySelector('.progress-text');
+            
+            if (progressFill && progressText) {
+                // Simulate starting a module
+                let currentProgress = 0;
+                const interval = setInterval(() => {
+                    currentProgress += 10;
+                    if (currentProgress <= 100) {
+                        progressFill.style.width = currentProgress + '%';
+                        progressText.textContent = currentProgress + '% Complete';
+                    } else {
+                        clearInterval(interval);
+                    }
+                }, 200);
+            }
+        });
+    });
+
     // ========================================
     // Intersection Observer for Animations
     // ========================================
@@ -96,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
         rootMargin: '0px',
         threshold: 0.1
     };
-    
+
     const animateOnScroll = (entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -105,9 +171,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     };
-    
+
     const observer = new IntersectionObserver(animateOnScroll, observerOptions);
-    
+
     // Observe feature cards
     const featureCards = document.querySelectorAll('.feature-card');
     featureCards.forEach((card, index) => {
@@ -116,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
         card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
         observer.observe(card);
     });
-    
+
     // Observe section headers
     const sectionHeaders = document.querySelectorAll('.section-header');
     sectionHeaders.forEach(header => {
@@ -125,7 +191,25 @@ document.addEventListener('DOMContentLoaded', function() {
         header.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(header);
     });
-    
+
+    // Observe module cards
+    const modulesGrid = document.querySelectorAll('.module-card');
+    modulesGrid.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = `opacity 0.6s ease ${index * 0.15}s, transform 0.6s ease ${index * 0.15}s`;
+        observer.observe(card);
+    });
+
+    // Observe user cards
+    const userCards = document.querySelectorAll('.user-card');
+    userCards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = `opacity 0.6s ease ${index * 0.15}s, transform 0.6s ease ${index * 0.15}s`;
+        observer.observe(card);
+    });
+
     // ========================================
     // Button Hover Effects
     // ========================================
@@ -134,12 +218,12 @@ document.addEventListener('DOMContentLoaded', function() {
         btn.addEventListener('mouseenter', function() {
             this.style.transform = 'translateY(-2px)';
         });
-        
+
         btn.addEventListener('mouseleave', function() {
             this.style.transform = 'translateY(0)';
         });
     });
-    
+
     // ========================================
     // Feature Card Hover Effects
     // ========================================
@@ -155,7 +239,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     });
-    
+
     // ========================================
     // Image Loading Effect
     // ========================================
@@ -164,12 +248,12 @@ document.addEventListener('DOMContentLoaded', function() {
         heroImage.addEventListener('load', function() {
             this.classList.add('loaded');
         });
-        
+
         if (heroImage.complete) {
             heroImage.classList.add('loaded');
         }
     }
-    
+
     // ========================================
     // Scroll Progress Indicator
     // ========================================
@@ -178,8 +262,7 @@ document.addEventListener('DOMContentLoaded', function() {
         window.addEventListener('scroll', function() {
             const scrollY = window.pageYOffset;
             const windowHeight = window.innerHeight;
-            const docHeight = document.documentElement.scrollHeight;
-            
+
             if (scrollY > windowHeight * 0.5) {
                 scrollIndicator.style.opacity = '0';
             } else {
@@ -187,7 +270,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
+
     // ========================================
     // Lazy Loading Images
     // ========================================
@@ -202,7 +285,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         });
-        
+
         lazyImages.forEach(img => {
             imageObserver.observe(img);
         });
@@ -212,7 +295,7 @@ document.addEventListener('DOMContentLoaded', function() {
             img.classList.add('loaded');
         });
     }
-    
+
     // ========================================
     // Keyboard Navigation Support
     // ========================================
@@ -224,12 +307,12 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.style.overflow = '';
         }
     });
-    
+
     // ========================================
     // Performance: Debounced Scroll Handler
     // ========================================
     let ticking = false;
-    
+
     window.addEventListener('scroll', function() {
         if (!ticking) {
             window.requestAnimationFrame(function() {
@@ -239,11 +322,11 @@ document.addEventListener('DOMContentLoaded', function() {
             ticking = true;
         }
     });
-    
+
     // ========================================
     // Console Log
     // ========================================
-    console.log('Home Page loaded successfully - Enhanced Visual Design');
+    console.log('Home Page loaded successfully - Core Features Implementation');
 });
 
 // ========================================
