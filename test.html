@@ -7,99 +7,102 @@
     <link rel="stylesheet" href="css/test.css">
 </head>
 <body>
-<header>
-    <nav>
-        <div class="logo">
-            <a href="homepage.html" id="logoText">Learning with Games</a>
-        </div>
-
-        <ul class="nav-links">
-            <li><a href="homepage.html" id="navHome">Home</a></li>
-            <li><a href="learning.html" id="navLearning">Learning</a></li>
-            <li><a href="games.html" id="navGames">Games</a></li>
-            <li><a href="test.html" class="active" id="navTest">Tests</a></li>
-            <li><a href="community.html" id="navCommunity">Community</a></li>
-        </ul>
-    </nav>
-</header>
-
-<main>
-    <div class="page-top">
-        <div class="breadcrumb" id="breadcrumbText">
-            <a href="homepage.html">Home</a> &gt; <a href="test.html">Tests</a> &gt; Smart Compression Assessment
-        </div>
-
-        <div class="utility-bar">
-            <div class="utility-group" role="group" aria-label="Language switcher">
-                <span id="languageLabel">Language</span>
-                <button class="tool-btn active" data-lang="en" type="button">EN</button>
-                <button class="tool-btn" data-lang="zh" type="button">中文</button>
+    <header class="site-header">
+        <nav class="site-nav">
+            <div class="site-logo">
+                <a class="site-logo-link" href="homepage.html" id="logoText">Learning with Games</a>
             </div>
 
-            <div class="utility-group" role="group" aria-label="Font size controls">
-                <span id="fontSizeLabel">Font Size</span>
-                <button class="tool-btn" data-font="15" type="button">A-</button>
-                <button class="tool-btn active" data-font="16" type="button">A</button>
-                <button class="tool-btn" data-font="18" type="button">A+</button>
+            <div class="site-nav-center">
+                <ul class="site-nav-links">
+                    <li><a href="homepage.html" id="navHome">Home</a></li>
+                    <li><a href="learning.html" id="navLearning">Learning</a></li>
+                    <li><a href="games.html" id="navGames">Games</a></li>
+                    <li><a href="test.html" class="active" id="navTest">Tests</a></li>
+                    <li><a href="community.html" id="navCommunity">Community</a></li>
+                </ul>
+            </div>
+
+            <div class="site-nav-right"></div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="page-top">
+            <div class="breadcrumb" id="breadcrumbText">
+                <a href="homepage.html">Home</a> &gt; <a href="test.html">Tests</a> &gt;  Smart Compression Assessment
+            </div>
+
+            <div class="utility-bar">
+                <div class="utility-group" role="group" aria-label="Language switcher">
+                    <span id="languageLabel">Language</span>
+                    <button class="tool-btn active" data-lang="en" type="button">EN</button>
+                    <button class="tool-btn" data-lang="zh" type="button">中文</button>
+                </div>
+
+                <div class="utility-group" role="group" aria-label="Font size controls">
+                    <span id="fontSizeLabel">Font Size</span>
+                    <button class="tool-btn" data-font="15" type="button">A-</button>
+                    <button class="tool-btn active" data-font="16" type="button">A</button>
+                    <button class="tool-btn" data-font="18" type="button">A+</button>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Intro Screen -->
-    <section class="screen-card intro-card" id="introScreen">
-        <div class="intro-hero">
-            <div>
-                <span class="hero-badge" id="heroBadge">Adaptive + Visual + Diagnostic</span>
-                <h2 id="introTitle">Smart Compression Assessment</h2>
+        <section class="screen-card intro-card" id="introScreen">
+            <div class="intro-hero">
+                <span class="hero-badge" id="heroBadge">Smart Assessment</span>
+                <h1 id="introTitle">Smart Compression Assessment</h1>
                 <p id="introDescription">
-                    This test uses adaptive routing, visual judgement questions, micro follow-up tasks, and personalised feedback to evaluate your understanding of image compression.
+                    This final version combines adaptive testing, visual artifact recognition, corrective micro-learning, and personalised learning feedback.
                 </p>
             </div>
-        </div>
 
-        <div class="info-grid">
-            <div class="info-item">
-                <h3 id="infoTitle1">Adaptive Path</h3>
-                <p id="infoText1">The route changes after diagnostic questions and sends you to the most suitable difficulty path.</p>
+            <div class="info-grid">
+                <div class="info-item">
+                    <h3 id="infoTitle1">Adaptive Path</h3>
+                    <p id="infoText1">Diagnostic questions route each learner to a suitable level.</p>
+                </div>
+                <div class="info-item">
+                    <h3 id="infoTitle2">Visual Judgement</h3>
+                    <p id="infoText2">Learners compare compression examples and identify artifacts.</p>
+                </div>
+                <div class="info-item">
+                    <h3 id="infoTitle3">Micro Follow-up</h3>
+                    <p id="infoText3">Wrong answers trigger corrective follow-up questions.</p>
+                </div>
+                <div class="info-item">
+                    <h3 id="infoTitle4">Final Learning Report</h3>
+                    <p id="infoText4">The result page shows strengths, weaknesses, and review advice.</p>
+                </div>
             </div>
-            <div class="info-item">
-                <h3 id="infoTitle2">Visual Judgement</h3>
-                <p id="infoText2">You will compare compression examples and identify visible artifacts, not just answer text questions.</p>
+
+            <div class="resume-box hidden" id="resumeBox">
+                <p id="resumeText">You have an unfinished assessment session.</p>
+                <div class="resume-actions">
+                    <button class="btn btn-secondary" id="resumeQuizBtn" type="button">Continue Previous Session</button>
+                    <button class="btn btn-secondary" id="clearProgressBtn" type="button">Clear Saved Progress</button>
+                </div>
             </div>
-            <div class="info-item">
-                <h3 id="infoTitle3">Follow-up Tasks</h3>
-                <p id="infoText3">If you answer incorrectly, you get a short corrective mini-question to reinforce the concept.</p>
+
+            <div class="start-actions">
+                <button class="btn btn-primary" id="startQuizBtn" type="button">Start Final Assessment</button>
+                <a href="learning.html" class="btn btn-secondary" id="goLearningBtn">Go to Learning Page</a>
             </div>
-            <div class="info-item">
-                <h3 id="infoTitle4">Capability Profile</h3>
-                <p id="infoText4">Your result page shows strengths, weak points, and recommended review directions.</p>
+        </section>
+
+        <section class="quiz-wrapper hidden" id="quizScreen">
+            <div class="route-banner">
+                <span class="route-badge" id="routeBadge">Diagnostic Route</span>
+                <span class="route-description" id="routeDescription">The system is currently diagnosing your level.</span>
             </div>
-        </div>
 
-        <div class="resume-box hidden" id="resumeBox">
-            <p id="resumeText">You have an unfinished assessment session.</p>
-            <button class="btn btn-secondary" id="resumeQuizBtn" type="button">Continue Previous Session</button>
-        </div>
+            <div class="progress-header">
+                <span id="progressLabel">Progress</span>
+                <span id="progressCount">1 / 6</span>
+            </div>
 
-        <div class="start-actions">
-            <button class="btn btn-primary" id="startQuizBtn" type="button">Start Smart Assessment</button>
-            <a href="learning.html" class="btn btn-secondary" id="goLearningBtn">Go to Learning Page</a>
-        </div>
-    </section>
-
-    <!-- Quiz Screen -->
-    <section class="quiz-wrapper hidden" id="quizScreen">
-        <div class="route-banner">
-            <span class="route-badge" id="routeBadge">Diagnostic Route</span>
-            <span class="route-description" id="routeDescription">The system is currently diagnosing your level.</span>
-        </div>
-
-        <div class="progress-header">
-            <span id="progressLabel">Progress</span>
-            <span id="progressCount">1 / 6</span>
-        </div>
-
-        <div
+            <div
                 class="progress-bar"
                 id="progressTrack"
                 role="progressbar"
@@ -107,116 +110,119 @@
                 aria-valuemax="100"
                 aria-valuenow="0"
                 aria-label="Assessment progress"
-        >
-            <div class="progress" id="progressBar"></div>
-        </div>
-
-        <div class="question-card">
-            <div class="question-top">
-                <span class="difficulty-badge" id="difficultyBadge">Diagnostic</span>
-                <span class="question-number" id="questionNumberText">Question 1 of 6</span>
+            >
+                <div class="progress" id="progressBar"></div>
             </div>
 
-            <h2 id="questionTitle">Question title</h2>
-            <p class="question-prompt" id="questionPrompt">Question prompt</p>
+            <div class="question-card">
+                <div class="question-top">
+                    <span class="difficulty-badge" id="difficultyBadge">Diagnostic</span>
+                    <span class="question-number" id="questionNumberText">Question 1 of 6</span>
+                </div>
 
-            <div class="status-message hidden" id="statusMessage" aria-live="polite"></div>
+                <h2 id="questionTitle">Question title</h2>
+                <p class="question-prompt" id="questionPrompt">Question prompt</p>
+                <p class="visual-hint hidden" id="visualHint">Observe the samples carefully before choosing.</p>
 
-            <div class="visual-zone hidden" id="visualZone"></div>
+                <div class="status-message hidden" id="statusMessage" aria-live="polite"></div>
 
-            <div class="options" id="optionsContainer"></div>
+                <div class="visual-zone hidden" id="visualZone"></div>
 
-            <button class="btn btn-primary submit-btn" id="submitBtn" type="button">Submit Answer</button>
-        </div>
+                <div class="options" id="optionsContainer"></div>
 
-        <div class="feedback-card" id="feedbackCard" aria-live="polite">
-            <h3 id="feedbackTitle"></h3>
-            <p id="feedbackText"></p>
-        </div>
+                <button class="btn btn-primary submit-btn" id="submitBtn" type="button">Submit Answer</button>
+            </div>
 
-        <div class="follow-up-card hidden" id="followUpCard">
-            <div class="follow-up-top">
+            <div class="feedback-card" id="feedbackCard" aria-live="polite">
+                <h3 id="feedbackTitle"></h3>
+                <p id="feedbackText"></p>
+            </div>
+
+            <div class="follow-up-card hidden" id="followUpCard">
                 <span class="mini-badge" id="followUpBadge">Micro Follow-up</span>
+                <h3 id="followUpTitle">Follow-up Question</h3>
+                <p id="followUpPrompt">Follow-up prompt</p>
+
+                <div class="follow-up-options" id="followUpOptions"></div>
+
+                <button class="btn btn-secondary" id="submitFollowUpBtn" type="button">Submit Follow-up</button>
+
+                <div class="follow-up-feedback hidden" id="followUpFeedback">
+                    <h4 id="followUpFeedbackTitle"></h4>
+                    <p id="followUpFeedbackText"></p>
+                </div>
             </div>
-            <h3 id="followUpTitle">Follow-up Question</h3>
-            <p id="followUpPrompt">Follow-up prompt</p>
 
-            <div class="follow-up-options" id="followUpOptions"></div>
+            <div class="navigation-buttons">
+                <button class="btn btn-secondary" id="prevBtn" type="button">Previous Question</button>
+                <button class="btn btn-primary" id="nextBtn" type="button">Next Question</button>
+            </div>
+        </section>
 
-            <button class="btn btn-secondary" id="submitFollowUpBtn" type="button">Submit Follow-up</button>
+        <section class="hidden" id="resultScreen">
+            <div class="result-card show">
+                <div class="result-header">
+                    <span class="route-badge" id="resultRouteBadge">Adaptive Route</span>
+                    <span class="learner-tag" id="learnerTag">Compression Explorer</span>
+                </div>
 
-            <div class="follow-up-feedback hidden" id="followUpFeedback">
-                <h4 id="followUpFeedbackTitle"></h4>
-                <p id="followUpFeedbackText"></p>
+                <h2 id="resultTitle">Final Learning Report</h2>
+                <p id="resultSubtitle">You have completed the smart compression assessment.</p>
+
+                <div class="score-text" id="scoreText">0 / 0</div>
+                <p id="percentageText">Your score is 0%</p>
+                <p id="performanceText">Performance summary</p>
+
+                <div class="summary-box">
+                    <h3 id="routeSummaryTitle">Route Summary</h3>
+                    <div class="summary-grid" id="routeSummaryGrid"></div>
+                </div>
+
+                <div class="profile-box">
+                    <h3 id="profileTitle">Capability Profile</h3>
+                    <div class="profile-grid" id="profileGrid"></div>
+                </div>
+
+                <div class="suggestions-box">
+                    <h3 id="suggestionsTitle">Recommended Next Steps</h3>
+                    <ul id="suggestionsList"></ul>
+                </div>
+
+                <div class="result-actions">
+                    <button class="btn btn-primary" id="retryWrongBtn" type="button">Retry Wrong Questions Only</button>
+                    <button class="btn btn-secondary" id="restartAssessmentBtn" type="button">Restart Full Assessment</button>
+                    <a href="learning.html" class="btn btn-secondary" id="reviewLearningBtn">Review Learning Page</a>
+                </div>
+
+                <div class="review-box">
+                    <h3 id="reviewTitle">Targeted Review: Questions to Revisit</h3>
+                    <div id="wrongAnswersList"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-info">
+                <h4 id="footerTitle">Learning with Games</h4>
+                <p>Group Number: 2025EBU6305G14</p>
+                <p>© 2026 Queen Mary University of London</p>
+            </div>
+
+            <div class="footer-links">
+                <h4 id="footerQuickLinks">Quick Links</h4>
+                <ul>
+                    <li><a href="homepage.html" id="footerHome">Home</a></li>
+                    <li><a href="learning.html" id="footerLearning">Learning</a></li>
+                    <li><a href="games.html" id="footerGames">Games</a></li>
+                    <li><a href="test.html" id="footerTest">Tests</a></li>
+                    <li><a href="community.html" id="footerCommunity">Community</a></li>
+                </ul>
             </div>
         </div>
+    </footer>
 
-        <div class="navigation-buttons">
-            <button class="btn btn-secondary" id="prevBtn" type="button">Previous Question</button>
-            <button class="btn btn-primary" id="nextBtn" type="button">Next Question</button>
-        </div>
-    </section>
-
-    <!-- Result Screen -->
-    <section class="hidden" id="resultScreen">
-        <div class="result-card show">
-            <div class="result-header">
-                <span class="route-badge" id="resultRouteBadge">Adaptive Route</span>
-                <span class="learner-tag" id="learnerTag">Compression Explorer</span>
-            </div>
-
-            <h2 id="resultTitle">Assessment Completed</h2>
-            <p id="resultSubtitle">You have completed the smart compression assessment.</p>
-
-            <div class="score-text" id="scoreText">0 / 0</div>
-            <p id="percentageText">Your score is 0%</p>
-            <p id="performanceText">Performance summary</p>
-
-            <div class="profile-box">
-                <h3 id="profileTitle">Capability Profile</h3>
-                <div class="profile-grid" id="profileGrid"></div>
-            </div>
-
-            <div class="suggestions-box">
-                <h3 id="suggestionsTitle">Recommended Next Steps</h3>
-                <ul id="suggestionsList"></ul>
-            </div>
-
-            <div class="result-actions">
-                <button class="btn btn-primary" id="retryWrongBtn" type="button">Retry Wrong Questions Only</button>
-                <button class="btn btn-secondary" id="restartAssessmentBtn" type="button">Restart Full Assessment</button>
-                <a href="learning.html" class="btn btn-secondary" id="reviewLearningBtn">Review Learning Page</a>
-            </div>
-
-            <div class="review-box">
-                <h3 id="reviewTitle">Review Incorrect Answers</h3>
-                <div id="wrongAnswersList"></div>
-            </div>
-        </div>
-    </section>
-</main>
-
-<footer>
-    <div class="footer-content">
-        <div class="footer-info">
-            <h4 id="footerTitle">Learning with Games</h4>
-            <p>Group Number: 2025EBU6305G14</p>
-            <p>© 2026 Queen Mary University of London</p>
-        </div>
-
-        <div class="footer-links">
-            <h4 id="footerQuickLinks">Quick Links</h4>
-            <ul>
-                <li><a href="homepage.html" id="footerHome">Home</a></li>
-                <li><a href="learning.html" id="footerLearning">Learning</a></li>
-                <li><a href="games.html" id="footerGames">Games</a></li>
-                <li><a href="test.html" id="footerTest">Tests</a></li>
-                <li><a href="community.html" id="footerCommunity">Community</a></li>
-            </ul>
-        </div>
-    </div>
-</footer>
-
-<script src="js/test.js"></script>
+    <script src="js/test.js"></script>
 </body>
 </html>
