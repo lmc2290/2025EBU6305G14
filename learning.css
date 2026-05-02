@@ -553,3 +553,35 @@ body.kids-theme .btn-primary {
     transition: background 0.3s;
 }
 #check-answer-btn:hover { background-color: #2980b9; }
+/* =========================================
+   13. V4 FEATURE: Reading Progress Bar
+   ========================================= */
+#scroll-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    width: 0%;
+    background: linear-gradient(to right, #3498db, #2ecc71);
+    z-index: 9999;
+    transition: width 0.1s ease-out;
+}
+
+/* =========================================
+   14. V4 FEATURE: Gamification Confetti
+   ========================================= */
+.confetti-piece {
+    position: fixed;
+    top: -20px;
+    width: 10px;
+    height: 10px;
+    z-index: 10000;
+    pointer-events: none; /* 防止遮挡鼠标点击 */
+    /* 纸屑下落翻滚的动画 */
+    animation: confettiFall linear forwards;
+}
+
+@keyframes confettiFall {
+    0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(720deg) scale(0.5); opacity: 0; }
+}
